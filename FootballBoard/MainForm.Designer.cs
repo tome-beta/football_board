@@ -28,13 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.pictureBoxGameField = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // pictureBoxGameField
+            // 
+            this.pictureBoxGameField.BackColor = System.Drawing.Color.White;
+            this.pictureBoxGameField.Location = new System.Drawing.Point(144, 36);
+            this.pictureBoxGameField.Name = "pictureBoxGameField";
+            this.pictureBoxGameField.Size = new System.Drawing.Size(524, 329);
+            this.pictureBoxGameField.TabIndex = 0;
+            this.pictureBoxGameField.TabStop = false;
+            this.pictureBoxGameField.Click += new System.EventHandler(this.pictureBoxGameField_Click);
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.pictureBoxGameField);
+            this.Name = "MainForm";
+            this.Text = "メイン";
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.PictureBox pictureBoxGameField;
     }
 }
 
