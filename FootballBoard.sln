@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballBoard", "FootballBoard\FootballBoard.csproj", "{2733CA35-348C-4A73-9D3D-5FFA30FA65E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballBoard", "FootballBoard\FootballBoard.csproj", "{426246A4-9C5E-43A6-A242-7BB65B237D7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2733CA35-348C-4A73-9D3D-5FFA30FA65E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2733CA35-348C-4A73-9D3D-5FFA30FA65E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2733CA35-348C-4A73-9D3D-5FFA30FA65E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2733CA35-348C-4A73-9D3D-5FFA30FA65E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{426246A4-9C5E-43A6-A242-7BB65B237D7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{426246A4-9C5E-43A6-A242-7BB65B237D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{426246A4-9C5E-43A6-A242-7BB65B237D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{426246A4-9C5E-43A6-A242-7BB65B237D7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {941864D1-6CF0-4C68-A6C2-015F10380A36}
+		SolutionGuid = {670760C6-972E-44E0-B295-5C538B370B5A}
 	EndGlobalSection
 EndGlobal
