@@ -47,6 +47,28 @@ namespace FootballBoard
 
         }
 
+        //描画オブジェクトリストをクリックしたとき
+        private void listBoxSelectObject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Common.SELECT_DRAW_OBJECT select = (Common.SELECT_DRAW_OBJECT)this.listBoxSelectObject.SelectedIndex;
 
+            switch(select)
+            {
+                case Common.SELECT_DRAW_OBJECT.MOVE:
+                    {
+                    }
+                    break;
+                case Common.SELECT_DRAW_OBJECT.MARKER:
+                    {
+                    }
+                    break;
+
+                case Common.SELECT_DRAW_OBJECT.LINE:
+                    {
+                    }
+                    break;
+
+            }
+        }
     }
 }

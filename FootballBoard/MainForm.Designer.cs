@@ -29,24 +29,41 @@
         private void InitializeComponent()
         {
             this.pictureBoxGameField = new System.Windows.Forms.PictureBox();
+            this.listBoxSelectObject = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBoxGameField
             // 
             this.pictureBoxGameField.BackColor = System.Drawing.Color.White;
-            this.pictureBoxGameField.Location = new System.Drawing.Point(144, 36);
+            this.pictureBoxGameField.Location = new System.Drawing.Point(277, 40);
             this.pictureBoxGameField.Name = "pictureBoxGameField";
             this.pictureBoxGameField.Size = new System.Drawing.Size(524, 329);
             this.pictureBoxGameField.TabIndex = 0;
             this.pictureBoxGameField.TabStop = false;
             this.pictureBoxGameField.Click += new System.EventHandler(this.pictureBoxGameField_Click);
             // 
+            // listBoxSelectObject
+            // 
+            this.listBoxSelectObject.Font = new System.Drawing.Font("Ricty Diminished", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.listBoxSelectObject.FormattingEnabled = true;
+            this.listBoxSelectObject.ItemHeight = 30;
+            this.listBoxSelectObject.Items.AddRange(new object[] {
+            "Move",
+            "Marker",
+            "Line"});
+            this.listBoxSelectObject.Location = new System.Drawing.Point(90, 61);
+            this.listBoxSelectObject.Name = "listBoxSelectObject";
+            this.listBoxSelectObject.Size = new System.Drawing.Size(127, 184);
+            this.listBoxSelectObject.TabIndex = 1;
+            this.listBoxSelectObject.SelectedIndexChanged += new System.EventHandler(this.listBoxSelectObject_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1116, 529);
+            this.Controls.Add(this.listBoxSelectObject);
             this.Controls.Add(this.pictureBoxGameField);
             this.Name = "MainForm";
             this.Text = "メイン";
@@ -59,6 +76,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxGameField;
+        private System.Windows.Forms.ListBox listBoxSelectObject;
     }
 }
 
