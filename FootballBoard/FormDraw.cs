@@ -11,16 +11,15 @@ namespace FootballBoard
     //描画関数はここにまとめる
     public partial class MainForm : Form
     {
-        public void DrawTest(Graphics test_g)
+        //描画更新はここでやる
+        public void DrawUpdate()
         {
-            Pen pen = new Pen(Color.Red, 4);
-
-            test_g.FillRectangle(Brushes.Red, new Rectangle(0, 0, 36, 124));
-
-            pen.Dispose();
+            //オブジェクトを描画
+            this.DataControle.DrawAll(this.FieldGraphics);
+            //反映
+            this.pictureBoxGameField.Image = this.FieldBitmap;
 
         }
-
 
     }
 }

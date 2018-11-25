@@ -8,7 +8,7 @@ using System.Drawing;
 namespace FootballBoard
 {
     //描画オブジェクトのベース
-    public class ObjectBase
+    public abstract class ObjectBase
     {
         public ObjectBase()
         {
@@ -16,6 +16,8 @@ namespace FootballBoard
             this.End = new Point(0, 0);
             this.Selected = false;
         }
+
+        public abstract void DrawObject(Graphics g);  //描画
 
         public Point Start;    //開始位置
         public Point End;      //終了位置
@@ -28,6 +30,22 @@ namespace FootballBoard
         public ObjectMarker(Point pos)
         {
             this.Start = pos;
+        }
+
+        //マーカーを描画
+        public override void DrawObject(Graphics g)
+        {
+            Pen pen = new Pen(Color.Red, 4);
+
+            g.FillRectangle(Brushes.Red, new Rectangle(
+                this.Start.X, 
+                this.Start.Y,
+                10,
+                10)
+                );
+
+            pen.Dispose();
+
         }
 
         int TeamType;   //HomeかAwayか

@@ -18,6 +18,14 @@ namespace FootballBoard
 
         }
 
+        public void DrawAll(Graphics g)
+        {
+            foreach( ObjectBase obj in this.model.ObjectList)
+            {
+                obj.DrawObject(g);
+            }
+        }
+
         DataModel model = new DataModel();
     }
 }
