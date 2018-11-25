@@ -8,5 +8,13 @@ namespace FootballBoard
 {
     public class DataModel
     {
+        //コンストラクタ
+        public DataModel()
+        {
+            ObjectList = new List<ObjectBase>();
+        }
+
+        List<ObjectBase> ObjectList;
+
     }
 }
