@@ -14,7 +14,7 @@ namespace FootballBoard
             ObjectList = new List<ObjectBase>();
         }
 
-        List<ObjectBase> ObjectList;
+        public List<ObjectBase> ObjectList;
 
     }
 }

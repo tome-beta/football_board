@@ -8,10 +8,28 @@ using System.Drawing;
 namespace FootballBoard
 {
     //描画オブジェクトのベース
-    class ObjectBase
+    public class ObjectBase
     {
-        Point Start;    //開始位置
-        Point End;      //終了位置
-        bool Selected;  //選択中
+        public ObjectBase()
+        {
+            this.Start = new Point(0, 0);
+            this.End = new Point(0, 0);
+            this.Selected = false;
+        }
+
+        public Point Start;    //開始位置
+        public Point End;      //終了位置
+        public bool Selected;  //選択中
+    }
+
+    //マーカー
+    public class ObjectMarker : ObjectBase
+    {
+        public ObjectMarker(Point pos)
+        {
+            this.Start = pos;
+        }
+
+        int TeamType;   //HomeかAwayか
     }
 }

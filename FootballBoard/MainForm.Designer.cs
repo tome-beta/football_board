@@ -41,7 +41,7 @@
             this.pictureBoxGameField.Size = new System.Drawing.Size(524, 329);
             this.pictureBoxGameField.TabIndex = 0;
             this.pictureBoxGameField.TabStop = false;
-            this.pictureBoxGameField.Click += new System.EventHandler(this.pictureBoxGameField_Click);
+            this.pictureBoxGameField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseDown);
             // 
             // listBoxSelectObject
             // 
