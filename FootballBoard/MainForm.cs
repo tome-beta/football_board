@@ -33,28 +33,19 @@ namespace FootballBoard
             this.listBoxSelectObject.SelectedIndex = 0;
         }
 
-        //メインフィールド
-        Bitmap FieldBitmap;
-        Graphics FieldGraphics;
-
-        //        public DataModel model = new DataModel();
-        Controle controle = new Controle();
-
         private void pictureBoxGameField_MouseDown(object sender, MouseEventArgs e)
         {
-            DrawTest(this.FieldGraphics);
-
             //クリックしたときの反応はオブジェクト毎に変わる
             if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.MARKER)
             {
                 //マーカーを置く
                 this.DataControle.AddMarker(e.Location);
+
             }
 
 
-            //反映
-            this.pictureBoxGameField.Image = this.FieldBitmap;
-
+            //描画更新
+            this.DrawUpdate();
         }
 
         //描画オブジェクトリストをクリックしたとき
@@ -87,6 +78,12 @@ namespace FootballBoard
 
         Common.SELECT_DRAW_OBJECT ObjectSelect = Common.SELECT_DRAW_OBJECT.MOVE;
 
+        //メインフィールド
+        Bitmap FieldBitmap;
+        Graphics FieldGraphics;
+
+        //        public DataModel model = new DataModel();
+        Controle controle = new Controle();
 
     }
 }
