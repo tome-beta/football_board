@@ -40,13 +40,48 @@ namespace FootballBoard
             {
                 //マーカーを置く
                 this.DataControle.AddMarker(e.Location);
-
+            }
+            if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.LINE)
+            {
+                //ラインの開始地点
+                this.DataControle.AddLine(e.Location);
             }
 
+            this.controle.MouseDrag = true;
+            //描画更新
+            this.DrawUpdate();
+        }
+        //マウスドラッグ
+        private void pictureBoxGameField_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.LINE)
+            {
+                if(this.controle.MouseDrag)
+                {
+                    //ラインを引いてるフラグが必要
+                    ObjectLine tmp = (ObjectLine)this.controle.CurrentObject;
+                    tmp.SetEndPoint(e.Location);
+                }
+            }
+            //描画更新
+            this.DrawUpdate();
+        }
+
+        //マウスを話したとき
+        private void pictureBoxGameField_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.LINE)
+            {
+                //ラインを引いてるフラグが必要
+                ObjectLine tmp = (ObjectLine)this.controle.CurrentObject;
+                tmp.SetEndPoint(e.Location);
+            }
+            this.controle.MouseDrag = false;
 
             //描画更新
             this.DrawUpdate();
         }
+
 
         //描画オブジェクトリストをクリックしたとき
         private void listBoxSelectObject_SelectedIndexChanged(object sender, EventArgs e)

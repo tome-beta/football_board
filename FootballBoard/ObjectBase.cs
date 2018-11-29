@@ -24,6 +24,31 @@ namespace FootballBoard
         public bool Selected;  //選択中
     }
 
+    //ライン
+    public class ObjectLine : ObjectBase
+    {
+        public ObjectLine(Point pos)
+        {
+            this.Start = pos;
+            this.End = pos;
+        }
+
+        public void SetEndPoint(Point pos)
+        {
+            this.End = pos;
+
+        }
+
+        //ラインをを描画
+        public override void DrawObject(Graphics g)
+        {
+            using (Pen pen = new Pen(Color.Red, 4))
+            {
+                g.DrawLine(pen, this.Start, this.End);
+            }
+        }
+    }
+
     //マーカー
     public class ObjectMarker : ObjectBase
     {
@@ -35,17 +60,15 @@ namespace FootballBoard
         //マーカーを描画
         public override void DrawObject(Graphics g)
         {
-            Pen pen = new Pen(Color.Red, 4);
-
-            g.FillRectangle(Brushes.Red, new Rectangle(
-                this.Start.X, 
-                this.Start.Y,
-                10,
-                10)
-                );
-
-            pen.Dispose();
-
+            using (Pen pen = new Pen(Color.Red, 4))
+            {
+                g.FillRectangle(Brushes.Red, new Rectangle(
+                    this.Start.X,
+                    this.Start.Y,
+                    10,
+                    10)
+                    );
+            }
         }
 
         int TeamType;   //HomeかAwayか

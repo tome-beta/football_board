@@ -13,9 +13,18 @@ namespace FootballBoard
         public void AddMarker(Point pos)
         {
             ObjectMarker marker = new ObjectMarker(pos);
-
             this.model.ObjectList.Add(marker);
 
+            CurrentObject = marker;
+        }
+
+        //ラインを追加する
+        public void AddLine(Point pos)
+        {
+            ObjectLine line = new ObjectLine(pos);
+            this.model.ObjectList.Add(line);
+
+            CurrentObject = line;
         }
 
         public void DrawAll(Graphics g)
@@ -26,6 +35,18 @@ namespace FootballBoard
             }
         }
 
+        //線を
+        public void SetLineStart(Point pos)
+        {
+
+        }
+
+        //操作中のオブジェクト
+        public ObjectBase CurrentObject;
+
+
         DataModel model = new DataModel();
+
+        public bool MouseDrag = false;  //ドラッグ中
     }
 }

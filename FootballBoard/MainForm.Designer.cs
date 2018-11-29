@@ -42,6 +42,8 @@
             this.pictureBoxGameField.TabIndex = 0;
             this.pictureBoxGameField.TabStop = false;
             this.pictureBoxGameField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseDown);
+            this.pictureBoxGameField.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseMove);
+            this.pictureBoxGameField.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseUp);
             // 
             // listBoxSelectObject
             // 
