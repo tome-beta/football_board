@@ -11,11 +11,49 @@ namespace FootballBoard
     public class MoveState : ObjectState
     {
         //左クリックしたとき
-        public override void LeftMouseDown(Point pos) { }
+        public override void LeftMouseDown(Point pos)
+        {
+            CurrentObjIndex = -1;
+            //オブジェクトリストから一番近い場所のオブジェクトを探す
+            int count = 0;
+            foreach(ObjectBase obj in this.model.ObjectList )
+            {
+                ObjectMarker marker = obj as ObjectMarker;
+                if( marker != null)
+                {
+                    double dist = GetDistance(pos, marker.Start);
+                   
+                    if( dist < marker.Width / 2)
+                    {
+                        CurrentObjIndex = count;
+                        break;
+                    }
+
+                }
+                count++;
+            }
+
+
+        }
         //左ドラッグ
-        public override void LeftMouseDrag(Point pos) { }
+        public override void LeftMouseDrag(Point pos)
+        {
+            if (this.MouseDrag && CurrentObjIndex >= 0)
+            {
+                ObjectBase obj = this.model.ObjectList[this.CurrentObjIndex];
+                obj.Start = pos;
+            }
+        }
         //左を離したとき
         public override void LeftMouseUp(Point pos) { }
+
+        private double GetDistance(Point a, Point b)
+        {
+            double distance = Math.Sqrt((b.X - a.X) * (b.X - a.X) +
+                (b.Y - a.Y) * (b.Y - a.Y));
+
+            return distance;
+        }
     }
 
     //マーカーの振る舞いを示すクラス
@@ -79,4 +117,7 @@ namespace FootballBoard
         //操作中のオブジェクトのインデックス
         public int CurrentObjIndex = 0;
     }
+
+
+
 }

@@ -62,15 +62,18 @@ namespace FootballBoard
         {
             using (Pen pen = new Pen(Color.Red, 4))
             {
-                g.FillRectangle(Brushes.Red, new Rectangle(
-                    this.Start.X,
-                    this.Start.Y,
-                    10,
-                    10)
+                g.FillEllipse(Brushes.Red, new Rectangle(
+                    this.Start.X - Width / 2,
+                    this.Start.Y - Height / 2,
+                    Width,
+                    Height)
                     );
             }
         }
 
         int TeamType;   //HomeかAwayか
+
+        public int Width = 30;
+        public int Height = 30;
     }
 }
