@@ -35,6 +35,8 @@ namespace FootballBoard
 
         private void pictureBoxGameField_MouseDown(object sender, MouseEventArgs e)
         {
+            this.DataControle.LeftMouseDown(e.Location);
+/*
             //クリックしたときの反応はオブジェクト毎に変わる
             if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.MARKER)
             {
@@ -46,12 +48,13 @@ namespace FootballBoard
                 //ラインの開始地点
                 this.DataControle.MakeLine(e.Location);
             }
-
-            this.controle.MouseDrag = true;
+*/
         }
         //マウスドラッグ
         private void pictureBoxGameField_MouseMove(object sender, MouseEventArgs e)
         {
+            this.DataControle.LeftMouseDrag(e.Location);
+/*
             if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.LINE)
             {
                 if(this.controle.MouseDrag)
@@ -60,18 +63,21 @@ namespace FootballBoard
                     DataControle.SetLineEndPoint(e.Location);
                 }
             }
+*/
         }
 
         //マウスを離したとき
         private void pictureBoxGameField_MouseUp(object sender, MouseEventArgs e)
         {
+            this.DataControle.LeftMouseUp(e.Location);
+/*
             if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.LINE)
             {
                 //ラインを引いてるフラグが必要
                 DataControle.SetLineEndPoint(e.Location);
             }
             this.controle.MouseDrag = false;
-
+*/
 
         }
 
@@ -82,6 +88,10 @@ namespace FootballBoard
             Common.SELECT_DRAW_OBJECT select = (Common.SELECT_DRAW_OBJECT)this.listBoxSelectObject.SelectedIndex;
 
             ObjectSelect = select;
+
+            //ステートを変える
+            this.DataControle.ChangeSelectObject(select);
+
 /*
             switch (select)
             {

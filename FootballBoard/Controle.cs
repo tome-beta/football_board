@@ -9,31 +9,66 @@ namespace FootballBoard
 {
     public class Controle
     {
-        //マーカーを追加する
-        public void AddMarker(Point pos)
+        //コンストラクタ
+        public Controle()
         {
-            ObjectMarker marker = new ObjectMarker(pos);
-            this.model.ObjectList.Add(marker);
-
-//            CurrentObject = marker;
+            this.model = new DataModel();
         }
 
-        //ラインを追加する
-        public void MakeLine(Point pos)
+        /// <summary>
+        ///オブジェクトリストを選択したとき 
+        /// </summary>
+        /// <param name="select"></param>
+        public void ChangeSelectObject(Common.SELECT_DRAW_OBJECT select)
         {
-            ObjectLine line = new ObjectLine(pos);
-            this.model.ObjectList.Add(line);
+            //ここで条件分岐させてオブジェクトを設定
+            switch (select)
+            {
+                case Common.SELECT_DRAW_OBJECT.MOVE:
+                    {
+                        MoveState ms = new MoveState();
+                        this.State = ms;
+                        //モデルを扱えるようにする
+                        this.State.model = this.model;
+                    }
+                    break;
+                case Common.SELECT_DRAW_OBJECT.MARKER:
+                    {
+                        MarkerState ms = new MarkerState();
+                        this.State = ms;
+                        //モデルを扱えるようにする
+                        this.State.model = this.model;
+                    }
+                    break;
+                case Common.SELECT_DRAW_OBJECT.LINE:
+                    {
+                        LineState ls = new LineState();
+                        this.State = ls;
+                        //モデルを扱えるようにする
+                        this.State.model = this.model;
+                    }
+                    break;
+            }
 
-            CurrentObjIndex = this.model.ObjectList.Count - 1;
         }
 
-        public void SetLineEndPoint(Point pos)
+        //マウス操作の受け渡し
+        public void LeftMouseDown(Point pos)
         {
-            ObjectLine line = (ObjectLine)this.model.ObjectList[this.CurrentObjIndex];
-            line.SetEndPoint(pos);
-
+            this.State.MouseDrag = true;
+            this.State.LeftMouseDown(pos);
+        }
+        public void LeftMouseDrag(Point pos)
+        {
+            this.State.LeftMouseDrag(pos);
+        }
+        public void LeftMouseUp(Point pos)
+        {
+            this.State.MouseDrag = false;
+            this.State.LeftMouseUp(pos);
         }
 
+        //登録されているオブジェクトの描画
         public void DrawAll(Graphics g)
         {
             foreach( ObjectBase obj in this.model.ObjectList)
@@ -43,12 +78,11 @@ namespace FootballBoard
         }
 
 
-        //操作中のライン
-        public int CurrentObjIndex = 0;
+        //オブジェクト毎の振る舞いを管理する
+        private ObjectState State = null;
 
+        //データ管理の本体
+        DataModel model;
 
-        DataModel model = new DataModel();
-
-        public bool MouseDrag = false;  //ドラッグ中
     }
 }
