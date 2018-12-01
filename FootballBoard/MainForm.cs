@@ -33,46 +33,21 @@ namespace FootballBoard
             this.listBoxSelectObject.SelectedIndex = 0;
         }
 
+        //左マウスクリック
         private void pictureBoxGameField_MouseDown(object sender, MouseEventArgs e)
         {
-            //クリックしたときの反応はオブジェクト毎に変わる
-            if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.MARKER)
-            {
-                //マーカーを置く
-                this.DataControle.AddMarker(e.Location);
-            }
-            if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.LINE)
-            {
-                //ラインの開始地点
-                this.DataControle.MakeLine(e.Location);
-            }
-
-            this.controle.MouseDrag = true;
+            this.DataControle.LeftMouseDown(e.Location);
         }
         //マウスドラッグ
         private void pictureBoxGameField_MouseMove(object sender, MouseEventArgs e)
         {
-            if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.LINE)
-            {
-                if(this.controle.MouseDrag)
-                {
-                    //ラインを引いてるフラグが必要
-                    DataControle.SetLineEndPoint(e.Location);
-                }
-            }
+            this.DataControle.LeftMouseDrag(e.Location);
         }
 
         //マウスを離したとき
         private void pictureBoxGameField_MouseUp(object sender, MouseEventArgs e)
         {
-            if (this.ObjectSelect == Common.SELECT_DRAW_OBJECT.LINE)
-            {
-                //ラインを引いてるフラグが必要
-                DataControle.SetLineEndPoint(e.Location);
-            }
-            this.controle.MouseDrag = false;
-
-
+            this.DataControle.LeftMouseUp(e.Location);
         }
 
 
@@ -82,24 +57,10 @@ namespace FootballBoard
             Common.SELECT_DRAW_OBJECT select = (Common.SELECT_DRAW_OBJECT)this.listBoxSelectObject.SelectedIndex;
 
             ObjectSelect = select;
-/*
-            switch (select)
-            {
-                case Common.SELECT_DRAW_OBJECT.MOVE:
-                    {
-                    }
-                    break;
-                case Common.SELECT_DRAW_OBJECT.MARKER:
-                    {
-                    }
-                    break;
 
-                case Common.SELECT_DRAW_OBJECT.LINE:
-                    {
-                    }
-                    break;
-            }
- */
+            //ステートを変える
+            this.DataControle.ChangeSelectObject(select);
+
         }
 
         Controle DataControle = new Controle();
@@ -110,8 +71,6 @@ namespace FootballBoard
         Bitmap FieldBitmap;
         Graphics FieldGraphics;
 
-        //        public DataModel model = new DataModel();
-        Controle controle = new Controle();
 
         private void pictureBoxGameField_Paint(object sender, PaintEventArgs e)
         {

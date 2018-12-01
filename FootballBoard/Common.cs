@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace FootballBoard
 {
     //共通でつかうデータとか定義
-    class Common
+    public class Common
     {
         public enum SELECT_DRAW_OBJECT
         {

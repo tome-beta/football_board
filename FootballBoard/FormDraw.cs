@@ -18,7 +18,6 @@ namespace FootballBoard
             this.DataControle.DrawAll(this.FieldGraphics);
             //反映
             this.pictureBoxGameField.Image = this.FieldBitmap;
-
         }
 
     }
