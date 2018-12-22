@@ -34,7 +34,7 @@ namespace FootballBoard
                     break;
                 case Common.SELECT_DRAW_OBJECT.MARKER:
                     {
-                        MarkerState ms = new MarkerState();
+                        OStateMarker ms = new OStateMarker();
                         this.State = ms;
                         //モデルを扱えるようにする
                         this.State.model = this.model;
@@ -42,7 +42,7 @@ namespace FootballBoard
                     break;
                 case Common.SELECT_DRAW_OBJECT.LINE:
                     {
-                        LineState ls = new LineState();
+                        OStateLine ls = new OStateLine();
                         this.State = ls;
                         //モデルを扱えるようにする
                         this.State.model = this.model;
@@ -50,7 +50,7 @@ namespace FootballBoard
                     break;
                 case Common.SELECT_DRAW_OBJECT.CURVE:
                     {
-                        CurveState cs = new CurveState();
+                        OStateCurve cs = new OStateCurve();
                         this.State = cs;
                         //モデルを扱えるようにする
                         this.State.model = this.model;

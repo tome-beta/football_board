@@ -58,6 +58,9 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Object\ObjectBase.cs" />
+    <Compile Include="Object\ObjectCurve.cs" />
+    <Compile Include="Object\ObjectLine.cs" />
+    <Compile Include="Object\ObjectMarker.cs" />
     <Compile Include="Object\ObjectStateManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
