@@ -101,6 +101,35 @@ namespace FootballBoard
         }
     }
 
+    //ラインの振る舞いを示すクラス
+    public class CurveState : ObjectState
+    {
+        //左クリックしたとき
+        public override void LeftMouseDown(Point pos)
+        {
+            ObjectCurve curve = new ObjectCurve(pos);
+            this.model.ObjectList.Add(curve);
+
+            CurrentObjIndex = this.model.ObjectList.Count - 1;
+        }
+        //左ドラッグ
+        public override void LeftMouseDrag(Point pos)
+        {
+            if (this.MouseDrag)
+            {
+                ObjectCurve curve = (ObjectCurve)this.model.ObjectList[this.CurrentObjIndex];
+                curve.SetEndPoint(pos);
+            }
+
+        }
+        //左を離したとき
+        public override void LeftMouseUp(Point pos)
+        {
+            ObjectCurve curve = (ObjectCurve)this.model.ObjectList[this.CurrentObjIndex];
+            curve.SetEndPoint(pos);
+        }
+
+    }
 
     public abstract class ObjectState
     {

@@ -15,6 +15,7 @@ namespace FootballBoard
             MOVE,
             MARKER,
             LINE,
+            CURVE,
         };
 
 

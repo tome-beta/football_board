@@ -24,6 +24,49 @@ namespace FootballBoard
         public bool Selected;  //選択中
     }
 
+    //曲線
+    public class ObjectCurve : ObjectBase
+    {
+        public ObjectCurve(Point pos)
+        {
+            this.Start = pos;
+            this.End = pos;
+
+            this.Middle.X = (this.End.X - this.Start.X) / 2;
+            this.Middle.Y = (this.End.Y - this.Start.Y) / 2;
+
+            this.Middle.X += this.Start.X;
+            this.Middle.Y += this.Start.Y;
+        }
+        public void SetEndPoint(Point pos)
+        {
+            this.End = pos;
+
+            this.Middle.X = (this.End.X - this.Start.X) / 2 ;
+            this.Middle.Y = (this.End.Y - this.Start.Y) / 2;
+
+            this.Middle.X += this.Start.X;
+            this.Middle.Y += this.Start.Y;
+        }
+
+        //曲線を描画
+        public override void DrawObject(Graphics g)
+        {
+            using (Pen pen = new Pen(Color.Red, 4))
+            {
+                Point[] points = new Point[3];
+                points[0] = this.Start;
+                points[1] = this.Middle;
+                points[2] = this.End;
+
+                g.DrawCurve(pen, points);
+            }
+        }
+
+        private Point Middle;
+    }
+
+
     //ライン
     public class ObjectLine : ObjectBase
     {

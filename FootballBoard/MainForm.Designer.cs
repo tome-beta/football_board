@@ -54,7 +54,8 @@
             this.listBoxSelectObject.Items.AddRange(new object[] {
             "Move",
             "Marker",
-            "Line"});
+            "Line",
+            "Curve"});
             this.listBoxSelectObject.Location = new System.Drawing.Point(90, 61);
             this.listBoxSelectObject.Name = "listBoxSelectObject";
             this.listBoxSelectObject.Size = new System.Drawing.Size(127, 184);
