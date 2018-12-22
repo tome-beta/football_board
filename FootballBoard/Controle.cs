@@ -48,6 +48,14 @@ namespace FootballBoard
                         this.State.model = this.model;
                     }
                     break;
+                case Common.SELECT_DRAW_OBJECT.CURVE:
+                    {
+                        CurveState cs = new CurveState();
+                        this.State = cs;
+                        //モデルを扱えるようにする
+                        this.State.model = this.model;
+                    }
+                    break;
             }
 
         }
