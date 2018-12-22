@@ -32,9 +32,8 @@ namespace FootballBoard
                 }
                 count++;
             }
-
-
         }
+
         //左ドラッグ
         public override void LeftMouseDrag(Point pos)
         {
@@ -54,81 +53,6 @@ namespace FootballBoard
 
             return distance;
         }
-    }
-
-    //マーカーの振る舞いを示すクラス
-    public class MarkerState : ObjectState
-    {
-        //左クリックしたとき
-        public override void LeftMouseDown(Point pos)
-        {
-            //マーカーを追加する
-            ObjectMarker marker = new ObjectMarker(pos);
-            this.model.ObjectList.Add(marker);
-        }
-        //左ドラッグ
-        public override void LeftMouseDrag(Point pos) { }
-        //左を離したとき
-        public override void LeftMouseUp(Point pos) { }
-    }
-
-    //ラインの振る舞いを示すクラス
-    public class LineState : ObjectState
-    {
-        //左クリックしたとき
-        public override void LeftMouseDown(Point pos)
-        {
-            ObjectLine line = new ObjectLine(pos);
-            this.model.ObjectList.Add(line);
-
-            CurrentObjIndex = this.model.ObjectList.Count - 1;
-        }   
-        //左ドラッグ
-        public override void LeftMouseDrag(Point pos)
-        {
-            if(this.MouseDrag)
-            {
-                ObjectLine line = (ObjectLine)this.model.ObjectList[this.CurrentObjIndex];
-                line.SetEndPoint(pos);
-            }
-
-        }
-        //左を離したとき
-        public override void LeftMouseUp(Point pos)
-        {
-            ObjectLine line = (ObjectLine)this.model.ObjectList[this.CurrentObjIndex];
-            line.SetEndPoint(pos);
-        }
-    }
-
-    //ラインの振る舞いを示すクラス
-    public class CurveState : ObjectState
-    {
-        //左クリックしたとき
-        public override void LeftMouseDown(Point pos)
-        {
-            ObjectCurve curve = new ObjectCurve(pos);
-            this.model.ObjectList.Add(curve);
-
-            CurrentObjIndex = this.model.ObjectList.Count - 1;
-        }
-        //左ドラッグ
-        public override void LeftMouseDrag(Point pos)
-        {
-            if (this.MouseDrag)
-            {
-                ObjectCurve curve = (ObjectCurve)this.model.ObjectList[this.CurrentObjIndex];
-                curve.SetEndPoint(pos);
-            }
-
-        }
-        //左を離したとき
-        public override void LeftMouseUp(Point pos)
-        {
-            ObjectCurve curve = (ObjectCurve)this.model.ObjectList[this.CurrentObjIndex];
-            curve.SetEndPoint(pos);
-        }
-
     }
 
     public abstract class ObjectState
