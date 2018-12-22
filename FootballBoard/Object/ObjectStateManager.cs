@@ -21,7 +21,7 @@ namespace FootballBoard
                 ObjectMarker marker = obj as ObjectMarker;
                 if( marker != null)
                 {
-                    double dist = GetDistance(pos, marker.Start);
+                    double dist = GetDistance(pos, marker.Points[0]);
                    
                     if( dist < marker.Width / 2)
                     {
@@ -41,7 +41,7 @@ namespace FootballBoard
             if (this.MouseDrag && CurrentObjIndex >= 0)
             {
                 ObjectBase obj = this.model.ObjectList[this.CurrentObjIndex];
-                obj.Start = pos;
+                obj.Points[0] = pos;
             }
         }
         //左を離したとき

@@ -12,15 +12,20 @@ namespace FootballBoard
     {
         public ObjectBase()
         {
-            this.Start = new Point(0, 0);
-            this.End = new Point(0, 0);
+            for(int i = 0; i < 4; i++)
+            {
+                Points[i].X = 0;
+                Points[i].Y = 0;
+            }
+
             this.Selected = false;
         }
 
         public abstract void DrawObject(Graphics g);  //描画
 
-        public Point Start;    //開始位置
-        public Point End;      //終了位置
+        //矩形や曲線も扱うため
+        public Point[] Points = new Point[4];
+
         public bool Selected;  //選択中
     }
 
@@ -29,24 +34,26 @@ namespace FootballBoard
     {
         public ObjectCurve(Point pos)
         {
-            this.Start = pos;
-            this.End = pos;
+            this.Points[0] = pos;
+            this.Points[2] = pos;
 
-            this.Middle.X = (this.End.X - this.Start.X) / 2;
-            this.Middle.Y = (this.End.Y - this.Start.Y) / 2;
+            //中間点
+            this.Points[1].X = (this.Points[2].X - Points[0].X) / 2;
+            this.Points[1].Y = (this.Points[2].Y - Points[0].Y) / 2;
 
-            this.Middle.X += this.Start.X;
-            this.Middle.Y += this.Start.Y;
+            this.Points[1].X += this.Points[0].X;
+            this.Points[1].Y += this.Points[0].Y;
         }
         public void SetEndPoint(Point pos)
         {
-            this.End = pos;
+            this.Points[2] = pos;
 
-            this.Middle.X = (this.End.X - this.Start.X) / 2 ;
-            this.Middle.Y = (this.End.Y - this.Start.Y) / 2;
+            //中間点
+            this.Points[1].X = (this.Points[2].X - Points[0].X) / 2;
+            this.Points[1].Y = (this.Points[2].Y - Points[0].Y) / 2;
 
-            this.Middle.X += this.Start.X;
-            this.Middle.Y += this.Start.Y;
+            this.Points[1].X += this.Points[0].X;
+            this.Points[1].Y += this.Points[0].Y;
         }
 
         //曲線を描画
@@ -55,15 +62,13 @@ namespace FootballBoard
             using (Pen pen = new Pen(Color.Red, 4))
             {
                 Point[] points = new Point[3];
-                points[0] = this.Start;
-                points[1] = this.Middle;
-                points[2] = this.End;
+                points[0] = this.Points[0];
+                points[1] = this.Points[1];
+                points[2] = this.Points[2];
 
                 g.DrawCurve(pen, points);
             }
         }
-
-        private Point Middle;
     }
 
 
@@ -72,13 +77,13 @@ namespace FootballBoard
     {
         public ObjectLine(Point pos)
         {
-            this.Start = pos;
-            this.End = pos;
+            this.Points[0] = pos;
+            this.Points[1] = pos;
         }
 
         public void SetEndPoint(Point pos)
         {
-            this.End = pos;
+            this.Points[1] = pos;
 
         }
 
@@ -87,7 +92,7 @@ namespace FootballBoard
         {
             using (Pen pen = new Pen(Color.Red, 4))
             {
-                g.DrawLine(pen, this.Start, this.End);
+                g.DrawLine(pen, this.Points[0],this.Points[1]);
             }
         }
     }
@@ -97,7 +102,7 @@ namespace FootballBoard
     {
         public ObjectMarker(Point pos)
         {
-            this.Start = pos;
+            this.Points[0] = pos;
         }
 
         //マーカーを描画
@@ -106,8 +111,8 @@ namespace FootballBoard
             using (Pen pen = new Pen(Color.Red, 4))
             {
                 g.FillEllipse(Brushes.Red, new Rectangle(
-                    this.Start.X - Width / 2,
-                    this.Start.Y - Height / 2,
+                    this.Points[0].X - Width / 2,
+                    this.Points[0].Y - Height / 2,
                     Width,
                     Height)
                     );
