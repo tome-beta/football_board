@@ -19,7 +19,7 @@ namespace FootballBoard
             CurrentObjIndex = this.model.ObjectList.Count - 1;
         }
         //左ドラッグ
-        public override void LeftMouseDrag(Point pos)
+        public override void MouseMove(Point pos)
         {
             if (this.MouseDrag)
             {
@@ -60,5 +60,12 @@ namespace FootballBoard
                 g.DrawLine(pen, this.Points[0], this.Points[1]);
             }
         }
+
+        //オブジェクトとの距離をチェックする
+        public override bool CheckDistance(Point pos)
+        {
+            return false;
+        }
+
     }
 }

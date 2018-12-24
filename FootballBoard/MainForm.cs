@@ -60,7 +60,6 @@ namespace FootballBoard
 
             //ステートを変える
             this.DataControle.ChangeSelectObject(select);
-
         }
 
         Controle DataControle = new Controle();
