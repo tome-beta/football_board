@@ -14,17 +14,17 @@ namespace FootballBoard
         public override void LeftMouseDown(Point pos)
         {
             //何も選択していない
-            if(this.SelectObjIndex < 0)
+            if(this.OnCursolIndex < 0)
             {
                 return;
             }
 
             CurrentObjIndex = -1;
             //オブジェクトリストから一番近い場所のオブジェクトを探す
-            ObjectMarker marker = this.model.ObjectList[this.SelectObjIndex] as ObjectMarker;
+            ObjectMarker marker = this.model.ObjectList[this.OnCursolIndex] as ObjectMarker;
             if( marker != null)
             {
-                this.CurrentObjIndex = this.SelectObjIndex;
+                this.CurrentObjIndex = this.OnCursolIndex;
             }
         }
 
@@ -51,20 +51,35 @@ namespace FootballBoard
                 //オブジェクト毎の距離を調べて選択状態にする
                 //オブジェクトリストから一番近い場所のオブジェクトを探す
                 int count = 0;
-                SelectObjIndex = -1;
+                OnCursolIndex = -1;
                 foreach (ObjectBase obj in this.model.ObjectList)
                 {
+                    //リストからのオブジェクトの選択方法は考えたほうがいい
+
                     ObjectMarker marker = obj as ObjectMarker;
-                    marker.Selected = false;
                     if (marker != null)
                     {
-                        if(marker.CheckDistance(pos))
+                        marker.Selected = false;
+                        if (marker.CheckDistance(pos))
                         {
                             marker.Selected = true;
-                            SelectObjIndex = count;
+                            OnCursolIndex = count;
                             break;
                         }
                     }
+
+                    ObjectLine line = obj as ObjectLine;
+                    if (line != null)
+                    {
+                        line.Selected = false;
+                        if (line.CheckDistance(pos))
+                        {
+                            line.Selected = true;
+                            OnCursolIndex = count;
+                            break;
+                        }
+                    }
+
                     count++;
                 }
             }
@@ -73,7 +88,7 @@ namespace FootballBoard
         public override void LeftMouseUp(Point pos)
         {
             this.CurrentObjIndex = -1;
-            this.SelectObjIndex = -1;
+            this.OnCursolIndex = -1;
         }
 
 
@@ -96,7 +111,7 @@ namespace FootballBoard
 
         //操作中のオブジェクトのインデックス
         public int CurrentObjIndex = -1; //操作中のオブジェ
-        public int SelectObjIndex = -1;  //カーソルが近くにある
+        public int OnCursolIndex = -1;  //カーソルが上にある
     }
 
 
