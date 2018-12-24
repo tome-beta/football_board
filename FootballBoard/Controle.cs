@@ -68,7 +68,7 @@ namespace FootballBoard
         }
         public void LeftMouseDrag(Point pos)
         {
-            this.State.LeftMouseDrag(pos);
+            this.State.MouseMove(pos);
         }
         public void LeftMouseUp(Point pos)
         {
@@ -79,9 +79,13 @@ namespace FootballBoard
         //登録されているオブジェクトの描画
         public void DrawAll(Graphics g)
         {
+            int tmp = 0;
             foreach( ObjectBase obj in this.model.ObjectList)
             {
                 obj.DrawObject(g);
+
+                Console.WriteLine(tmp.ToString() + ":"+obj.Selected.ToString());
+                tmp++;
             }
         }
 
