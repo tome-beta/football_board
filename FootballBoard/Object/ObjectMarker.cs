@@ -12,11 +12,14 @@ namespace FootballBoard
             //マーカーを追加する
             ObjectMarker marker = new ObjectMarker(pos);
             this.model.ObjectList.Add(marker);
+
         }
         //左ドラッグ
         public override void MouseMove(Point pos) { }
         //左を離したとき
-        public override void LeftMouseUp(Point pos) { }
+        public override void LeftMouseUp(Point pos)
+        {
+        }
     }
 
     //マーカー
@@ -33,7 +36,7 @@ namespace FootballBoard
             Brush brush;
             brush = Brushes.Red;
 
-            if(Selected)
+            if(this.ObjStatus == OBJ_STATUS.ON_CURSOR)
             {
                 brush = Brushes.Blue;
             }

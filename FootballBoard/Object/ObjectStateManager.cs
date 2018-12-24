@@ -34,10 +34,10 @@ namespace FootballBoard
             //選択状態を一度初期化
             foreach (ObjectBase obj in this.model.ObjectList)
             {
-                obj.Selected = false;
+                obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
             }
 
-                if (this.MouseDrag)
+            if (this.MouseDrag)
             {
                 //マウスドラッグ中
                 if (CurrentObjIndex >= 0)
@@ -59,10 +59,10 @@ namespace FootballBoard
                     ObjectMarker marker = obj as ObjectMarker;
                     if (marker != null)
                     {
-                        marker.Selected = false;
+                        marker.ObjStatus = ObjectBase.OBJ_STATUS.NON;
                         if (marker.CheckDistance(pos))
                         {
-                            marker.Selected = true;
+                            marker.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
                             OnCursolIndex = count;
                             break;
                         }
@@ -71,10 +71,10 @@ namespace FootballBoard
                     ObjectLine line = obj as ObjectLine;
                     if (line != null)
                     {
-                        line.Selected = false;
+                        line.ObjStatus = ObjectBase.OBJ_STATUS.NON;
                         if (line.CheckDistance(pos))
                         {
-                            line.Selected = true;
+                            line.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
                             OnCursolIndex = count;
                             break;
                         }
@@ -112,6 +112,7 @@ namespace FootballBoard
         //操作中のオブジェクトのインデックス
         public int CurrentObjIndex = -1; //操作中のオブジェ
         public int OnCursolIndex = -1;  //カーソルが上にある
+
     }
 
 
