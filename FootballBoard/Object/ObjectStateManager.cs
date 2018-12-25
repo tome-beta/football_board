@@ -20,6 +20,14 @@ namespace FootballBoard
             }
 
             CurrentObjIndex = -1;
+            //選択状態を一度初期化
+            foreach (ObjectBase obj in this.model.ObjectList)
+            {
+                obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
+            }
+            //ここでON_CURSORのやつを探して
+            //DRUG状態に移行する
+
             //オブジェクトリストから一番近い場所のオブジェクトを探す
             ObjectMarker marker = this.model.ObjectList[this.OnCursolIndex] as ObjectMarker;
             if( marker != null)
@@ -48,7 +56,7 @@ namespace FootballBoard
             }
             else
             {
-                //オブジェクト毎の距離を調べて選択状態にする
+                //オブジェクト毎の距離を調べてON_CURSOR状態にする
                 //オブジェクトリストから一番近い場所のオブジェクトを探す
                 int count = 0;
                 OnCursolIndex = -1;
@@ -87,6 +95,8 @@ namespace FootballBoard
         //左を離したとき
         public override void LeftMouseUp(Point pos)
         {
+            //離した時にDRUG状態のやつはSELECTに移す
+
             this.CurrentObjIndex = -1;
             this.OnCursolIndex = -1;
         }
