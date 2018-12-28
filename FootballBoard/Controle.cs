@@ -83,9 +83,6 @@ namespace FootballBoard
             foreach( ObjectBase obj in this.model.ObjectList)
             {
                 obj.DrawObject(g);
-
-                Console.WriteLine(tmp.ToString() + ":"+obj.Selected.ToString());
-                tmp++;
             }
         }
 

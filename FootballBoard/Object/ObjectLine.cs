@@ -56,7 +56,7 @@ namespace FootballBoard
         public override void DrawObject(Graphics g)
         {
             Color col;
-            if (Selected)
+            if (this.ObjStatus == OBJ_STATUS.ON_CURSOR)
             {
                 col = Color.Blue;
             }
@@ -74,11 +74,14 @@ namespace FootballBoard
         //オブジェクトとの距離をチェックする
         public override bool CheckDistance(Point pos)
         {
+            if(this.ObjStatus == OBJ_STATUS.SELECT)
+            {
+                //このときは開始点と終了点を探す
+            }
+
             //直線の式を導き出す
             double A=0, B=0, C=0;
             FuncLine(ref A, ref B, ref C);
-
-
 
             //点と直線の距離
             double arpha = Math.Abs(A * pos.X + B * pos.Y + C);

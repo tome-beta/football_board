@@ -20,6 +20,14 @@ namespace FootballBoard
             }
 
             CurrentObjIndex = -1;
+            //選択状態を一度初期化
+            foreach (ObjectBase obj in this.model.ObjectList)
+            {
+                obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
+            }
+            //ここでON_CURSORのやつを探して
+            //DRUG状態に移行する
+
             //オブジェクトリストから一番近い場所のオブジェクトを探す
             ObjectMarker marker = this.model.ObjectList[this.OnCursolIndex] as ObjectMarker;
             if( marker != null)
@@ -34,10 +42,10 @@ namespace FootballBoard
             //選択状態を一度初期化
             foreach (ObjectBase obj in this.model.ObjectList)
             {
-                obj.Selected = false;
+                obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
             }
 
-                if (this.MouseDrag)
+            if (this.MouseDrag)
             {
                 //マウスドラッグ中
                 if (CurrentObjIndex >= 0)
@@ -48,7 +56,7 @@ namespace FootballBoard
             }
             else
             {
-                //オブジェクト毎の距離を調べて選択状態にする
+                //オブジェクト毎の距離を調べてON_CURSOR状態にする
                 //オブジェクトリストから一番近い場所のオブジェクトを探す
                 int count = 0;
                 OnCursolIndex = -1;
@@ -59,10 +67,10 @@ namespace FootballBoard
                     ObjectMarker marker = obj as ObjectMarker;
                     if (marker != null)
                     {
-                        marker.Selected = false;
+                        marker.ObjStatus = ObjectBase.OBJ_STATUS.NON;
                         if (marker.CheckDistance(pos))
                         {
-                            marker.Selected = true;
+                            marker.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
                             OnCursolIndex = count;
                             break;
                         }
@@ -71,10 +79,10 @@ namespace FootballBoard
                     ObjectLine line = obj as ObjectLine;
                     if (line != null)
                     {
-                        line.Selected = false;
+                        line.ObjStatus = ObjectBase.OBJ_STATUS.NON;
                         if (line.CheckDistance(pos))
                         {
-                            line.Selected = true;
+                            line.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
                             OnCursolIndex = count;
                             break;
                         }
@@ -87,6 +95,8 @@ namespace FootballBoard
         //左を離したとき
         public override void LeftMouseUp(Point pos)
         {
+            //離した時にDRUG状態のやつはSELECTに移す
+
             this.CurrentObjIndex = -1;
             this.OnCursolIndex = -1;
         }
@@ -112,6 +122,7 @@ namespace FootballBoard
         //操作中のオブジェクトのインデックス
         public int CurrentObjIndex = -1; //操作中のオブジェ
         public int OnCursolIndex = -1;  //カーソルが上にある
+
     }
 
 
