@@ -24,7 +24,36 @@ namespace FootballBoard
             if (this.MouseDrag)
             {
                 ObjectLine line = (ObjectLine)this.model.ObjectList[this.CurrentObjIndex];
-                line.SetEndPoint(pos);
+
+                //何を掴んでいるかで場合分け
+                switch( line.DrugType)
+                {
+                    case ObjectLine.DRUG_TYPE.START_POINT:
+                        {
+
+                        }
+                        break;
+                    case ObjectLine.DRUG_TYPE.END_POINT:
+                        {
+
+                        }
+                        break;
+                    case ObjectLine.DRUG_TYPE.WHOLE:
+                        {
+
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                if (line.DrugType == ObjectLine.DRUG_TYPE.END_POINT)
+                {
+                    line.SetEndPoint(pos);
+                }
+                if (line.DrugType == ObjectLine.DRUG_TYPE.START_POINT)
+                {
+                    line.SetStartPoint(pos);
+                }
             }
 
         }
@@ -40,16 +69,31 @@ namespace FootballBoard
     //ライン
     public class ObjectLine : ObjectBase
     {
+
+        public enum DRUG_TYPE
+        {
+            NON,
+            WHOLE,          //全体
+            START_POINT,    //開始点
+            END_POINT       //終了点
+        };
+
         public ObjectLine(Point pos)
         {
             this.Points[0] = pos;
             this.Points[1] = pos;
         }
 
+        //開始点を決める
+        public void SetStartPoint(Point pos)
+        {
+            this.Points[0] = pos;
+        }
+
+        //終了点を決める
         public void SetEndPoint(Point pos)
         {
             this.Points[1] = pos;
-
         }
 
         //ラインをを描画
@@ -63,6 +107,24 @@ namespace FootballBoard
             else
             {
                 col = Color.Red;
+            }
+
+            //SELECT状態の時には開始点と終了点を表示する
+            if (this.ObjStatus == OBJ_STATUS.SELECT ||
+                this.ObjStatus == OBJ_STATUS.DRUG)
+            {
+                Brush brush = Brushes.Yellow;
+
+                for(int i = 0; i < 2;i++)
+                {
+                    g.FillEllipse(brush, new Rectangle(
+                    this.Points[i].X - PointWidth / 2,
+                    this.Points[i].Y - PointHeight / 2,
+                    PointWidth,
+                    PointHeight)
+                    );
+                }
+
             }
 
             using (Pen pen = new Pen(col, 4))
@@ -91,14 +153,15 @@ namespace FootballBoard
 
             if( dist < 10)
             {
+                this.DrugType = DRUG_TYPE.WHOLE;
                 return true;
             }
 
-
-
+            this.DrugType = DRUG_TYPE.NON;
             return false;
         }
 
+        //２点から直線の式を作る
         private void FuncLine(ref double A, ref double B, ref double C)
         {
             //異なる二点(x1, y1)，(x2, y2) を通る直線の方程式は，
@@ -118,6 +181,9 @@ namespace FootballBoard
 
         }
 
+        public DRUG_TYPE DrugType = DRUG_TYPE.NON;
 
+        private int PointWidth = 20;
+        private int PointHeight = 20;
     }
 }

@@ -16,27 +16,40 @@ namespace FootballBoard
             //何も選択していない
             if(this.OnCursolIndex < 0)
             {
+                //選択状態を一度初期化
+                foreach (ObjectBase obj in this.model.ObjectList)
+                {
+                    obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
+                }
                 return;
             }
 
             CurrentObjIndex = -1;
-            //選択状態を一度初期化
-            foreach (ObjectBase obj in this.model.ObjectList)
-            {
-                obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
-            }
             //ここでON_CURSORのやつを探して
             //DRUG状態に移行する
-
-            //オブジェクトリストから一番近い場所のオブジェクトを探す
             ObjectMarker marker = this.model.ObjectList[this.OnCursolIndex] as ObjectMarker;
             if( marker != null)
             {
+                marker.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                 this.CurrentObjIndex = this.OnCursolIndex;
             }
+
+            ObjectLine line = this.model.ObjectList[this.OnCursolIndex] as ObjectLine;
+            if (line != null)
+            {
+                //ここで直線のとの当たりチェックをする
+                if(line.CheckDistance(pos) )
+                {
+                    //どこのパーツを掴んでいるかを決める必要がある
+                    line.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                    this.CurrentObjIndex = this.OnCursolIndex;
+                }
+
+            }
+
         }
 
-        //左ドラッグ
+        //マウスを動かす
         public override void MouseMove(Point pos)
         {
             //選択状態を一度初期化
