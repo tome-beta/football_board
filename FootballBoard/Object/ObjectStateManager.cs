@@ -60,11 +60,23 @@ namespace FootballBoard
 
             if (this.MouseDrag)
             {
+                Console.WriteLine(@"test");
                 //マウスドラッグ中
                 if (CurrentObjIndex >= 0)
                 {
-                    ObjectBase obj = this.model.ObjectList[this.CurrentObjIndex];
-                    obj.Points[0] = pos;
+                    //ここでもオブジェクトによって場合わけ
+                    ObjectMarker marker = this.model.ObjectList[this.OnCursolIndex] as ObjectMarker;
+                    if (marker != null)
+                    {
+                        marker.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                        marker.Points[0] = pos;
+                    }
+
+                    ObjectLine line = this.model.ObjectList[this.OnCursolIndex] as ObjectLine;
+                    if (line != null)
+                    {
+                        line.DrugMove(pos);
+                    }
                 }
             }
             else
