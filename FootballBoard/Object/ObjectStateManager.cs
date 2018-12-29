@@ -99,10 +99,10 @@ namespace FootballBoard
                     ObjectMarker marker = obj as ObjectMarker;
                     if (marker != null)
                     {
+                        OnCursolIndex = count;
                         if (marker.CheckDistance(pos))
                         {
                             marker.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
-                            OnCursolIndex = count;
                             break;
                         }
                     }
