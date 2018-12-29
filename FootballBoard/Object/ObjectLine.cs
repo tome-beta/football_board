@@ -162,26 +162,74 @@ namespace FootballBoard
                 }
             }
 
-            //直線の式を導き出す
-            double A=0, B=0, C=0;
-            FuncLine(ref A, ref B, ref C);
-
-            //点と直線の距離
-            double arpha = Math.Abs(A * pos.X + B * pos.Y + C);
-            double beta = Math.Sqrt(A*A+B*B);
-
-            double dist = arpha / beta;
-
-            if( dist < 10)
+            //直線の座標の範囲であることをチェックする
+           if(ChkRange(pos))
             {
-                this.DrugType = DRUG_TYPE.WHOLE;
-                this.MoveStartPos = pos;    //全体を動かす基準点
+                //直線の式を導き出す
+                double A = 0, B = 0, C = 0;
+                FuncLine(ref A, ref B, ref C);
+
+                //点と直線の距離
+                double arpha = Math.Abs(A * pos.X + B * pos.Y + C);
+                double beta = Math.Sqrt(A * A + B * B);
+
+                double dist = arpha / beta;
+
+                if (dist < 10)
+                {
+                    this.DrugType = DRUG_TYPE.WHOLE;
+                    this.MoveStartPos = pos;    //全体を動かす基準点
+                    return true;
+                }
+                this.DrugType = DRUG_TYPE.NON;
+            }
+
+
+
+            return false;
+        }
+
+        //直線とカーソル位置の範囲チェック
+        private bool ChkRange(Point pos)
+        {
+            int min_x = 0;
+            int max_x = 0;
+            int min_y = 0;
+            int max_y = 0;
+
+            if(Points[0].X < Points[1].X)
+            {
+                min_x = Points[0].X;
+                max_x = Points[1].X;
+            }
+            else
+            {
+                min_x = Points[1].X;
+                max_x = Points[0].X;
+            }
+            if (Points[0].Y < Points[1].Y)
+            {
+                min_y = Points[0].Y;
+                max_y = Points[1].Y;
+            }
+            else
+            {
+                min_y = Points[1].Y;
+                max_y = Points[0].Y;
+            }
+
+            if( (min_x <= pos.X && pos.X <= max_x) &&
+                (min_y <= pos.Y && pos.Y <= max_y)
+                )
+            {
                 return true;
             }
 
-            this.DrugType = DRUG_TYPE.NON;
+
+
             return false;
         }
+
 
         //２点から直線の式を作る
         private void FuncLine(ref double A, ref double B, ref double C)
