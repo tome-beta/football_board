@@ -88,7 +88,7 @@ namespace FootballBoard
 
 
         //オブジェクト毎の振る舞いを管理する
-        private ObjectState State = null;
+        public ObjectState State = null;
 
         //データ管理の本体
         DataModel model;

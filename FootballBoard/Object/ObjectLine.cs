@@ -106,14 +106,16 @@ namespace FootballBoard
         //ラインをを描画
         public override void DrawObject(Graphics g)
         {
+            Console.WriteLine(this.ObjStatus);
+
             Color col;
-            if (this.ObjStatus == OBJ_STATUS.ON_CURSOR)
+            if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                col = Color.Blue;
+                col = Color.Red;
             }
             else
             {
-                col = Color.Red;
+                col = Color.Blue;
             }
 
             //SELECT状態の時には開始点と終了点を表示する
@@ -146,6 +148,18 @@ namespace FootballBoard
             if(this.ObjStatus == OBJ_STATUS.SELECT)
             {
                 //このときは開始点と終了点を探す
+                double point_dist = GetDistance(pos, this.Points[0]);
+                if (point_dist < PointWidth / 2)
+                {
+                    this.DrugType = DRUG_TYPE.START_POINT;
+                    return true;
+                }
+                point_dist = GetDistance(pos, this.Points[1]);
+                if (point_dist < PointWidth / 2)
+                {
+                    this.DrugType = DRUG_TYPE.END_POINT;
+                    return true;
+                }
             }
 
             //直線の式を導き出す

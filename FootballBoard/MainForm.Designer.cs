@@ -30,6 +30,8 @@
         {
             this.pictureBoxGameField = new System.Windows.Forms.PictureBox();
             this.listBoxSelectObject = new System.Windows.Forms.ListBox();
+            this.labelOnCursor = new System.Windows.Forms.Label();
+            this.labelCurrentObj = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,11 +64,33 @@
             this.listBoxSelectObject.TabIndex = 1;
             this.listBoxSelectObject.SelectedIndexChanged += new System.EventHandler(this.listBoxSelectObject_SelectedIndexChanged);
             // 
+            // labelOnCursor
+            // 
+            this.labelOnCursor.AutoSize = true;
+            this.labelOnCursor.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelOnCursor.Location = new System.Drawing.Point(22, 378);
+            this.labelOnCursor.Name = "labelOnCursor";
+            this.labelOnCursor.Size = new System.Drawing.Size(99, 28);
+            this.labelOnCursor.TabIndex = 2;
+            this.labelOnCursor.Text = "OnCursor";
+            // 
+            // labelCurrentObj
+            // 
+            this.labelCurrentObj.AutoSize = true;
+            this.labelCurrentObj.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelCurrentObj.Location = new System.Drawing.Point(22, 426);
+            this.labelCurrentObj.Name = "labelCurrentObj";
+            this.labelCurrentObj.Size = new System.Drawing.Size(115, 28);
+            this.labelCurrentObj.TabIndex = 3;
+            this.labelCurrentObj.Text = "CurrentObj";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1116, 529);
+            this.Controls.Add(this.labelCurrentObj);
+            this.Controls.Add(this.labelOnCursor);
             this.Controls.Add(this.listBoxSelectObject);
             this.Controls.Add(this.pictureBoxGameField);
             this.Name = "MainForm";
@@ -74,6 +98,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -81,6 +106,8 @@
 
         private System.Windows.Forms.PictureBox pictureBoxGameField;
         private System.Windows.Forms.ListBox listBoxSelectObject;
+        private System.Windows.Forms.Label labelOnCursor;
+        private System.Windows.Forms.Label labelCurrentObj;
     }
 }
 

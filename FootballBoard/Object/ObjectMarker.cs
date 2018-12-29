@@ -61,14 +61,6 @@ namespace FootballBoard
             return false;
         }
 
-        private double GetDistance(Point a, Point b)
-        {
-            double distance = Math.Sqrt((b.X - a.X) * (b.X - a.X) +
-                (b.Y - a.Y) * (b.Y - a.Y));
-
-            return distance;
-        }
-
         int TeamType;   //HomeかAwayか
 
         public int Width = 30;
