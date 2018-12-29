@@ -31,6 +31,18 @@ namespace FootballBoard
             this.pictureBoxGameField.Image = this.FieldBitmap;
 
             this.listBoxSelectObject.SelectedIndex = 0;
+
+            //ブロックの元画像を読み込んでおく
+            string filed_image_str = @"..\..\..\resource\soccer_field.png";
+            if (System.IO.File.Exists(filed_image_str))
+            {
+                SoccerFieldImage = Image.FromFile(filed_image_str);
+            }
+            else
+            {
+                filed_image_str = @"..\..\resource\soccer_field.png";
+                SoccerFieldImage = Image.FromFile(filed_image_str);
+            }
         }
 
         //左マウスクリック
@@ -62,6 +74,20 @@ namespace FootballBoard
             this.DataControle.ChangeSelectObject(select);
         }
 
+        private void pictureBoxGameField_Paint(object sender, PaintEventArgs e)
+        {
+            //ピクチャボックスを初期化
+            this.FieldGraphics.Clear(Color.White);
+
+            //将来的にはここでサッカーフィールドを描く
+            FieldGraphics.DrawImage(SoccerFieldImage,0,0,pictureBoxGameField.Width,pictureBoxGameField.Height);
+            //描画更新
+            this.DrawUpdate();
+
+            this.labelCurrentObj.Text = @"CurrentObj : " + this.DataControle.State.CurrentObjIndex.ToString();
+            this.labelOnCursor.Text = @"OnCursor : " + this.DataControle.State.OnCursolIndex.ToString();
+        }
+
         Controle DataControle = new Controle();
 
         Common.SELECT_DRAW_OBJECT ObjectSelect = Common.SELECT_DRAW_OBJECT.MOVE;
@@ -70,19 +96,7 @@ namespace FootballBoard
         Bitmap FieldBitmap;
         Graphics FieldGraphics;
 
+        private Image SoccerFieldImage;
 
-        private void pictureBoxGameField_Paint(object sender, PaintEventArgs e)
-        {
-            //ピクチャボックスを初期化
-            this.FieldGraphics.Clear(Color.White);
-
-            //将来的にはここでサッカーフィールドを描く
-
-            //描画更新
-            this.DrawUpdate();
-
-            this.labelCurrentObj.Text = @"CurrentObj : " + this.DataControle.State.CurrentObjIndex.ToString();
-            this.labelOnCursor.Text = @"OnCursor : " + this.DataControle.State.OnCursolIndex.ToString();
-        }
     }
 }
