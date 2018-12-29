@@ -15,6 +15,7 @@ namespace FootballBoard
         {
             ObjectLine line = new ObjectLine(pos);
             this.model.ObjectList.Add(line);
+            line.DrugType = ObjectLine.DRUG_TYPE.END_POINT;
 
             CurrentObjIndex = this.model.ObjectList.Count - 1;
         }
@@ -24,6 +25,7 @@ namespace FootballBoard
             if (this.MouseDrag)
             {
                 ObjectLine line = (ObjectLine)this.model.ObjectList[this.CurrentObjIndex];
+                //何を掴んでいるかで場合分け
                 line.SetEndPoint(pos);
             }
 
@@ -40,29 +42,98 @@ namespace FootballBoard
     //ライン
     public class ObjectLine : ObjectBase
     {
+
+        public enum DRUG_TYPE
+        {
+            NON,
+            WHOLE,          //全体
+            START_POINT,    //開始点
+            END_POINT       //終了点
+        };
+        //コンストラクタ
         public ObjectLine(Point pos)
         {
             this.Points[0] = pos;
             this.Points[1] = pos;
         }
 
+        //ドラッグしているときの動き
+        public void DrugMove(Point pos)
+        {
+            //何を掴んでいるかで場合分け
+            switch (this.DrugType)
+            {
+                case ObjectLine.DRUG_TYPE.START_POINT:
+                    {
+                        SetStartPoint(pos);
+                    }
+                    break;
+                case ObjectLine.DRUG_TYPE.END_POINT:
+                    {
+                        SetEndPoint(pos);
+                    }
+                    break;
+                case ObjectLine.DRUG_TYPE.WHOLE:
+                    {
+                        //全体を動かす
+                        int move_x = pos.X - this.MoveStartPos.X;
+                        int move_y = pos.Y - this.MoveStartPos.Y;
+
+                        this.Points[0].X += move_x;
+                        this.Points[0].Y += move_y;
+                        this.Points[1].X += move_x;
+                        this.Points[1].Y += move_y;
+
+                        this.MoveStartPos = pos;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        //開始点を決める
+        public void SetStartPoint(Point pos)
+        {
+            this.Points[0] = pos;
+        }
+
+        //終了点を決める
         public void SetEndPoint(Point pos)
         {
             this.Points[1] = pos;
-
         }
 
         //ラインをを描画
         public override void DrawObject(Graphics g)
         {
+            Console.WriteLine(this.ObjStatus);
+
             Color col;
-            if (this.ObjStatus == OBJ_STATUS.ON_CURSOR)
+            if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                col = Color.Blue;
+                col = Color.Red;
             }
             else
             {
-                col = Color.Red;
+                col = Color.Blue;
+            }
+
+            //SELECT状態の時には開始点と終了点を表示する
+            if (this.ObjStatus == OBJ_STATUS.SELECT ||
+                this.ObjStatus == OBJ_STATUS.DRUG)
+            {
+                Brush brush = Brushes.Yellow;
+
+                for(int i = 0; i < 2;i++)
+                {
+                    g.FillEllipse(brush, new Rectangle(
+                    this.Points[i].X - PointWidth / 2,
+                    this.Points[i].Y - PointHeight / 2,
+                    PointWidth,
+                    PointHeight)
+                    );
+                }
+
             }
 
             using (Pen pen = new Pen(col, 4))
@@ -77,6 +148,18 @@ namespace FootballBoard
             if(this.ObjStatus == OBJ_STATUS.SELECT)
             {
                 //このときは開始点と終了点を探す
+                double point_dist = GetDistance(pos, this.Points[0]);
+                if (point_dist < PointWidth / 2)
+                {
+                    this.DrugType = DRUG_TYPE.START_POINT;
+                    return true;
+                }
+                point_dist = GetDistance(pos, this.Points[1]);
+                if (point_dist < PointWidth / 2)
+                {
+                    this.DrugType = DRUG_TYPE.END_POINT;
+                    return true;
+                }
             }
 
             //直線の式を導き出す
@@ -91,14 +174,16 @@ namespace FootballBoard
 
             if( dist < 10)
             {
+                this.DrugType = DRUG_TYPE.WHOLE;
+                this.MoveStartPos = pos;    //全体を動かす基準点
                 return true;
             }
 
-
-
+            this.DrugType = DRUG_TYPE.NON;
             return false;
         }
 
+        //２点から直線の式を作る
         private void FuncLine(ref double A, ref double B, ref double C)
         {
             //異なる二点(x1, y1)，(x2, y2) を通る直線の方程式は，
@@ -118,6 +203,11 @@ namespace FootballBoard
 
         }
 
+        public DRUG_TYPE DrugType = DRUG_TYPE.NON;
 
+        private int PointWidth = 20;
+        private int PointHeight = 20;
+
+        private Point MoveStartPos = new Point();   //移動量をつくるため
     }
 }

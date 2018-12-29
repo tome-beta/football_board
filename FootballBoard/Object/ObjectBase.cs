@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace FootballBoard
 {
@@ -22,6 +23,14 @@ namespace FootballBoard
             }
 
 //            this.Selected = false;
+        }
+
+        protected double GetDistance(Point a, Point b)
+        {
+            double distance = Math.Sqrt((b.X - a.X) * (b.X - a.X) +
+                (b.Y - a.Y) * (b.Y - a.Y));
+
+            return distance;
         }
 
         public abstract bool CheckDistance(Point pos);
