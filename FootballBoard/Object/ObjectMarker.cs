@@ -34,11 +34,11 @@ namespace FootballBoard
         public override void DrawObject(Graphics g)
         {
             Brush brush;
-            brush = Brushes.Red;
+            brush = Brushes.Blue;
 
-            if(this.ObjStatus == OBJ_STATUS.ON_CURSOR)
+            if(this.ObjStatus == OBJ_STATUS.NON)
             {
-                brush = Brushes.Blue;
+                brush = Brushes.Red;
             }
 
             g.FillEllipse(brush, new Rectangle(
