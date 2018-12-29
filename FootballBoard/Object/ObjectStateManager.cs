@@ -164,6 +164,16 @@ namespace FootballBoard
 
     public abstract class ObjectState
     {
+        //描画オブジェクトを切り替えたとき
+        public void ClearState()
+        {
+            foreach (var obj in this.model.ObjectList)
+            {
+                obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
+            }
+        }
+
+
         //左クリックしたとき
         public abstract void LeftMouseDown(Point pos);
         //マウスを動かす（ドラッグも込み）
