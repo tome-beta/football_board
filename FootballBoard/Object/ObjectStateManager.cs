@@ -25,6 +25,12 @@ namespace FootballBoard
             }
             else
             {
+                //選んだオブジェクト以外をNON状態にする
+                for(int i = 0; i < this.model.ObjectList.Count;i++)
+                {
+                    this.model.ObjectList[i].ObjStatus = ObjectBase.OBJ_STATUS.NON;
+                }
+
                 //オブジェクトを選択状態にしているか
                 CurrentObjIndex = OnCursolIndex;
                 //ここでON_CURSORのやつを探して
@@ -99,10 +105,13 @@ namespace FootballBoard
                     ObjectMarker marker = obj as ObjectMarker;
                     if (marker != null)
                     {
-                        OnCursolIndex = count;
                         if (marker.CheckDistance(pos))
                         {
-                            marker.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
+                            OnCursolIndex = count;
+                            if (marker.ObjStatus != ObjectBase.OBJ_STATUS.SELECT)
+                            {
+                                marker.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
+                            }
                             break;
                         }
                     }
@@ -155,6 +164,16 @@ namespace FootballBoard
 
     public abstract class ObjectState
     {
+        //描画オブジェクトを切り替えたとき
+        public void ClearState()
+        {
+            foreach (var obj in this.model.ObjectList)
+            {
+                obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
+            }
+        }
+
+
         //左クリックしたとき
         public abstract void LeftMouseDown(Point pos);
         //マウスを動かす（ドラッグも込み）

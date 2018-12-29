@@ -30,6 +30,7 @@ namespace FootballBoard
                         this.State = ms;
                         //モデルを扱えるようにする
                         this.State.model = this.model;
+                        this.State.ClearState();
                     }
                     break;
                 case Common.SELECT_DRAW_OBJECT.MARKER:
@@ -38,6 +39,7 @@ namespace FootballBoard
                         this.State = ms;
                         //モデルを扱えるようにする
                         this.State.model = this.model;
+                        this.State.ClearState();
                     }
                     break;
                 case Common.SELECT_DRAW_OBJECT.LINE:
@@ -46,6 +48,7 @@ namespace FootballBoard
                         this.State = ls;
                         //モデルを扱えるようにする
                         this.State.model = this.model;
+                        this.State.ClearState();
                     }
                     break;
                 case Common.SELECT_DRAW_OBJECT.CURVE:
@@ -54,6 +57,7 @@ namespace FootballBoard
                         this.State = cs;
                         //モデルを扱えるようにする
                         this.State.model = this.model;
+                        this.State.ClearState();
                     }
                     break;
             }
