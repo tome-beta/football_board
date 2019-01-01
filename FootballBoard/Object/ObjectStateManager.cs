@@ -25,11 +25,7 @@ namespace FootballBoard
             }
             else
             {
-                //選んだオブジェクト以外をNON状態にする
-                for(int i = 0; i < this.model.ObjectList.Count;i++)
-                {
-                    this.model.ObjectList[i].ObjStatus = ObjectBase.OBJ_STATUS.NON;
-                }
+                bool select_chk = false;
 
                 //オブジェクトを選択状態にしているか
                 CurrentObjIndex = OnCursolIndex;
@@ -39,7 +35,7 @@ namespace FootballBoard
                 if (marker != null)
                 {
                     marker.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                    this.CurrentObjIndex = this.OnCursolIndex;
+                    select_chk = true;
                 }
 
                 ObjectLine line = this.model.ObjectList[this.OnCursolIndex] as ObjectLine;
@@ -50,10 +46,33 @@ namespace FootballBoard
                     {
                         //どこのパーツを掴んでいるかを決める必要がある
                         line.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                        this.CurrentObjIndex = this.OnCursolIndex;
+                        select_chk = true;
+                    }
+                }
+
+
+                //オブジェクトを選択できていたらその他のオブジェクトの状態をリセット
+                if(select_chk )
+                {
+                    //選んだオブジェクト以外をNON状態にする
+                    for (int i = 0; i < this.model.ObjectList.Count; i++)
+                    {
+                        if (this.model.ObjectList[i].ObjStatus != ObjectBase.OBJ_STATUS.DRUG)
+                        {
+                            this.model.ObjectList[i].ObjStatus = ObjectBase.OBJ_STATUS.NON;
+                        }
+                    }
+                }
+                else
+                {
+                    //全てNON状態にする
+                    for (int i = 0; i < this.model.ObjectList.Count; i++)
+                    {
+                            this.model.ObjectList[i].ObjStatus = ObjectBase.OBJ_STATUS.NON;
                     }
 
                 }
+
             }
 
         }
