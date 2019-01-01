@@ -13,29 +13,39 @@ namespace FootballBoard
         //左クリックしたとき
         public override void LeftMouseDown(Point pos)
         {
-            ObjectLine line = new ObjectLine(pos);
-            this.model.ObjectList.Add(line);
-            line.DrugType = ObjectLine.DRUG_TYPE.END_POINT;
-
-            CurrentObjIndex = this.model.ObjectList.Count - 1;
+            //クリックしたところにすでにラインがあるか
+            if(this.CurrentObj != null && CurrentObj.CheckDistance(pos))
+            {
+                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                this.MouseDrag = true;
+            }
+            else
+            {
+                ObjectLine line = new ObjectLine(pos);
+                this.model.ObjectList.Add(line);
+                CurrentObj = line;
+                line.DrugType = ObjectLine.DRUG_TYPE.END_POINT;
+                CurrentObjIndex = this.model.ObjectList.Count - 1;
+            }
         }
         //左ドラッグ
         public override void MouseMove(Point pos)
         {
             if (this.MouseDrag)
             {
-                ObjectLine line = (ObjectLine)this.model.ObjectList[this.CurrentObjIndex];
-                //何を掴んでいるかで場合分け
-                line.SetEndPoint(pos);
+                this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                //何を掴んでいるかで場合分けしている
+                this.CurrentObj.DrugMove(pos);
             }
 
         }
         //左を離したとき
         public override void LeftMouseUp(Point pos)
         {
-            ObjectLine line = (ObjectLine)this.model.ObjectList[this.CurrentObjIndex];
-            line.SetEndPoint(pos);
+            this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
         }
+
+        private ObjectLine CurrentObj;
     }
 
 
@@ -117,6 +127,11 @@ namespace FootballBoard
             {
                 col = Color.Red;
             }
+            using (Pen pen = new Pen(col, 4))
+            {
+                g.DrawLine(pen, this.Points[0], this.Points[1]);
+            }
+
 
             //SELECT状態の時には開始点と終了点を表示する
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
@@ -136,10 +151,7 @@ namespace FootballBoard
 
             }
 
-            using (Pen pen = new Pen(col, 4))
-            {
-                g.DrawLine(pen, this.Points[0], this.Points[1]);
-            }
+
         }
 
         //オブジェクトとの距離をチェックする
