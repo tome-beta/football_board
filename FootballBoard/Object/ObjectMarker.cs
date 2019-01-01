@@ -9,19 +9,28 @@ namespace FootballBoard
         //左クリックしたとき
         public override void LeftMouseDown(Point pos)
         {
-            //全てのオブジェクトを初期状態にする
-            foreach (ObjectBase obj in this.model.ObjectList)
+            //DRUG状態のマーカーが近くにあるときは動かせる様にする
+            if( CurrentObj != null && CurrentObj.CheckDistance(pos))
             {
-                obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
+                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                this.MouseDrag = true;
             }
+            else
+            {
+                //全てのオブジェクトを初期状態にする
+                foreach (ObjectBase obj in this.model.ObjectList)
+                {
+                    obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
+                }
 
-            //マーカーを追加する
-            ObjectMarker marker = new ObjectMarker(pos);
-            this.model.ObjectList.Add(marker);
+                //マーカーを追加する
+                ObjectMarker marker = new ObjectMarker(pos);
+                this.model.ObjectList.Add(marker);
 
-            CurrentObj = marker;
-            marker.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-            this.MouseDrag = true;
+                CurrentObj = marker;
+                marker.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                this.MouseDrag = true;
+            }
         }
         //左ドラッグ
         public override void MouseMove(Point pos)
@@ -38,7 +47,6 @@ namespace FootballBoard
         {
             CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
             this.MouseDrag = false;
-            CurrentObj = null;
         }
 
         private ObjectMarker CurrentObj;
