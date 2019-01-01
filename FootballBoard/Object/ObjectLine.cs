@@ -111,11 +111,11 @@ namespace FootballBoard
             Color col;
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                col = Color.Red;
+                col = Color.Black;
             }
             else
             {
-                col = Color.Blue;
+                col = Color.Red;
             }
 
             //SELECT状態の時には開始点と終了点を表示する
