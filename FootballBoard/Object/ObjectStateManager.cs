@@ -49,10 +49,20 @@ namespace FootballBoard
                         select_chk = true;
                     }
                 }
-
+                ObjectCurve curve = this.model.ObjectList[this.OnCursolIndex] as ObjectCurve;
+                if (curve != null)
+                {
+                    //ここで直線のとの当たりチェックをする
+                    if (curve.CheckDistance(pos))
+                    {
+                        //どこのパーツを掴んでいるかを決める必要がある
+                        curve.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                        select_chk = true;
+                    }
+                }
 
                 //オブジェクトを選択できていたらその他のオブジェクトの状態をリセット
-                if(select_chk )
+                if (select_chk )
                 {
                     //選んだオブジェクト以外をNON状態にする
                     for (int i = 0; i < this.model.ObjectList.Count; i++)
@@ -99,6 +109,12 @@ namespace FootballBoard
                     {
                         line.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                         line.DrugMove(pos);
+                    }
+                    ObjectCurve curve = this.model.ObjectList[this.OnCursolIndex] as ObjectCurve;
+                    if (curve != null)
+                    {
+                        curve.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                        curve.DrugMove(pos);
                     }
                 }
             }
@@ -148,7 +164,19 @@ namespace FootballBoard
                             }
                         }
                     }
-
+                    ObjectCurve curve = obj as ObjectCurve;
+                    if (curve != null)
+                    {
+                        if (curve.CheckDistance(pos))
+                        {
+                            OnCursolIndex = count;
+                            if (curve.ObjStatus != ObjectBase.OBJ_STATUS.SELECT)
+                            {
+                                curve.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
+                                break;
+                            }
+                        }
+                    }
                     count++;
                 }
             }
@@ -174,8 +202,13 @@ namespace FootballBoard
                 line.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
             }
 
-//            this.CurrentObjIndex = -1;
-//            this.OnCursolIndex = -1;
+            ObjectLine curve = this.model.ObjectList[this.CurrentObjIndex] as ObjectLine;
+            if (curve != null)
+            {
+                curve.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
+            }
+            //            this.CurrentObjIndex = -1;
+            //            this.OnCursolIndex = -1;
         }
 
 
