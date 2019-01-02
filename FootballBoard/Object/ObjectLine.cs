@@ -265,8 +265,8 @@ namespace FootballBoard
 
         public DRUG_TYPE DrugType = DRUG_TYPE.NON;
 
-        private int PointWidth = 20;
-        private int PointHeight = 20;
+        private int PointWidth = 10;
+        private int PointHeight = 10;
 
         private Point MoveStartPos = new Point();   //移動量をつくるため
     }

@@ -92,7 +92,8 @@ namespace FootballBoard
         {
             ObjectCurve curve = new ObjectCurve(pos);
             this.model.ObjectList.Add(curve);
-
+            this.CurrentObj = curve;
+            curve.DrugType = ObjectCurve.DRUG_TYPE.END_POINT;
             CurrentObjIndex = this.model.ObjectList.Count - 1;
         }
         //左ドラッグ
@@ -100,21 +101,31 @@ namespace FootballBoard
         {
             if (this.MouseDrag)
             {
-                ObjectCurve curve = (ObjectCurve)this.model.ObjectList[this.CurrentObjIndex];
-                curve.SetEndPoint(pos);
+                this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                //何を掴んでいるかで場合分けしている
+                this.CurrentObj.SetEndPoint(pos);
             }
-
         }
         //左を離したとき
         public override void LeftMouseUp(Point pos)
         {
-            ObjectCurve curve = (ObjectCurve)this.model.ObjectList[this.CurrentObjIndex];
-            curve.SetEndPoint(pos);
+            this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
         }
+
+        private ObjectCurve CurrentObj;
     }
     //曲線
     public class ObjectCurve : ObjectBase
     {
+        public enum DRUG_TYPE
+        {
+            NON,
+            WHOLE,          //全体
+            START_POINT,    //開始点
+            END_POINT,      //終了点
+            MIDDLE_POINT,   //中間点
+        };
+
         public ObjectCurve(Point pos)
         {
             this.Points[0] = pos;
@@ -139,19 +150,83 @@ namespace FootballBoard
             this.Points[1].Y += this.Points[0].Y;
         }
 
+        //ドラッグしているときの動き
+        public void DrugMove(Point pos)
+        {
+            //何を掴んでいるかで場合分け
+            switch (this.DrugType)
+            {
+                case DRUG_TYPE.START_POINT:
+                    {
+                        this.Points[0].X = pos.X;
+                        this.Points[0].Y = pos.Y;
+                    }
+                    break;
+                case DRUG_TYPE.MIDDLE_POINT:
+                    {
+                        this.Points[1].X = pos.X;
+                        this.Points[1].Y = pos.Y;
+                    }
+                    break;
+                case DRUG_TYPE.END_POINT:
+                    {
+                        this.Points[2].X = pos.X;
+                        this.Points[2].Y = pos.Y;
+                    }
+                    break;
+                case DRUG_TYPE.WHOLE:
+                    {
+                        //全体を動かす
+                        int move_x = pos.X - this.MoveStartPos.X;
+                        int move_y = pos.Y - this.MoveStartPos.Y;
+
+                        this.Points[0].X += move_x;
+                        this.Points[0].Y += move_y;
+                        this.Points[1].X += move_x;
+                        this.Points[1].Y += move_y;
+
+                        this.MoveStartPos = pos;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         //曲線を描画
         public override void DrawObject(Graphics g)
         {
-            using (Pen pen = new Pen(Color.Red, 4))
+            Color col;
+            if (this.ObjStatus == OBJ_STATUS.NON)
+            {
+                col = Color.Black;
+            }
+            else
+            {
+                col = Color.Red;
+            }
+            using (Pen pen = new Pen(col, 4))
             {
                 Point[] points = new Point[3];
                 points[0] = this.Points[0];
                 points[1] = this.Points[1];
                 points[2] = this.Points[2];
 
-                //g.DrawCurve(pen, points);
+                g.DrawCurve(pen, points);
 
-                MakeSplineFunc(g);
+                //テスト
+//                MakeSplineFunc(g);
+            }
+
+            //曲線の３点を描画
+            Brush brush = Brushes.Yellow;
+            for (int i = 0; i < 3; i++)
+            {
+                g.FillEllipse(brush, new Rectangle(
+                this.Points[i].X - PointWidth / 2,
+                this.Points[i].Y - PointHeight / 2,
+                PointWidth,
+                PointHeight)
+                );
             }
         }
 
@@ -191,9 +266,38 @@ namespace FootballBoard
         //オブジェクトとの距離をチェックする
         public override bool CheckDistance(Point pos)
         {
+  //          if (this.ObjStatus == OBJ_STATUS.SELECT)
+            {
+                //このときは開始点と終了点と中間点を探す
+                double point_dist = GetDistance(pos, this.Points[0]);
+                if (point_dist < PointWidth / 2)
+                {
+                    this.DrugType = DRUG_TYPE.START_POINT;
+                    return true;
+                }
+                point_dist = GetDistance(pos, this.Points[1]);
+                if (point_dist < PointWidth / 2)
+                {
+                    this.DrugType = DRUG_TYPE.MIDDLE_POINT;
+                    return true;
+                }
+
+                point_dist = GetDistance(pos, this.Points[2]);
+                if (point_dist < PointWidth / 2)
+                {
+                    this.DrugType = DRUG_TYPE.END_POINT;
+                    return true;
+                }
+            }
             return false;
         }
 
+        public DRUG_TYPE DrugType = DRUG_TYPE.NON;
+
+        private int PointWidth = 10;
+        private int PointHeight = 10;
+
+        private Point MoveStartPos = new Point();   //移動量をつくるため
     }
 
 }
