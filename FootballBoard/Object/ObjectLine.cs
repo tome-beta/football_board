@@ -68,7 +68,7 @@ namespace FootballBoard
         }
 
         //ドラッグしているときの動き
-        public void DrugMove(Point pos)
+        public override void DrugMove(Point pos)
         {
             //何を掴んでいるかで場合分け
             switch (this.DrugType)
@@ -89,10 +89,11 @@ namespace FootballBoard
                         int move_x = pos.X - this.MoveStartPos.X;
                         int move_y = pos.Y - this.MoveStartPos.Y;
 
-                        this.Points[0].X += move_x;
-                        this.Points[0].Y += move_y;
-                        this.Points[1].X += move_x;
-                        this.Points[1].Y += move_y;
+                        for(int i = 0; i < 2; i++)
+                        {
+                            this.Points[i].X += move_x;
+                            this.Points[i].Y += move_y;
+                        }
 
                         this.MoveStartPos = pos;
                     }
@@ -160,13 +161,13 @@ namespace FootballBoard
             if(this.ObjStatus == OBJ_STATUS.SELECT)
             {
                 //このときは開始点と終了点を探す
-                double point_dist = GetDistance(pos, this.Points[0]);
+                double point_dist = Common.GetDistance(pos, this.Points[0]);
                 if (point_dist < PointWidth / 2)
                 {
                     this.DrugType = DRUG_TYPE.START_POINT;
                     return true;
                 }
-                point_dist = GetDistance(pos, this.Points[1]);
+                point_dist = Common.GetDistance(pos, this.Points[1]);
                 if (point_dist < PointWidth / 2)
                 {
                     this.DrugType = DRUG_TYPE.END_POINT;

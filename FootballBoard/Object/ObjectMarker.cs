@@ -60,6 +60,11 @@ namespace FootballBoard
             this.Points[0] = pos;
         }
 
+        //ドラッグしているときの動き
+        public override void DrugMove(Point pos)
+        {
+            this.Points[0] = pos;
+        }
         //マーカーを描画
         public override void DrawObject(Graphics g)
         {
@@ -82,7 +87,7 @@ namespace FootballBoard
         //オブジェクトとの距離をチェックする
         public override bool CheckDistance(Point pos)
         {
-            double dist = GetDistance(pos, this.Points[0]);
+            double dist = Common.GetDistance(pos, this.Points[0]);
 
             if (dist < Width / 2)
             {

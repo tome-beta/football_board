@@ -18,6 +18,16 @@ namespace FootballBoard
             CURVE,
         };
 
+        //２点間の距離
+        public static double GetDistance(Point a, Point b)
+        {
+            double distance = Math.Sqrt((b.X - a.X) * (b.X - a.X) +
+                (b.Y - a.Y) * (b.Y - a.Y));
+
+            return distance;
+        }
+
+        //配列の最大値を取得
         public static T Max<T>(params T[] nums) where T : IComparable
         {
             if (nums.Length == 0) return default(T);
@@ -30,6 +40,8 @@ namespace FootballBoard
             }
             return max;
         }
+
+        //配列の最小値を取得
         public static T Min<T>(params T[] nums) where T : IComparable
         {
             if (nums.Length == 0) return default(T);
