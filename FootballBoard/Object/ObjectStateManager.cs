@@ -13,59 +13,31 @@ namespace FootballBoard
         //左クリックしたとき
         public override void LeftMouseDown(Point pos)
         {
-            //カーソルをオブジェクトに合わせていない
-            if( this.OnCursolIndex < 0)
-            {
-                //全てのオブジェクトを初期状態にする
-                foreach (ObjectBase obj in this.model.ObjectList)
-                {
-                    obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
-                }
-                this.CurrentObjIndex = -1;
-            }
-            else
-            {
-                bool select_chk = false;
+            //オブジェクトを選択状態にしているか
+            CurrentObjIndex = OnCursolIndex;
 
-                //オブジェクトを選択状態にしているか
-                CurrentObjIndex = OnCursolIndex;
-
+            if( this.OnCursolIndex >= 0)
+            {
                 ObjectBase obj = this.model.ObjectList[this.OnCursolIndex];
 
-                if( obj != null)
+                if (obj != null)
                 {
                     //当たり判定チェック
-                    if(obj.CheckDistance(pos))
+                    if (obj.CheckDistance(pos))
                     {
                         obj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                        select_chk = true;
                     }
                 }
-
-                //オブジェクトを選択できていたらその他のオブジェクトの状態をリセット
-                if (select_chk )
-                {
-                    //選んだオブジェクト以外をNON状態にする
-                    for (int i = 0; i < this.model.ObjectList.Count; i++)
-                    {
-                        if (this.model.ObjectList[i].ObjStatus != ObjectBase.OBJ_STATUS.DRUG)
-                        {
-                            this.model.ObjectList[i].ObjStatus = ObjectBase.OBJ_STATUS.NON;
-                        }
-                    }
-                }
-                else
-                {
-                    //全てNON状態にする
-                    for (int i = 0; i < this.model.ObjectList.Count; i++)
-                    {
-                            this.model.ObjectList[i].ObjStatus = ObjectBase.OBJ_STATUS.NON;
-                    }
-
-                }
-
             }
 
+            //オブジェクトを選択できていたらその他のオブジェクトの状態をリセット
+            for (int i = 0; i < this.model.ObjectList.Count; i++)
+            {
+                if (this.model.ObjectList[i].ObjStatus != ObjectBase.OBJ_STATUS.DRUG)
+                {
+                    this.model.ObjectList[i].ObjStatus = ObjectBase.OBJ_STATUS.NON;
+                }
+            }
         }
 
         //マウスを動かす
