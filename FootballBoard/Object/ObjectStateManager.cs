@@ -96,6 +96,14 @@ namespace FootballBoard
                 //マウスドラッグ中
                 if (CurrentObjIndex >= 0)
                 {
+                    //共通にできる
+                    ObjectBase obj = this.model.ObjectList[this.CurrentObjIndex];
+                    if(obj != null)
+                    {
+                        obj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                        obj.DrugMove(pos);
+                    }
+                    /*
                     //ここでもオブジェクトによって場合わけ
                     ObjectMarker marker = this.model.ObjectList[this.CurrentObjIndex] as ObjectMarker;
                     if (marker != null)
@@ -116,6 +124,7 @@ namespace FootballBoard
                         curve.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                         curve.DrugMove(pos);
                     }
+*/
                 }
             }
             else
