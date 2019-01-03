@@ -60,6 +60,15 @@ namespace FootballBoard
                         this.State.ClearState();
                     }
                     break;
+                case Common.SELECT_DRAW_OBJECT.RECT:
+                    {
+                        OStateRect rs = new OStateRect();
+                        this.State = rs;
+                        //モデルを扱えるようにする
+                        this.State.model = this.model;
+                        this.State.ClearState();
+                    }
+                    break;
             }
 
         }

@@ -57,7 +57,8 @@
             "Move",
             "Marker",
             "Line",
-            "Curve"});
+            "Curve",
+            "Rect"});
             this.listBoxSelectObject.Location = new System.Drawing.Point(90, 61);
             this.listBoxSelectObject.Name = "listBoxSelectObject";
             this.listBoxSelectObject.Size = new System.Drawing.Size(127, 184);

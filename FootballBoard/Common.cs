@@ -16,6 +16,7 @@ namespace FootballBoard
             MARKER,
             LINE,
             CURVE,
+            RECT,
         };
 
         //２点間の距離
