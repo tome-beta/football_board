@@ -29,34 +29,15 @@ namespace FootballBoard
 
                 //オブジェクトを選択状態にしているか
                 CurrentObjIndex = OnCursolIndex;
-                //ここでON_CURSORのやつを探して
-                //DRUG状態に移行する
-                ObjectMarker marker = this.model.ObjectList[this.OnCursolIndex] as ObjectMarker;
-                if (marker != null)
-                {
-                    marker.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                    select_chk = true;
-                }
 
-                ObjectLine line = this.model.ObjectList[this.OnCursolIndex] as ObjectLine;
-                if (line != null)
+                ObjectBase obj = this.model.ObjectList[this.OnCursolIndex];
+
+                if( obj != null)
                 {
-                    //ここで直線のとの当たりチェックをする
-                    if (line.CheckDistance(pos))
+                    //当たり判定チェック
+                    if(obj.CheckDistance(pos))
                     {
-                        //どこのパーツを掴んでいるかを決める必要がある
-                        line.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                        select_chk = true;
-                    }
-                }
-                ObjectCurve curve = this.model.ObjectList[this.OnCursolIndex] as ObjectCurve;
-                if (curve != null)
-                {
-                    //ここで直線のとの当たりチェックをする
-                    if (curve.CheckDistance(pos))
-                    {
-                        //どこのパーツを掴んでいるかを決める必要がある
-                        curve.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                        obj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                         select_chk = true;
                     }
                 }
@@ -103,28 +84,6 @@ namespace FootballBoard
                         obj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                         obj.DrugMove(pos);
                     }
-                    /*
-                    //ここでもオブジェクトによって場合わけ
-                    ObjectMarker marker = this.model.ObjectList[this.CurrentObjIndex] as ObjectMarker;
-                    if (marker != null)
-                    {
-                        marker.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                        marker.DrugMove(pos);
-                    }
-
-                    ObjectLine line = this.model.ObjectList[this.CurrentObjIndex] as ObjectLine;
-                    if (line != null)
-                    {
-                        line.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                        line.DrugMove(pos);
-                    }
-                    ObjectCurve curve = this.model.ObjectList[this.OnCursolIndex] as ObjectCurve;
-                    if (curve != null)
-                    {
-                        curve.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                        curve.DrugMove(pos);
-                    }
-*/
                 }
             }
             else
