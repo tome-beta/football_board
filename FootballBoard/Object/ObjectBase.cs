@@ -21,21 +21,15 @@ namespace FootballBoard
                 Points[i].X = 0;
                 Points[i].Y = 0;
             }
-
-//            this.Selected = false;
         }
 
-        protected double GetDistance(Point a, Point b)
-        {
-            double distance = Math.Sqrt((b.X - a.X) * (b.X - a.X) +
-                (b.Y - a.Y) * (b.Y - a.Y));
 
-            return distance;
-        }
 
+        //距離のチェック
         public abstract bool CheckDistance(Point pos);
 
-        public abstract void DrawObject(Graphics g);  //描画
+        //描画
+        public abstract void DrawObject(Graphics g);
 
         //矩形や曲線も扱うため
         public Point[] Points = new Point[4];

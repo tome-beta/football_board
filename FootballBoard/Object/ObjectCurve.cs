@@ -252,20 +252,20 @@ namespace FootballBoard
             if (this.ObjStatus == OBJ_STATUS.SELECT)
             {
                 //このときは開始点と終了点と中間点を探す
-                double point_dist = GetDistance(pos, this.Points[0]);
+                double point_dist = Common.GetDistance(pos, this.Points[0]);
                 if (point_dist < PointWidth / 2)
                 {
                     this.DrugType = DRUG_TYPE.START_POINT;
                     return true;
                 }
-                point_dist = GetDistance(pos, this.Points[1]);
+                point_dist = Common.GetDistance(pos, this.Points[1]);
                 if (point_dist < PointWidth / 2)
                 {
                     this.DrugType = DRUG_TYPE.MIDDLE_POINT;
                     return true;
                 }
 
-                point_dist = GetDistance(pos, this.Points[2]);
+                point_dist = Common.GetDistance(pos, this.Points[2]);
                 if (point_dist < PointWidth / 2)
                 {
                     this.DrugType = DRUG_TYPE.END_POINT;
