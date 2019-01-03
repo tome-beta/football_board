@@ -18,6 +18,28 @@ namespace FootballBoard
             CURVE,
         };
 
+        public static T Max<T>(params T[] nums) where T : IComparable
+        {
+            if (nums.Length == 0) return default(T);
 
+            T max = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                max = max.CompareTo(nums[i]) > 0 ? max : nums[i];
+                // Minの場合は不等号を逆にすればOK
+            }
+            return max;
+        }
+        public static T Min<T>(params T[] nums) where T : IComparable
+        {
+            if (nums.Length == 0) return default(T);
+
+            T max = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                max = max.CompareTo(nums[i]) < 0 ? max : nums[i];
+            }
+            return max;
+        }
     }
 }

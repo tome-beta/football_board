@@ -202,7 +202,7 @@ namespace FootballBoard
                 line.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
             }
 
-            ObjectLine curve = this.model.ObjectList[this.CurrentObjIndex] as ObjectLine;
+            ObjectCurve curve = this.model.ObjectList[this.CurrentObjIndex] as ObjectCurve;
             if (curve != null)
             {
                 curve.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;

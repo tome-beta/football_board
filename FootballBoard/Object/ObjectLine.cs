@@ -209,28 +209,12 @@ namespace FootballBoard
             int min_y = 0;
             int max_y = 0;
 
-            if(Points[0].X < Points[1].X)
-            {
-                min_x = Points[0].X;
-                max_x = Points[1].X;
-            }
-            else
-            {
-                min_x = Points[1].X;
-                max_x = Points[0].X;
-            }
-            if (Points[0].Y < Points[1].Y)
-            {
-                min_y = Points[0].Y;
-                max_y = Points[1].Y;
-            }
-            else
-            {
-                min_y = Points[1].Y;
-                max_y = Points[0].Y;
-            }
+            max_x = Common.Max(Points[0].X, Points[1].X);
+            max_y = Common.Max(Points[0].Y, Points[1].Y);
+            min_x = Common.Min(Points[0].X, Points[1].X);
+            min_y = Common.Min(Points[0].Y, Points[1].Y);
 
-            if( (min_x <= pos.X && pos.X <= max_x) &&
+            if ( (min_x <= pos.X && pos.X <= max_x) &&
                 (min_y <= pos.Y && pos.Y <= max_y)
                 )
             {
