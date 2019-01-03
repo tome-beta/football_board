@@ -179,14 +179,7 @@ namespace FootballBoard
                 }
             }
             //矩形全体との当たり判定
-            int min_x = Common.Min(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
-            int max_x = Common.Max(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
-            int min_y = Common.Min(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
-            int max_y = Common.Max(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
-
-            if ((min_x <= pos.X) && (pos.X <= max_x) &&
-                (min_y <= pos.Y) && (pos.Y <= max_y)
-                )
+            if(CheckCircle(pos))
             {
                 this.DrugType = DRUG_TYPE.WHOLE;
                 this.MoveStartPos = pos;    //全体を動かす基準点
@@ -195,6 +188,43 @@ namespace FootballBoard
 
             return false;
         }
+
+        //楕円と点の当たり判定
+        bool CheckCircle(Point pos)
+        {
+            //考え方として楕円を真円に変換する行列をかける
+            //そのとき点も変換行列にかける
+
+            //矩形全体を取得
+            int min_x = Common.Min(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
+            int max_x = Common.Max(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
+            int min_y = Common.Min(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
+            int max_y = Common.Max(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
+
+            //中心
+            int center_x = (max_x - min_x) / 2 + min_x;
+            int center_y = (max_y - min_y) / 2 + min_y;
+
+            int length_x = max_x - center_x; // X軸長
+            int length_y = max_y - center_y; // X軸長
+
+            // 点に楕円→真円変換行列を適用
+            double Ofs_x = (double)(pos.X - center_x);
+            double Ofs_y = (double)(pos.Y - center_y);
+
+            double After_x = Ofs_x * Math.Cos(0) + Ofs_y * Math.Sin(0);
+            double After_y = length_x / length_y * (-Ofs_x * Math.Sin(0) + Ofs_y * Math.Cos(0));
+
+            // 原点から移動後点までの距離を算出
+            if (After_x * After_x + After_y * After_y <= length_x * length_y)
+            {
+                return true;   // 衝突
+            }
+
+            return false;
+        }
+
+
 
         public DRUG_TYPE DrugType = DRUG_TYPE.NON;
         private Point MoveStartPos = new Point();   //移動量をつくるため
