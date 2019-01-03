@@ -9,11 +9,20 @@ namespace FootballBoard
         //左クリックしたとき
         public override void LeftMouseDown(Point pos)
         {
-            ObjectRect rect = new ObjectRect(pos);
-            this.model.ObjectList.Add(rect);
-            this.CurrentObj = rect;
-            rect.DrugType = ObjectRect.DRUG_TYPE.POINT_4;
-            CurrentObjIndex = this.model.ObjectList.Count - 1;
+            //クリックしたところにすでにラインがあるか
+            if (this.CurrentObj != null && CurrentObj.CheckDistance(pos))
+            {
+                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                this.MouseDrag = true;
+            }
+            else
+            {
+                ObjectRect rect = new ObjectRect(pos);
+                this.model.ObjectList.Add(rect);
+                this.CurrentObj = rect;
+                rect.DrugType = ObjectRect.DRUG_TYPE.POINT_3;
+                CurrentObjIndex = this.model.ObjectList.Count - 1;
+            }
         }
         //左ドラッグ
         public override void MouseMove(Point pos)
@@ -63,28 +72,51 @@ namespace FootballBoard
             {
                 case ObjectRect.DRUG_TYPE.POINT_1:
                     {
+                        //３箇所を動かす
+                        this.Points[0] = pos;
+
+                        this.Points[1].Y = pos.Y;
+                        this.Points[3].X = pos.X;
                     }
                     break;
                 case ObjectRect.DRUG_TYPE.POINT_2:
                     {
+                        this.Points[1] = pos;
+
+                        this.Points[0].Y = pos.Y;
+                        this.Points[2].X = pos.X;
                     }
                     break;
                 case ObjectRect.DRUG_TYPE.POINT_3:
                     {
+                        this.Points[2] = pos;
+
+                        this.Points[3].Y = pos.Y;
+                        this.Points[1].X = pos.X;
                     }
                     break;
                 case ObjectRect.DRUG_TYPE.POINT_4:
                     {
                         //３箇所を動かす
-                        this.Points[1].X = pos.X;
-                        this.Points[2].X = pos.X;
-                        this.Points[2].Y = pos.Y;
-                        this.Points[3].Y = pos.Y;
+                        this.Points[3] = pos;
 
+                        this.Points[0].X = pos.X;
+                        this.Points[2].Y = pos.Y;
                     }
                     break;
                 case ObjectRect.DRUG_TYPE.WHOLE:
                     {
+                        //全体を動かす
+                        int move_x = pos.X - this.MoveStartPos.X;
+                        int move_y = pos.Y - this.MoveStartPos.Y;
+
+                        for (int i = 0; i < 4; i++)
+                        {
+                            this.Points[i].X += move_x;
+                            this.Points[i].Y += move_y;
+                        }
+
+                        this.MoveStartPos = pos;
                     }
                     break;
 
@@ -103,24 +135,49 @@ namespace FootballBoard
 
             Rectangle rect = new Rectangle(min_x, min_y, max_x-min_x, max_y-min_y);
 
-            if (this.ObjStatus == OBJ_STATUS.SELECT ||
-                this.ObjStatus == OBJ_STATUS.DRUG)
+            if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                g.FillRectangle(Brushes.Red, rect);
+                g.FillRectangle(Brushes.Black, rect);
             }
             else
             {
-                g.FillRectangle(Brushes.Black, rect);
+                g.FillRectangle(Brushes.Red, rect);
+            }
+
+            //SELECT状態の時には開始点と終了点を表示する
+            if (this.ObjStatus == OBJ_STATUS.SELECT ||
+                this.ObjStatus == OBJ_STATUS.DRUG)
+            {
+                Brush brush = Brushes.Yellow;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    g.FillEllipse(brush, new Rectangle(
+                    this.Points[i].X - PointWidth / 2,
+                    this.Points[i].Y - PointHeight / 2,
+                    PointWidth,
+                    PointHeight)
+                    );
+                }
+
             }
         }
 
         //オブジェクトとの距離をチェックする
         public override bool CheckDistance(Point pos)
         {
-
-            //頂点との当たり
+            if (this.ObjStatus == OBJ_STATUS.SELECT)
             {
-
+                //頂点との当たり
+                for(int i = 0; i < 4;i++)
+                {
+                    double point_dist = Common.GetDistance(pos, this.Points[i]);
+                    if (point_dist < PointWidth / 2)
+                    {
+                        this.DrugType = (DRUG_TYPE.POINT_1 + i);
+                        return true;
+                    }
+                }
             }
 
             //矩形全体との当たり判定
@@ -145,5 +202,9 @@ namespace FootballBoard
 
         public DRUG_TYPE DrugType = DRUG_TYPE.NON;
         private Point MoveStartPos = new Point();   //移動量をつくるため
+
+
+        private int PointWidth = 10;
+        private int PointHeight = 10;
     }
 }
