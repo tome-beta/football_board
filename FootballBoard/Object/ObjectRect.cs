@@ -9,7 +9,7 @@ namespace FootballBoard
         //左クリックしたとき
         public override void LeftMouseDown(Point pos)
         {
-            //クリックしたところにすでにラインがあるか
+            //クリックしたところにすでに矩形があるか
             if (this.CurrentObj != null && CurrentObj.CheckDistance(pos))
             {
                 CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
@@ -159,7 +159,6 @@ namespace FootballBoard
                     PointHeight)
                     );
                 }
-
             }
         }
 
