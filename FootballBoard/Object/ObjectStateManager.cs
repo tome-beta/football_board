@@ -90,31 +90,15 @@ namespace FootballBoard
         //左を離したとき
         public override void LeftMouseUp(Point pos)
         {
-            if (this.CurrentObjIndex == -1)
+            if (CurrentObjIndex >= 0)
             {
-                return;
+                //共通にできる
+                ObjectBase obj = this.model.ObjectList[this.CurrentObjIndex];
+                if (obj != null)
+                {
+                    obj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
+                }
             }
-
-            //離した時にDRUG状態のやつはSELECTに移す
-            ObjectMarker marker = this.model.ObjectList[this.CurrentObjIndex] as ObjectMarker;
-            if (marker != null)
-            {
-                marker.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
-            }
-
-            ObjectLine line = this.model.ObjectList[this.CurrentObjIndex] as ObjectLine;
-            if (line != null)
-            {
-                line.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
-            }
-
-            ObjectCurve curve = this.model.ObjectList[this.CurrentObjIndex] as ObjectCurve;
-            if (curve != null)
-            {
-                curve.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
-            }
-            //            this.CurrentObjIndex = -1;
-            //            this.OnCursolIndex = -1;
         }
 
 
