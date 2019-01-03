@@ -23,7 +23,8 @@ namespace FootballBoard
             }
         }
 
-
+        //ドラッグするときの動き
+        public abstract void DrugMove(Point pos);
 
         //距離のチェック
         public abstract bool CheckDistance(Point pos);

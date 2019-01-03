@@ -60,6 +60,11 @@ namespace FootballBoard
             this.Points[0] = pos;
         }
 
+        //ドラッグしているときの動き
+        public override void DrugMove(Point pos)
+        {
+            this.Points[0] = pos;
+        }
         //マーカーを描画
         public override void DrawObject(Graphics g)
         {

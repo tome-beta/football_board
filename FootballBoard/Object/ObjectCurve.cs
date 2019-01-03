@@ -162,7 +162,7 @@ namespace FootballBoard
         }
 
         //ドラッグしているときの動き
-        public void DrugMove(Point pos)
+        public override void DrugMove(Point pos)
         {
             //何を掴んでいるかで場合分け
             switch (this.DrugType)

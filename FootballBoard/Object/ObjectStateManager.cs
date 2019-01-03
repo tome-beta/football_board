@@ -101,7 +101,7 @@ namespace FootballBoard
                     if (marker != null)
                     {
                         marker.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                        marker.Points[0] = pos;
+                        marker.DrugMove(pos);
                     }
 
                     ObjectLine line = this.model.ObjectList[this.CurrentObjIndex] as ObjectLine;
