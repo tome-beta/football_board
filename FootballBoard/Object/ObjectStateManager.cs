@@ -123,8 +123,6 @@ namespace FootballBoard
         //左を離したとき
         public abstract void LeftMouseUp(Point pos);
 
-        //カーソルを動かしているとき
-
 
         public DataModel model;         //データを扱うため
         public bool MouseDrag = false;  //ドラッグしているか

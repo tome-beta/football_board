@@ -89,10 +89,11 @@ namespace FootballBoard
                         int move_x = pos.X - this.MoveStartPos.X;
                         int move_y = pos.Y - this.MoveStartPos.Y;
 
-                        this.Points[0].X += move_x;
-                        this.Points[0].Y += move_y;
-                        this.Points[1].X += move_x;
-                        this.Points[1].Y += move_y;
+                        for(int i = 0; i < 2; i++)
+                        {
+                            this.Points[i].X += move_x;
+                            this.Points[i].Y += move_y;
+                        }
 
                         this.MoveStartPos = pos;
                     }
