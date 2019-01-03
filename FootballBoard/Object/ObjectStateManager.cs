@@ -45,7 +45,6 @@ namespace FootballBoard
         {
             if (this.MouseDrag)
             {
-
                 //マウスドラッグ中
                 if (CurrentObjIndex >= 0)
                 {
@@ -75,47 +74,14 @@ namespace FootballBoard
                 OnCursolIndex = -1;
                 foreach (ObjectBase obj in this.model.ObjectList)
                 {
-                    //リストからのオブジェクトの選択方法は考えたほうがいい
-
-                    ObjectMarker marker = obj as ObjectMarker;
-                    if (marker != null)
+                    if (obj.CheckDistance(pos))
                     {
-                        if (marker.CheckDistance(pos))
+                        OnCursolIndex = count;
+                        if (obj.ObjStatus != ObjectBase.OBJ_STATUS.SELECT)
                         {
-                            OnCursolIndex = count;
-                            if (marker.ObjStatus != ObjectBase.OBJ_STATUS.SELECT)
-                            {
-                                marker.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
-                            }
-                            break;
+                            obj.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
                         }
-                    }
-
-                    ObjectLine line = obj as ObjectLine;
-                    if (line != null)
-                    {
-                        if (line.CheckDistance(pos))
-                        {
-                            OnCursolIndex = count;
-                            if (line.ObjStatus != ObjectBase.OBJ_STATUS.SELECT)
-                            {
-                                line.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
-                                break;
-                            }
-                        }
-                    }
-                    ObjectCurve curve = obj as ObjectCurve;
-                    if (curve != null)
-                    {
-                        if (curve.CheckDistance(pos))
-                        {
-                            OnCursolIndex = count;
-                            if (curve.ObjStatus != ObjectBase.OBJ_STATUS.SELECT)
-                            {
-                                curve.ObjStatus = ObjectBase.OBJ_STATUS.ON_CURSOR;
-                                break;
-                            }
-                        }
+                        break;
                     }
                     count++;
                 }
