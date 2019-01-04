@@ -59,10 +59,11 @@
             "Line",
             "Curve",
             "Rect",
-            "Circle"});
-            this.listBoxSelectObject.Location = new System.Drawing.Point(90, 61);
+            "Circle",
+            "Polygon"});
+            this.listBoxSelectObject.Location = new System.Drawing.Point(92, 57);
             this.listBoxSelectObject.Name = "listBoxSelectObject";
-            this.listBoxSelectObject.Size = new System.Drawing.Size(127, 184);
+            this.listBoxSelectObject.Size = new System.Drawing.Size(127, 214);
             this.listBoxSelectObject.TabIndex = 1;
             this.listBoxSelectObject.SelectedIndexChanged += new System.EventHandler(this.listBoxSelectObject_SelectedIndexChanged);
             // 

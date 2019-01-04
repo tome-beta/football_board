@@ -152,10 +152,10 @@ namespace FootballBoard
                 for (int i = 0; i < 4; i++)
                 {
                     g.FillEllipse(brush, new Rectangle(
-                    this.Points[i].X - PointWidth / 2,
-                    this.Points[i].Y - PointHeight / 2,
-                    PointWidth,
-                    PointHeight)
+                    this.Points[i].X - VERTEX_SIZE / 2,
+                    this.Points[i].Y - VERTEX_SIZE / 2,
+                    VERTEX_SIZE,
+                    VERTEX_SIZE)
                     );
                 }
             }
@@ -171,7 +171,7 @@ namespace FootballBoard
                 for (int i = 0; i < 4; i++)
                 {
                     double point_dist = Common.GetDistance(pos, this.Points[i]);
-                    if (point_dist < PointWidth / 2)
+                    if (point_dist < VERTEX_SIZE / 2)
                     {
                         this.DrugType = (DRUG_TYPE.POINT_1 + i);
                         return true;
@@ -229,8 +229,5 @@ namespace FootballBoard
         public DRUG_TYPE DrugType = DRUG_TYPE.NON;
         private Point MoveStartPos = new Point();   //移動量をつくるため
 
-
-        private int PointWidth = 10;
-        private int PointHeight = 10;
     }
 }
