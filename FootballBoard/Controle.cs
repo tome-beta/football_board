@@ -78,6 +78,15 @@ namespace FootballBoard
                         this.State.ClearState();
                     }
                     break;
+                case Common.SELECT_DRAW_OBJECT.POLYGON:
+                    {
+                        OStatePolygon ps = new OStatePolygon();
+                        this.State = ps;
+                        //モデルを扱えるようにする
+                        this.State.model = this.model;
+                        this.State.ClearState();
+                    }
+                    break;
             }
 
         }

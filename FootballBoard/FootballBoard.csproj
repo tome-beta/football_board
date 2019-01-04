@@ -62,6 +62,7 @@
     <Compile Include="Object\ObjectCurve.cs" />
     <Compile Include="Object\ObjectLine.cs" />
     <Compile Include="Object\ObjectMarker.cs" />
+    <Compile Include="Object\ObjectPolygon.cs" />
     <Compile Include="Object\ObjectRect.cs" />
     <Compile Include="Object\ObjectStateManager.cs" />
     <Compile Include="Object\Spline.cs" />

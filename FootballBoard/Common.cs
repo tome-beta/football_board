@@ -18,6 +18,7 @@ namespace FootballBoard
             CURVE,
             RECT,
             CIRCLE,
+            POLYGON,
         };
 
         //２点間の距離
