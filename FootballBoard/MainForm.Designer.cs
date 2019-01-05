@@ -32,6 +32,7 @@
             this.listBoxSelectObject = new System.Windows.Forms.ListBox();
             this.labelOnCursor = new System.Windows.Forms.Label();
             this.labelCurrentObj = new System.Windows.Forms.Label();
+            this.textBoxInputString = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,11 +89,21 @@
             this.labelCurrentObj.TabIndex = 3;
             this.labelCurrentObj.Text = "CurrentObj";
             // 
+            // textBoxInputString
+            // 
+            this.textBoxInputString.Location = new System.Drawing.Point(858, 378);
+            this.textBoxInputString.Multiline = true;
+            this.textBoxInputString.Name = "textBoxInputString";
+            this.textBoxInputString.Size = new System.Drawing.Size(177, 76);
+            this.textBoxInputString.TabIndex = 4;
+            this.textBoxInputString.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxInputString_KeyUp);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1116, 529);
+            this.Controls.Add(this.textBoxInputString);
             this.Controls.Add(this.labelCurrentObj);
             this.Controls.Add(this.labelOnCursor);
             this.Controls.Add(this.listBoxSelectObject);
@@ -112,6 +123,7 @@
         private System.Windows.Forms.ListBox listBoxSelectObject;
         private System.Windows.Forms.Label labelOnCursor;
         private System.Windows.Forms.Label labelCurrentObj;
+        private System.Windows.Forms.TextBox textBoxInputString;
     }
 }
 

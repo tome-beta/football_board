@@ -45,6 +45,12 @@ namespace FootballBoard
             this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
         }
 
+
+        //文字列を設定する
+        public override void SetString(String str)
+        {
+        }
+
         private ObjectLine CurrentObj;
     }
 

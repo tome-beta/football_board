@@ -79,8 +79,9 @@ namespace FootballBoard
             //ピクチャボックスを初期化
             this.FieldGraphics.Clear(Color.White);
 
-            //将来的にはここでサッカーフィールドを描く
+            //サッカーフィールドを描く
             FieldGraphics.DrawImage(SoccerFieldImage,0,0,pictureBoxGameField.Width,pictureBoxGameField.Height);
+
             //描画更新
             this.DrawUpdate();
 
@@ -98,5 +99,17 @@ namespace FootballBoard
 
         private Image SoccerFieldImage;
 
+
+        //TODO 項目を変えた時に表示しているGUIを切り替える処理がいる
+
+        //テキスト入力で何か文字キー、エンターキーを押した時にはObjectStringに反映させる
+        private void textBoxInputString_KeyUp(object sender, KeyEventArgs e)
+        {
+            //改行は\r\n
+        String str = this.textBoxInputString.Text;
+
+            this.DataControle.SetString(str);
+
+        }
     }
 }
