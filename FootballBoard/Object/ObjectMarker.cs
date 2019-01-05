@@ -49,6 +49,12 @@ namespace FootballBoard
             this.MouseDrag = false;
         }
 
+
+        //文字列を設定する
+        public override void SetString(String str)
+        {
+        }
+
         private ObjectMarker CurrentObj;
     }
 

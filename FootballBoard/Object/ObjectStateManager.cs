@@ -101,7 +101,10 @@ namespace FootballBoard
             }
         }
 
-
+        //文字列を設定する
+        public override void SetString(String str)
+        {
+        }
     }
 
     public abstract class ObjectState
@@ -122,6 +125,9 @@ namespace FootballBoard
         public abstract void MouseMove(Point pos);
         //左を離したとき
         public abstract void LeftMouseUp(Point pos);
+
+        //文字列を設定する
+        public abstract void SetString(String str);
 
 
         public DataModel model;         //データを扱うため

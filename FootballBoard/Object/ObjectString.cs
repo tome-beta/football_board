@@ -39,6 +39,13 @@ namespace FootballBoard
         {
             this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
         }
+
+        //文字列を設定する
+        public override void SetString(String str)
+        {
+            this.CurrentObj.DispString = str;
+        }
+
         private ObjectString CurrentObj;
     }
 
@@ -121,18 +128,28 @@ namespace FootballBoard
             //文字列を位置(0,0)、青色で表示
             g.DrawString(DispString, fnt, Brushes.Blue, this.Points[0].X, this.Points[0].Y);
 
-            //TODO 文字数で矩形の数を変える
-            int char_num = 0;
-            int ret_num = 0;
-            CheckString(ref ret_num, ref char_num);
-
             //矩形全体との当たり判定
-            int min_x = Common.Min(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
-            int max_x = Common.Max(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
-            int min_y = Common.Min(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
-            int max_y = Common.Max(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
+            Rectangle rect;
+            if( DispString.Length == 0)
+            {
+                //矩形全体との当たり判定
+                int min_x = Common.Min(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
+                int max_x = Common.Max(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
+                int min_y = Common.Min(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
+                int max_y = Common.Max(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
 
-            Rectangle rect = new Rectangle(min_x, min_y, max_x - min_x, max_y - min_y);
+                rect = new Rectangle(min_x, min_y, max_x - min_x, max_y - min_y);
+            }
+            else
+            {
+                //幅の最大値が1000ピクセルとして、文字列を描画するときの大きさを計測する
+                StringFormat sf = new StringFormat();
+                SizeF stringSize = g.MeasureString(DispString, fnt, 1000, sf);
+                //取得した文字列の大きさを使って四角を描画する
+                rect = new Rectangle(Points[0].X, Points[0].Y, (int)stringSize.Width, (int)stringSize.Height);
+                this.DispWidth = (int)stringSize.Width;
+                this.DispHeight = (int)stringSize.Height;
+            }
 
             if (this.ObjStatus != OBJ_STATUS.NON)
             {
@@ -142,55 +159,48 @@ namespace FootballBoard
                 }
             }
 
-
-            
-
+            Console.WriteLine("disp : " + DispString);
         }
+
         //オブジェクトとの距離をチェックする
         public override bool CheckDistance(Point pos)
         {
-            //矩形全体との当たり判定
-            int min_x = Common.Min(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
-            int max_x = Common.Max(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
-            int min_y = Common.Min(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
-            int max_y = Common.Max(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
-
-            if ((min_x <= pos.X) && (pos.X <= max_x) &&
-                (min_y <= pos.Y) && (pos.Y <= max_y)
-                )
+            if(this.DispString.Length == 0)
             {
-                this.DrugType = DRUG_TYPE.WHOLE;
-                this.MoveStartPos = pos;    //全体を動かす基準点
-                return true;
+                //幅の最大値が1000ピクセルとして、文字列を描画するときの大きさを計測する
+                //フォントオブジェクトの作成
+                //矩形全体との当たり判定
+                int min_x = Common.Min(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
+                int max_x = Common.Max(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
+                int min_y = Common.Min(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
+                int max_y = Common.Max(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
+
+                if ((min_x <= pos.X) && (pos.X <= max_x) &&
+                    (min_y <= pos.Y) && (pos.Y <= max_y)
+                    )
+                {
+                    this.DrugType = DRUG_TYPE.WHOLE;
+                    this.MoveStartPos = pos;    //全体を動かす基準点
+                    return true;
+                }
+            }
+            else
+            {
+                if ((Points[0].X <= pos.X) && (pos.X <= Points[0].X + this.DispWidth) &&
+                    (Points[0].Y <= pos.Y) && (pos.Y <= Points[0].Y + this.DispHeight)
+                    )
+                {
+                    this.DrugType = DRUG_TYPE.WHOLE;
+                    this.MoveStartPos = pos;    //全体を動かす基準点
+                    return true;
+                }
             }
 
             return false;
         }
 
-        /// <summary>
-        /// 文字列のチェック
-        /// </summary>
-        /// <param name="ret_num">改行の数</param>
-        /// <param name="max_chara">１行の最大文字数位</param>
-        private void CheckString(ref int ret_num,ref int max_chara)
-        {
-            string[] split_array = DispString.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-
-            ret_num = split_array.Length;
-
-            int max = 0;
-            for(int i = 0; i < split_array.Length;i++)
-            {
-                int tmp = split_array[i].Length;
-                if(max < tmp)
-                {
-                    max = tmp;
-                }
-            }
-            max_chara = max;
-        }
-
-        String DispString = @"テストです";
+        private int DispWidth = 0;
+        private int DispHeight = 0;
 
         public DRUG_TYPE DrugType = DRUG_TYPE.NON;
         private Point MoveStartPos = new Point();   //移動量をつくるため

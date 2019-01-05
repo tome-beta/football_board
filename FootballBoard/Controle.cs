@@ -116,6 +116,11 @@ namespace FootballBoard
             this.State.LeftMouseUp(pos);
         }
 
+        public void SetString(String str)
+        {
+            this.State.SetString(str);
+        }
+
         //登録されているオブジェクトの描画
         public void DrawAll(Graphics g)
         {

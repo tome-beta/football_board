@@ -32,10 +32,10 @@ namespace FootballBoard
         //描画
         public abstract void DrawObject(Graphics g);
 
-        //矩形や曲線も扱うため
-        public Point[] Points = new Point[4];
+        public Point[] Points = new Point[4];        //矩形や曲線も扱うため
         public OBJ_STATUS ObjStatus = OBJ_STATUS.NON;
-
         public const int VERTEX_SIZE = 10;      //オブジェクトの頂点の大きさ
+
+        public String DispString = @"";
     }
 }
