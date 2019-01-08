@@ -87,6 +87,15 @@ namespace FootballBoard
                         this.State.ClearState();
                     }
                     break;
+                case Common.SELECT_DRAW_OBJECT.TRIANGLE:
+                    {
+                        OStateTriangle ts = new OStateTriangle();
+                        this.State = ts;
+                        //モデルを扱えるようにする
+                        this.State.model = this.model;
+                        this.State.ClearState();
+                    }
+                    break;
                 case Common.SELECT_DRAW_OBJECT.STRING:
                     {
                         OStateString ss = new OStateString();
