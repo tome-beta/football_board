@@ -1,10 +1,10 @@
 ﻿using System;
-using System;
 using System.Drawing;
 
 namespace FootballBoard
 {
-    class OStatePolygon : ObjectState
+    //三角形の振る舞いを示すクラス
+    public class OStateTriangle : ObjectState
     {
         //左クリックしたとき
         public override void LeftMouseDown(Point pos)
@@ -13,14 +13,14 @@ namespace FootballBoard
             if (this.CurrentObj != null && CurrentObj.CheckDistance(pos))
             {
                 CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                this.MouseDrag = true;
-            }
+             this.MouseDrag = true;
+             }
             else
             {
-                ObjectPolygon poly = new ObjectPolygon(pos);
-                this.model.ObjectList.Add(poly);
-                this.CurrentObj = poly;
-                poly.DrugType = ObjectPolygon.DRUG_TYPE.INIT;
+                ObjectTriangle tri = new ObjectTriangle(pos);
+                this.model.ObjectList.Add(tri);
+                this.CurrentObj = tri;
+                tri.DrugType = ObjectTriangle.DRUG_TYPE.INIT;
                 CurrentObjIndex = this.model.ObjectList.Count - 1;
             }
         }
@@ -44,20 +44,18 @@ namespace FootballBoard
         public override void SetString(String str)
         {
         }
-        private ObjectPolygon CurrentObj;
+        private ObjectTriangle CurrentObj;
     }
-    class ObjectPolygon : ObjectBase
+
+    class ObjectTriangle : ObjectBase
     {
-        //座標は左上起点で時計回りに０１２３
-        //コンストラクタ
-        public ObjectPolygon(Point pos)
+        public ObjectTriangle(Point pos)
         {
             this.Points[0] = pos;
             this.Points[1] = pos;
             this.Points[2] = pos;
             this.Points[3] = pos;
         }
-
         public enum DRUG_TYPE
         {
             NON,
@@ -65,8 +63,7 @@ namespace FootballBoard
             POINT_1,        //頂点
             POINT_2,
             POINT_3,
-            POINT_4,
-            INIT,           //新しく作ったときの動き
+            INIT,
         };
         //ドラッグしているときの動き
         public override void DrugMove(Point pos)
@@ -89,28 +86,14 @@ namespace FootballBoard
                         this.Points[2] = pos;
                     }
                     break;
-                case DRUG_TYPE.POINT_4:
-                    {
-                        this.Points[3] = pos;
-                    }
-                    break;
                 case DRUG_TYPE.INIT:
                     {
-                        //新しく作ったときの動き
-                        this.Points[2] = pos;
+                        this.Points[2] = this.Points[3] = pos;
 
-                        int w = Points[2].X - Points[0].X;
-
-                        this.Points[1].X = this.Points[0].X + (w/2);
-                        this.Points[1].Y = this.Points[0].Y;
-
-                        this.Points[3].X = this.Points[0].X + (w / 2);
-                        this.Points[3].Y = this.Points[2].Y;
-
-
+                        this.Points[1].X = this.Points[0].X;
+                        this.Points[1].Y = this.Points[2].Y;
                     }
                     break;
-
                 case DRUG_TYPE.WHOLE:
                     {
                         //全体を動かす
@@ -126,20 +109,27 @@ namespace FootballBoard
                         this.MoveStartPos = pos;
                     }
                     break;
+
                 default:
                     break;
             }
         }
-        //ポリゴンを描画
+
+        //三角形を描画
         public override void DrawObject(Graphics g)
         {
+            PointF[] f_points = new PointF[3];
+            f_points[0] = this.Points[0];
+            f_points[1] = this.Points[1];
+            f_points[2] = this.Points[2];
+
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                g.FillPolygon(Brushes.Black, this.Points);
+                g.FillPolygon(Brushes.Black, f_points);
             }
             else
             {
-                g.FillPolygon(Brushes.Red, this.Points);
+                g.FillPolygon(Brushes.Red, f_points);
             }
 
             //SELECT状態の時には３点を描画
@@ -147,7 +137,7 @@ namespace FootballBoard
                 this.ObjStatus == OBJ_STATUS.DRUG)
             {
                 Brush brush = Brushes.Yellow;
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     g.FillEllipse(brush, new Rectangle(
                     this.Points[i].X - VERTEX_SIZE / 2,
@@ -159,6 +149,32 @@ namespace FootballBoard
             }
         }
 
+        //オブジェクトとの距離をチェックする
+        public override bool CheckDistance(Point pos)
+        {
+            if (this.ObjStatus == OBJ_STATUS.SELECT)
+            {
+                //頂点との当たり
+                for (int i = 0; i < 4; i++)
+                {
+                    double point_dist = Common.GetDistance(pos, this.Points[i]);
+                    if (point_dist < VERTEX_SIZE / 2)
+                    {
+                        this.DrugType = (DRUG_TYPE.POINT_1 + i);
+                        return true;
+                    }
+                }
+            }
+
+            if (CheckInPolygon(pos))
+            {
+                this.DrugType = DRUG_TYPE.WHOLE;
+                this.MoveStartPos = pos;    //全体を動かす基準点
+                return true;
+            }
+
+            return false;
+        }
         //ポリゴンとの内外判定
         private bool CheckInPolygon(Point pos)
         {
@@ -199,41 +215,12 @@ namespace FootballBoard
                 bFlag0y = bFlag1y;
             }
 
-            if( iCountCrossing != 0)
+            if (iCountCrossing != 0)
             {
                 return true;
             }
             return false;
         }
-
-
-        //オブジェクトとの距離をチェックする
-        public override bool CheckDistance(Point pos)
-        {
-            if (this.ObjStatus == OBJ_STATUS.SELECT)
-            {
-                //頂点との当たり
-                for (int i = 0; i < 4; i++)
-                {
-                    double point_dist = Common.GetDistance(pos, this.Points[i]);
-                    if (point_dist < VERTEX_SIZE / 2)
-                    {
-                        this.DrugType = (DRUG_TYPE.POINT_1 + i);
-                        return true;
-                    }
-                }
-            }
-
-            if (CheckInPolygon(pos))
-            {
-                this.DrugType = DRUG_TYPE.WHOLE;
-                this.MoveStartPos = pos;    //全体を動かす基準点
-                return true;
-            }
-
-            return false;
-        }
-
         public DRUG_TYPE DrugType = DRUG_TYPE.NON;
         private Point MoveStartPos = new Point();   //移動量をつくるため
     }

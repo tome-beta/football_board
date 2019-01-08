@@ -19,6 +19,7 @@ namespace FootballBoard
             RECT,
             CIRCLE,
             POLYGON,
+            TRIANGLE,
             STRING,
         };
 

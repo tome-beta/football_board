@@ -66,6 +66,7 @@
     <Compile Include="Object\ObjectRect.cs" />
     <Compile Include="Object\ObjectStateManager.cs" />
     <Compile Include="Object\ObjectString.cs" />
+    <Compile Include="Object\ObjectTriangle.cs" />
     <Compile Include="Object\Spline.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
