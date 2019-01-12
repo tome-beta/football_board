@@ -32,7 +32,7 @@ namespace FootballBoard
 
             this.listBoxSelectObject.SelectedIndex = 0;
 
-            //ブロックの元画像を読み込んでおく
+            //フィールド画像を読み込んでおく
             string filed_image_str = @"..\..\..\resource\soccer_field.png";
             if (System.IO.File.Exists(filed_image_str))
             {
@@ -66,12 +66,12 @@ namespace FootballBoard
         //描画オブジェクトリストをクリックしたとき
         private void listBoxSelectObject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Common.SELECT_DRAW_OBJECT select = (Common.SELECT_DRAW_OBJECT)this.listBoxSelectObject.SelectedIndex;
-
-            ObjectSelect = select;
-
+            this.ObjectSelect = (Common.SELECT_DRAW_OBJECT)this.listBoxSelectObject.SelectedIndex;
             //ステートを変える
-            this.DataControle.ChangeSelectObject(select);
+            this.DataControle.ChangeSelectObject(this.ObjectSelect);
+
+            //ここでステートによってGUI表示を切り替える
+            ChangeGUI(this.ObjectSelect);
         }
 
         private void pictureBoxGameField_Paint(object sender, PaintEventArgs e)
@@ -102,14 +102,5 @@ namespace FootballBoard
 
         //TODO 項目を変えた時に表示しているGUIを切り替える処理がいる
 
-        //テキスト入力で何か文字キー、エンターキーを押した時にはObjectStringに反映させる
-        private void textBoxInputString_KeyUp(object sender, KeyEventArgs e)
-        {
-            //改行は\r\n
-        String str = this.textBoxInputString.Text;
-
-            this.DataControle.SetString(str);
-
-        }
     }
 }

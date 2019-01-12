@@ -51,6 +51,9 @@
     <Compile Include="FormDraw.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GUIManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
