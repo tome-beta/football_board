@@ -140,20 +140,23 @@ namespace FootballBoard
 
             Rectangle rect = new Rectangle(min_x, min_y, max_x-min_x, max_y-min_y);
 
+            Brush brush;
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                g.FillRectangle(Brushes.Black, rect);
+                brush = new SolidBrush(Color.FromArgb(128, Color.Black));
             }
             else
             {
-                g.FillRectangle(Brushes.Red, rect);
+                brush = new SolidBrush(Color.FromArgb(128, Color.Red));
             }
+
+            g.FillRectangle(brush, rect);
 
             //SELECT状態の時には開始点と終了点を表示する
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
                 this.ObjStatus == OBJ_STATUS.DRUG)
             {
-                Brush brush = Brushes.Yellow;
+                brush = Brushes.Yellow;
 
                 for (int i = 0; i < 4; i++)
                 {

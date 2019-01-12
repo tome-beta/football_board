@@ -133,20 +133,23 @@ namespace FootballBoard
         //ポリゴンを描画
         public override void DrawObject(Graphics g)
         {
+            Brush brush;
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                g.FillPolygon(Brushes.Black, this.Points);
+                brush = new SolidBrush(Color.FromArgb(128, Color.Black));
             }
             else
             {
-                g.FillPolygon(Brushes.Red, this.Points);
+                brush = new SolidBrush(Color.FromArgb(128, Color.Red));
             }
+
+            g.FillPolygon(brush, this.Points);
 
             //SELECT状態の時には３点を描画
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
                 this.ObjStatus == OBJ_STATUS.DRUG)
             {
-                Brush brush = Brushes.Yellow;
+                brush = Brushes.Yellow;
                 for (int i = 0; i < 4; i++)
                 {
                     g.FillEllipse(brush, new Rectangle(
