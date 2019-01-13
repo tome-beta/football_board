@@ -16,8 +16,20 @@ namespace FootballBoard
         //GUI表示のONOFFを切り替える
         private void ChangeGUI(Common.SELECT_DRAW_OBJECT select)
         {
-            switch(select)
+            //全部一旦消す処理
+            this.textBoxInputString.Visible = false;
+            this.groupBoxMarker.Visible = false;
+
+            switch (select)
             {
+                case Common.SELECT_DRAW_OBJECT.MARKER:
+                    {
+                        this.groupBoxMarker.Visible = true;
+
+                    }
+                    break;
+
+
                 case Common.SELECT_DRAW_OBJECT.STRING:
                     {
                         this.textBoxInputString.Visible = true;
@@ -25,12 +37,15 @@ namespace FootballBoard
                     break;
                 default:
                     {
-                        this.textBoxInputString.Visible = false;
                     }
                     break;
             }
         }
 
+        //カラーダイアログを開く
+        private void buttonColorDialog_Click(object sender, EventArgs e)
+        {
+        }
 
         //テキスト入力で何か文字キー、エンターキーを押した時にはObjectStringに反映させる
         private void textBoxInputString_KeyUp(object sender, KeyEventArgs e)
@@ -40,5 +55,7 @@ namespace FootballBoard
 
             this.DataControle.SetString(str);
         }
+
+
     }
 }

@@ -148,7 +148,7 @@ namespace FootballBoard
             }
             else
             {
-                brush = new SolidBrush(Color.FromArgb(128, Color.Red));
+                brush = new SolidBrush(Color.FromArgb(128, GUIParam.GetInstance().ObjectColor));
             }
 
             g.FillEllipse(brush, rect);

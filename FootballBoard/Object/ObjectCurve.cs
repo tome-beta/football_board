@@ -140,7 +140,7 @@ namespace FootballBoard
             }
             else
             {
-                col = Color.Red;
+                col = GUIParam.GetInstance().ObjectColor;
             }
             using (Pen pen = new Pen(col, 4))
             {

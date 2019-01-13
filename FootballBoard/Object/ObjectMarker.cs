@@ -74,13 +74,17 @@ namespace FootballBoard
         //マーカーを描画
         public override void DrawObject(Graphics g)
         {
-            Brush brush;
-            brush = Brushes.Red;
+            int alpha = 255;
 
-            if(this.ObjStatus == OBJ_STATUS.NON)
+            if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                brush = Brushes.Black;
+                alpha = 255;
             }
+            else if (this.ObjStatus == OBJ_STATUS.ON_CURSOR)
+            {
+                alpha = 128;
+            }
+            Brush brush = new SolidBrush(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor));
 
             g.FillEllipse(brush, new Rectangle(
             this.Points[0].X - Width / 2,
@@ -88,6 +92,14 @@ namespace FootballBoard
             Width,
             Height)
             );
+
+            //選択したときの三角をつくる
+            if (this.ObjStatus == OBJ_STATUS.SELECT ||
+                this.ObjStatus == OBJ_STATUS.DRUG)
+            {
+                DrawSelectTriangle(g);
+            }
+
         }
 
         //オブジェクトとの距離をチェックする
@@ -101,6 +113,65 @@ namespace FootballBoard
             }
             return false;
         }
+
+        private void DrawSelectTriangle(Graphics g)
+        {
+            Brush brush_tri = new SolidBrush(Color.Black);
+            //左
+            {
+                PointF[] f_points = new PointF[3];
+                f_points[0].X = this.Points[0].X - Width / 2;
+                f_points[0].Y = this.Points[0].Y;
+
+                f_points[1].X = f_points[0].X - (Width / 3);
+                f_points[1].Y = f_points[0].Y - (Height / 4);
+                f_points[2].X = f_points[0].X - (Width / 3);
+                f_points[2].Y = f_points[0].Y + (Height / 4);
+
+                g.FillPolygon(brush_tri, f_points);
+            }
+            //上
+            {
+                PointF[] f_points = new PointF[3];
+                f_points[0].X = this.Points[0].X;
+                f_points[0].Y = this.Points[0].Y - Height/ 2;
+
+                f_points[1].X = f_points[0].X - (Width / 4);
+                f_points[1].Y = f_points[0].Y - (Height / 3);
+                f_points[2].X = f_points[0].X + (Width / 4);
+                f_points[2].Y = f_points[0].Y - (Height / 3);
+
+                g.FillPolygon(brush_tri, f_points);
+            }
+
+            //右
+            {
+                PointF[] f_points = new PointF[3];
+                f_points[0].X = this.Points[0].X + Width / 2;
+                f_points[0].Y = this.Points[0].Y;
+
+                f_points[1].X = f_points[0].X + (Width / 3);
+                f_points[1].Y = f_points[0].Y - (Height / 4);
+                f_points[2].X = f_points[0].X + (Width / 3);
+                f_points[2].Y = f_points[0].Y + (Height / 4);
+
+                g.FillPolygon(brush_tri, f_points);
+            }
+            //下
+            {
+                PointF[] f_points = new PointF[3];
+                f_points[0].X = this.Points[0].X;
+                f_points[0].Y = this.Points[0].Y + Height / 2;
+
+                f_points[1].X = f_points[0].X - (Width / 4);
+                f_points[1].Y = f_points[0].Y + (Height / 3);
+                f_points[2].X = f_points[0].X + (Width / 4);
+                f_points[2].Y = f_points[0].Y + (Height / 3);
+
+                g.FillPolygon(brush_tri, f_points);
+            }
+        }
+
 
         int TeamType;   //HomeかAwayか
 
