@@ -58,11 +58,11 @@ namespace FootballBoard
         }
         public enum DRUG_TYPE
         {
-            NON,
-            WHOLE,          //全体
             POINT_1,        //頂点
             POINT_2,
             POINT_3,
+            NON,
+            WHOLE,          //全体
             INIT,
         };
         //ドラッグしているときの動き
@@ -88,7 +88,7 @@ namespace FootballBoard
                     break;
                 case DRUG_TYPE.INIT:
                     {
-                        this.Points[2] = this.Points[3] = pos;
+                        this.Points[2] = pos;
 
                         this.Points[1].X = this.Points[0].X;
                         this.Points[1].Y = this.Points[2].Y;
@@ -123,15 +123,18 @@ namespace FootballBoard
             f_points[1] = this.Points[1];
             f_points[2] = this.Points[2];
 
-            Brush brush;
+            int alpha = 128;
+
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                brush = new SolidBrush(Color.FromArgb(128, Color.Black));
+                alpha = 128;
             }
-            else
+            else if (this.ObjStatus == OBJ_STATUS.ON_CURSOR)
             {
-                brush = new SolidBrush(Color.FromArgb(128, GUIParam.GetInstance().ObjectColor));
+                alpha = 64;
             }
+            Brush brush = new SolidBrush(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor));
+
 
             g.FillPolygon(brush, this.Points);
             //SELECT状態の時には３点を描画
@@ -141,6 +144,14 @@ namespace FootballBoard
                 brush = Brushes.Yellow;
                 for (int i = 0; i < 3; i++)
                 {
+                    if ((int)this.DrugType == i)
+                    {
+                        brush = Brushes.Red;
+                    }
+                    else
+                    {
+                        brush = Brushes.Yellow;
+                    }
                     g.FillEllipse(brush, new Rectangle(
                     this.Points[i].X - VERTEX_SIZE / 2,
                     this.Points[i].Y - VERTEX_SIZE / 2,
@@ -157,7 +168,7 @@ namespace FootballBoard
             if (this.ObjStatus == OBJ_STATUS.SELECT)
             {
                 //頂点との当たり
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     double point_dist = Common.GetDistance(pos, this.Points[i]);
                     if (point_dist < VERTEX_SIZE / 2)
@@ -174,7 +185,7 @@ namespace FootballBoard
                 this.MoveStartPos = pos;    //全体を動かす基準点
                 return true;
             }
-
+            this.DrugType = DRUG_TYPE.NON;
             return false;
         }
         //ポリゴンとの内外判定
