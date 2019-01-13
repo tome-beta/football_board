@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Drawing;
 
 namespace FootballBoard
@@ -60,12 +59,12 @@ namespace FootballBoard
 
         public enum DRUG_TYPE
         {
-            NON,
-            WHOLE,          //全体
             POINT_1,        //頂点
             POINT_2,
             POINT_3,
             POINT_4,
+            NON,
+            WHOLE,          //全体
             INIT,           //新しく作ったときの動き
         };
         //ドラッグしているときの動き
@@ -133,22 +132,37 @@ namespace FootballBoard
         //ポリゴンを描画
         public override void DrawObject(Graphics g)
         {
+
+            int alpha = 128;
+
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                g.FillPolygon(Brushes.Black, this.Points);
+                alpha = 128;
             }
-            else
+            else if (this.ObjStatus == OBJ_STATUS.ON_CURSOR)
             {
-                g.FillPolygon(Brushes.Red, this.Points);
+                alpha = 64;
             }
+            Brush brush = new SolidBrush(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor));
+
+
+            g.FillPolygon(brush, this.Points);
 
             //SELECT状態の時には３点を描画
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
                 this.ObjStatus == OBJ_STATUS.DRUG)
             {
-                Brush brush = Brushes.Yellow;
+                brush = Brushes.Yellow;
                 for (int i = 0; i < 4; i++)
                 {
+                    if ((int)this.DrugType == i)
+                    {
+                        brush = Brushes.Red;
+                    }
+                    else
+                    {
+                        brush = Brushes.Yellow;
+                    }
                     g.FillEllipse(brush, new Rectangle(
                     this.Points[i].X - VERTEX_SIZE / 2,
                     this.Points[i].Y - VERTEX_SIZE / 2,
@@ -203,6 +217,8 @@ namespace FootballBoard
             {
                 return true;
             }
+
+
             return false;
         }
 
@@ -231,6 +247,7 @@ namespace FootballBoard
                 return true;
             }
 
+            this.DrugType = DRUG_TYPE.NON;
             return false;
         }
 

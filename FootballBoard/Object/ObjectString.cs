@@ -126,7 +126,7 @@ namespace FootballBoard
             //フォントオブジェクトの作成
             Font fnt = new Font("MS UI Gothic", 20);
             //文字列を位置(0,0)、青色で表示
-            g.DrawString(DispString, fnt, Brushes.Blue, this.Points[0].X, this.Points[0].Y);
+            g.DrawString(DispString, fnt, Brushes.White, this.Points[0].X, this.Points[0].Y);
 
             //矩形全体との当たり判定
             Rectangle rect;

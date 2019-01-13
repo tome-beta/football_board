@@ -100,7 +100,5 @@ namespace FootballBoard
         private Image SoccerFieldImage;
 
 
-        //TODO 項目を変えた時に表示しているGUIを切り替える処理がいる
-
     }
 }

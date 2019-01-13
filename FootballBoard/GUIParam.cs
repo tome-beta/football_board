@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using System.Drawing;
 namespace FootballBoard
 {
     //GUIの設定を記録するくらす
@@ -19,8 +14,9 @@ namespace FootballBoard
         //初期化
         private GUIParam()
         {
-
+            this.ObjectColor = Color.Red;
         }
 
+        public Color ObjectColor;
     }
 }

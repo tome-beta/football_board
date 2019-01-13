@@ -20,7 +20,7 @@ namespace FootballBoard
                 ObjectCircle circle = new ObjectCircle(pos);
                 this.model.ObjectList.Add(circle);
                 this.CurrentObj = circle;
-                circle.DrugType = ObjectCircle.DRUG_TYPE.POINT_3;
+                circle.DrugType = ObjectCircle.DRUG_TYPE.INIT;
                 CurrentObjIndex = this.model.ObjectList.Count - 1;
             }
         }
@@ -53,12 +53,13 @@ namespace FootballBoard
     {
         public enum DRUG_TYPE
         {
-            NON,
-            WHOLE,          //全体
             POINT_1,        //頂点
             POINT_2,
             POINT_3,
             POINT_4,
+            WHOLE,          //全体
+            INIT,           //初期
+            NON,
         };
 
         public ObjectCircle(Point pos)
@@ -124,7 +125,14 @@ namespace FootballBoard
                         this.MoveStartPos = pos;
                     }
                     break;
+                case ObjectCircle.DRUG_TYPE.INIT:
+                    {
+                        this.Points[2] = pos;
 
+                        this.Points[3].Y = pos.Y;
+                        this.Points[1].X = pos.X;
+                    }
+                    break;
                 default:
                     break;
             }
@@ -141,23 +149,35 @@ namespace FootballBoard
 
             Rectangle rect = new Rectangle(min_x, min_y, max_x - min_x, max_y - min_y);
 
+            int alpha = 128;
+
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                g.FillEllipse(Brushes.Black, rect);
+                alpha = 128;
             }
-            else
+            else if (this.ObjStatus == OBJ_STATUS.ON_CURSOR)
             {
-                g.FillEllipse(Brushes.Red, rect);
+                alpha = 64;
             }
+            Brush brush = new SolidBrush(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor));
+
+            g.FillEllipse(brush, rect);
 
             //SELECT状態の時には開始点と終了点を表示する
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
                 this.ObjStatus == OBJ_STATUS.DRUG)
             {
-                Brush brush = Brushes.Yellow;
-
                 for (int i = 0; i < 4; i++)
                 {
+                    if ( (int)this.DrugType == i)
+                    {
+                        brush = Brushes.Red;
+                    }
+                    else
+                    {
+                        brush = Brushes.Yellow;
+                    }
+
                     g.FillEllipse(brush, new Rectangle(
                     this.Points[i].X - VERTEX_SIZE / 2,
                     this.Points[i].Y - VERTEX_SIZE / 2,
@@ -193,6 +213,7 @@ namespace FootballBoard
                 return true;
             }
 
+            this.DrugType = DRUG_TYPE.NON;
             return false;
         }
 

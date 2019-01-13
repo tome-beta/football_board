@@ -33,6 +33,7 @@
             this.labelOnCursor = new System.Windows.Forms.Label();
             this.labelCurrentObj = new System.Windows.Forms.Label();
             this.textBoxInputString = new System.Windows.Forms.TextBox();
+            this.groupBoxMarker = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,11 +100,22 @@
             this.textBoxInputString.TabIndex = 4;
             this.textBoxInputString.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxInputString_KeyUp);
             // 
+            // groupBoxMarker
+            // 
+            this.groupBoxMarker.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.groupBoxMarker.Location = new System.Drawing.Point(846, 40);
+            this.groupBoxMarker.Name = "groupBoxMarker";
+            this.groupBoxMarker.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxMarker.TabIndex = 7;
+            this.groupBoxMarker.TabStop = false;
+            this.groupBoxMarker.Text = "マーカー";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1116, 529);
+            this.Controls.Add(this.groupBoxMarker);
             this.Controls.Add(this.textBoxInputString);
             this.Controls.Add(this.labelCurrentObj);
             this.Controls.Add(this.labelOnCursor);
@@ -125,6 +137,7 @@
         private System.Windows.Forms.Label labelOnCursor;
         private System.Windows.Forms.Label labelCurrentObj;
         private System.Windows.Forms.TextBox textBoxInputString;
+        private System.Windows.Forms.GroupBox groupBoxMarker;
     }
 }
 
