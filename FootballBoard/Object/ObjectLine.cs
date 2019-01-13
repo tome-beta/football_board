@@ -24,7 +24,7 @@ namespace FootballBoard
                 ObjectLine line = new ObjectLine(pos);
                 this.model.ObjectList.Add(line);
                 CurrentObj = line;
-                line.DrugType = ObjectLine.DRUG_TYPE.END_POINT;
+                line.DrugType = ObjectLine.DRUG_TYPE.INIT;
                 CurrentObjIndex = this.model.ObjectList.Count - 1;
             }
         }
@@ -61,10 +61,12 @@ namespace FootballBoard
 
         public enum DRUG_TYPE
         {
-            NON,
-            WHOLE,          //全体
             START_POINT,    //開始点
-            END_POINT       //終了点
+            END_POINT,       //終了点
+            WHOLE,          //全体
+            INIT,           //初期
+            NON,
+
         };
         //コンストラクタ
         public ObjectLine(Point pos)
@@ -85,6 +87,11 @@ namespace FootballBoard
                     }
                     break;
                 case ObjectLine.DRUG_TYPE.END_POINT:
+                    {
+                        SetEndPoint(pos);
+                    }
+                    break;
+                case DRUG_TYPE.INIT:
                     {
                         SetEndPoint(pos);
                     }
@@ -125,16 +132,17 @@ namespace FootballBoard
         {
             Console.WriteLine(this.ObjStatus);
 
-            Color col;
+            int alpha = 255;
+
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                col = Color.Black;
+                alpha = 255;
             }
-            else
+            else if (this.ObjStatus == OBJ_STATUS.ON_CURSOR)
             {
-                col = GUIParam.GetInstance().ObjectColor;
+                alpha = 128;
             }
-            using (Pen pen = new Pen(col, 4))
+            using (Pen pen = new Pen(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor), 4))
             {
                 g.DrawLine(pen, this.Points[0], this.Points[1]);
             }
@@ -148,6 +156,15 @@ namespace FootballBoard
 
                 for(int i = 0; i < 2;i++)
                 {
+                    if ((int)this.DrugType == i)
+                    {
+                        brush = Brushes.Red;
+                    }
+                    else
+                    {
+                        brush = Brushes.Yellow;
+                    }
+
                     g.FillEllipse(brush, new Rectangle(
                     this.Points[i].X - VERTEX_SIZE / 2,
                     this.Points[i].Y - VERTEX_SIZE / 2,
@@ -200,11 +217,9 @@ namespace FootballBoard
                     this.MoveStartPos = pos;    //全体を動かす基準点
                     return true;
                 }
-                this.DrugType = DRUG_TYPE.NON;
             }
 
-
-
+            this.DrugType = DRUG_TYPE.NON;
             return false;
         }
 
