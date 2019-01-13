@@ -20,7 +20,7 @@ namespace FootballBoard
                 ObjectCurve curve = new ObjectCurve(pos);
                 this.model.ObjectList.Add(curve);
                 this.CurrentObj = curve;
-                curve.DrugType = ObjectCurve.DRUG_TYPE.END_POINT;
+                curve.DrugType = ObjectCurve.DRUG_TYPE.INIT;
                 CurrentObjIndex = this.model.ObjectList.Count - 1;
             }
         }
@@ -53,11 +53,13 @@ namespace FootballBoard
     {
         public enum DRUG_TYPE
         {
+            START_POINT,    //開始点
+            MIDDLE_POINT,   //中間点
+            END_POINT,      //終了点
             NON,
             WHOLE,          //全体
-            START_POINT,    //開始点
-            END_POINT,      //終了点
-            MIDDLE_POINT,   //中間点
+            INIT,
+
         };
 
         public ObjectCurve(Point pos)
@@ -110,6 +112,12 @@ namespace FootballBoard
                         this.Points[2].Y = pos.Y;
                     }
                     break;
+                case DRUG_TYPE.INIT:
+                    {
+                        this.Points[2].X = pos.X;
+                        this.Points[2].Y = pos.Y;
+                    }
+                    break;
                 case DRUG_TYPE.WHOLE:
                     {
                         //全体を動かす
@@ -133,16 +141,18 @@ namespace FootballBoard
         public override void DrawObject(Graphics g)
         {
             Console.WriteLine(this.ObjStatus);
-            Color col;
+            int alpha = 255;
+
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
-                col = Color.Black;
+                alpha = 255;
             }
-            else
+            else if (this.ObjStatus == OBJ_STATUS.ON_CURSOR)
             {
-                col = GUIParam.GetInstance().ObjectColor;
+                alpha = 128;
             }
-            using (Pen pen = new Pen(col, 4))
+
+            using (Pen pen = new Pen(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor), 4))
             {
                 Point[] points = new Point[3];
                 points[0] = this.Points[0];
@@ -162,6 +172,15 @@ namespace FootballBoard
                 Brush brush = Brushes.Yellow;
                 for (int i = 0; i < 3; i++)
                 {
+                    if ((int)this.DrugType == i)
+                    {
+                        brush = Brushes.Red;
+                    }
+                    else
+                    {
+                        brush = Brushes.Yellow;
+                    }
+
                     g.FillEllipse(brush, new Rectangle(
                     this.Points[i].X - VERTEX_SIZE / 2,
                     this.Points[i].Y - VERTEX_SIZE / 2,
