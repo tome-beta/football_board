@@ -42,7 +42,7 @@
             this.pictureBoxGameField.BackColor = System.Drawing.Color.White;
             this.pictureBoxGameField.Location = new System.Drawing.Point(277, 40);
             this.pictureBoxGameField.Name = "pictureBoxGameField";
-            this.pictureBoxGameField.Size = new System.Drawing.Size(524, 329);
+            this.pictureBoxGameField.Size = new System.Drawing.Size(640, 480);
             this.pictureBoxGameField.TabIndex = 0;
             this.pictureBoxGameField.TabStop = false;
             this.pictureBoxGameField.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxGameField_Paint);
@@ -93,7 +93,7 @@
             // 
             // textBoxInputString
             // 
-            this.textBoxInputString.Location = new System.Drawing.Point(858, 378);
+            this.textBoxInputString.Location = new System.Drawing.Point(988, 426);
             this.textBoxInputString.Multiline = true;
             this.textBoxInputString.Name = "textBoxInputString";
             this.textBoxInputString.Size = new System.Drawing.Size(177, 76);
@@ -103,7 +103,7 @@
             // groupBoxMarker
             // 
             this.groupBoxMarker.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.groupBoxMarker.Location = new System.Drawing.Point(846, 40);
+            this.groupBoxMarker.Location = new System.Drawing.Point(965, 40);
             this.groupBoxMarker.Name = "groupBoxMarker";
             this.groupBoxMarker.Size = new System.Drawing.Size(200, 100);
             this.groupBoxMarker.TabIndex = 7;
@@ -114,7 +114,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1116, 529);
+            this.ClientSize = new System.Drawing.Size(1203, 556);
             this.Controls.Add(this.groupBoxMarker);
             this.Controls.Add(this.textBoxInputString);
             this.Controls.Add(this.labelCurrentObj);
