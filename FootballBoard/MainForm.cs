@@ -85,7 +85,6 @@ namespace FootballBoard
             //描画更新
             this.DrawUpdate();
 
-            this.labelCurrentObj.Text = @"CurrentObj : " + this.DataControle.State.CurrentObjIndex.ToString();
             this.labelOnCursor.Text = @"OnCursor : " + this.DataControle.State.OnCursolIndex.ToString();
         }
 

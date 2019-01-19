@@ -20,7 +20,6 @@ namespace FootballBoard
                 this.model.ObjectList.Add(poly);
                 this.CurrentObj = poly;
                 poly.DrugType = ObjectPolygon.DRUG_TYPE.INIT;
-                CurrentObjIndex = this.model.ObjectList.Count - 1;
             }
         }
         //左ドラッグ

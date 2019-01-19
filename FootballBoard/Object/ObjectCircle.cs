@@ -21,7 +21,6 @@ namespace FootballBoard
                 this.model.ObjectList.Add(circle);
                 this.CurrentObj = circle;
                 circle.DrugType = ObjectCircle.DRUG_TYPE.INIT;
-                CurrentObjIndex = this.model.ObjectList.Count - 1;
             }
         }
         //左ドラッグ
