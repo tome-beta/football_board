@@ -20,7 +20,6 @@ namespace FootballBoard
                 this.model.ObjectList.Add(poly);
                 this.CurrentObj = poly;
                 poly.DrugType = ObjectPolygon.DRUG_TYPE.INIT;
-                CurrentObjIndex = this.model.ObjectList.Count - 1;
             }
         }
         //左ドラッグ
@@ -43,8 +42,8 @@ namespace FootballBoard
         public override void SetString(String str)
         {
         }
-        private ObjectPolygon CurrentObj;
     }
+
     class ObjectPolygon : ObjectBase
     {
         //座標は左上起点で時計回りに０１２３

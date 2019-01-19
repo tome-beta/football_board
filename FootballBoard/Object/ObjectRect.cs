@@ -21,7 +21,6 @@ namespace FootballBoard
                 this.model.ObjectList.Add(rect);
                 this.CurrentObj = rect;
                 rect.DrugType = ObjectRect.DRUG_TYPE.INIT;
-                CurrentObjIndex = this.model.ObjectList.Count - 1;
             }
         }
         //左ドラッグ
@@ -44,7 +43,6 @@ namespace FootballBoard
         public override void SetString(String str)
         {
         }
-        private ObjectRect CurrentObj;
     }
 
     class ObjectRect : ObjectBase

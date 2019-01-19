@@ -21,7 +21,6 @@ namespace FootballBoard
                 this.model.ObjectList.Add(tri);
                 this.CurrentObj = tri;
                 tri.DrugType = ObjectTriangle.DRUG_TYPE.INIT;
-                CurrentObjIndex = this.model.ObjectList.Count - 1;
             }
         }
         //左ドラッグ

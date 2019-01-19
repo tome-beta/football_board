@@ -13,21 +13,22 @@ namespace FootballBoard
         //左クリックしたとき
         public override void LeftMouseDown(Point pos)
         {
-            //オブジェクトを選択状態にしているか
-            CurrentObjIndex = OnCursolIndex;
-
+            //クリックしたところにオブジェクトがあるのか
             if( this.OnCursolIndex >= 0)
             {
-                ObjectBase obj = this.model.ObjectList[this.OnCursolIndex];
-
-                if (obj != null)
+                CurrentObj = this.model.ObjectList[this.OnCursolIndex];
+                if (CurrentObj != null)
                 {
                     //当たり判定チェック
-                    if (obj.CheckDistance(pos))
+                    if (CurrentObj.CheckDistance(pos))
                     {
-                        obj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                        CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                     }
                 }
+            }
+            else
+            {
+                this.CurrentObj = null;
             }
 
             //オブジェクトを選択できていたらその他のオブジェクトの状態をリセット
@@ -46,15 +47,10 @@ namespace FootballBoard
             if (this.MouseDrag)
             {
                 //マウスドラッグ中
-                if (CurrentObjIndex >= 0)
+                if(CurrentObj != null)
                 {
-                    //共通にできる
-                    ObjectBase obj = this.model.ObjectList[this.CurrentObjIndex];
-                    if(obj != null)
-                    {
-                        obj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                        obj.DrugMove(pos);
-                    }
+                    CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                    CurrentObj.DrugMove(pos);
                 }
             }
             else
@@ -90,14 +86,9 @@ namespace FootballBoard
         //左を離したとき
         public override void LeftMouseUp(Point pos)
         {
-            if (CurrentObjIndex >= 0)
+            if(this.CurrentObj != null)
             {
-                //共通にできる
-                ObjectBase obj = this.model.ObjectList[this.CurrentObjIndex];
-                if (obj != null)
-                {
-                    obj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
-                }
+                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
             }
         }
 
@@ -118,7 +109,6 @@ namespace FootballBoard
             }
         }
 
-
         //左クリックしたとき
         public abstract void LeftMouseDown(Point pos);
         //マウスを動かす（ドラッグも込み）
@@ -134,9 +124,8 @@ namespace FootballBoard
         public bool MouseDrag = false;  //ドラッグしているか
 
         //操作中のオブジェクトのインデックス
-        public int CurrentObjIndex = -1; //操作中のオブジェ
         public int OnCursolIndex = -1;  //カーソルが上にある
-
+        public ObjectBase CurrentObj;   //選択中のオブジェクト
     }
 
 

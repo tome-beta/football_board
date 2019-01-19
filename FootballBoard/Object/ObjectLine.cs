@@ -25,7 +25,6 @@ namespace FootballBoard
                 this.model.ObjectList.Add(line);
                 CurrentObj = line;
                 line.DrugType = ObjectLine.DRUG_TYPE.INIT;
-                CurrentObjIndex = this.model.ObjectList.Count - 1;
             }
         }
         //左ドラッグ
@@ -50,8 +49,6 @@ namespace FootballBoard
         public override void SetString(String str)
         {
         }
-
-        private ObjectLine CurrentObj;
     }
 
 

@@ -54,8 +54,6 @@ namespace FootballBoard
         public override void SetString(String str)
         {
         }
-
-        private ObjectMarker CurrentObj;
     }
 
     //マーカー
