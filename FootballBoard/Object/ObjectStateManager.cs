@@ -136,7 +136,7 @@ namespace FootballBoard
         //操作中のオブジェクトのインデックス
         public int CurrentObjIndex = -1; //操作中のオブジェ
         public int OnCursolIndex = -1;  //カーソルが上にある
-
+        protected ObjectBase CurrentObj;   //選択中のオブジェクト
     }
 
 

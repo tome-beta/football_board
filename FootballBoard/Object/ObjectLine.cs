@@ -50,8 +50,6 @@ namespace FootballBoard
         public override void SetString(String str)
         {
         }
-
-        private ObjectLine CurrentObj;
     }
 
 

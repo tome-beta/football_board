@@ -45,8 +45,6 @@ namespace FootballBoard
         {
             this.CurrentObj.DispString = str;
         }
-
-        private ObjectString CurrentObj;
     }
 
     class ObjectString : ObjectBase

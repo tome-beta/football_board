@@ -31,7 +31,7 @@ namespace FootballBoard
             {
                 this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                 //何を掴んでいるかで場合分けしている
-                this.CurrentObj.SetEndPoint(pos);
+                this.CurrentObj.DrugMove(pos);
             }
         }
         //左を離したとき
@@ -45,8 +45,6 @@ namespace FootballBoard
         public override void SetString(String str)
         {
         }
-
-        private ObjectCurve CurrentObj;
     }
     //曲線
     public class ObjectCurve : ObjectBase
@@ -114,8 +112,7 @@ namespace FootballBoard
                     break;
                 case DRUG_TYPE.INIT:
                     {
-                        this.Points[2].X = pos.X;
-                        this.Points[2].Y = pos.Y;
+                        SetEndPoint(pos);
                     }
                     break;
                 case DRUG_TYPE.WHOLE:

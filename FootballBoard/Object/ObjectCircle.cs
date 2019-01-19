@@ -45,8 +45,6 @@ namespace FootballBoard
         public override void SetString(String str)
         {
         }
-
-        private ObjectCircle CurrentObj;
     }
     //円オブジェクト
     class ObjectCircle : ObjectBase

@@ -44,7 +44,6 @@ namespace FootballBoard
         public override void SetString(String str)
         {
         }
-        private ObjectRect CurrentObj;
     }
 
     class ObjectRect : ObjectBase
