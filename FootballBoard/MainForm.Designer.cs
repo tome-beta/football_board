@@ -34,6 +34,7 @@
             this.labelCurrentObj = new System.Windows.Forms.Label();
             this.textBoxInputString = new System.Windows.Forms.TextBox();
             this.groupBoxMarker = new System.Windows.Forms.GroupBox();
+            this.buttonDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,11 +111,23 @@
             this.groupBoxMarker.TabStop = false;
             this.groupBoxMarker.Text = "マーカー";
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonDelete.Location = new System.Drawing.Point(55, 478);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(142, 54);
+            this.buttonDelete.TabIndex = 8;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1203, 556);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.groupBoxMarker);
             this.Controls.Add(this.textBoxInputString);
             this.Controls.Add(this.labelCurrentObj);
@@ -138,6 +151,7 @@
         private System.Windows.Forms.Label labelCurrentObj;
         private System.Windows.Forms.TextBox textBoxInputString;
         private System.Windows.Forms.GroupBox groupBoxMarker;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }
 

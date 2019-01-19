@@ -109,7 +109,6 @@ namespace FootballBoard
             }
         }
 
-
         //左クリックしたとき
         public abstract void LeftMouseDown(Point pos);
         //マウスを動かす（ドラッグも込み）
@@ -126,7 +125,7 @@ namespace FootballBoard
 
         //操作中のオブジェクトのインデックス
         public int OnCursolIndex = -1;  //カーソルが上にある
-        protected ObjectBase CurrentObj;   //選択中のオブジェクト
+        public ObjectBase CurrentObj;   //選択中のオブジェクト
     }
 
 

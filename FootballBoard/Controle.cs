@@ -109,7 +109,9 @@ namespace FootballBoard
 
         }
 
+        //================================================================
         //マウス操作の受け渡し
+        //================================================================
         public void LeftMouseDown(Point pos)
         {
             this.State.MouseDrag = true;
@@ -125,10 +127,22 @@ namespace FootballBoard
             this.State.LeftMouseUp(pos);
         }
 
+        //================================================================
+        //GUI操作の受け渡し
+        //================================================================
+        public void DeleteObject()
+        {
+            this.model.ObjectList.Remove(this.State.CurrentObj);
+        }
+
+
         public void SetString(String str)
         {
             this.State.SetString(str);
         }
+
+        
+
 
         //登録されているオブジェクトの描画
         public void DrawAll(Graphics g)

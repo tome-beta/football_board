@@ -62,6 +62,11 @@ namespace FootballBoard
             this.DataControle.LeftMouseUp(e.Location);
         }
 
+        //Deleteキーを押したとき
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            this.DataControle.DeleteObject();
+        }
 
         //描画オブジェクトリストをクリックしたとき
         private void listBoxSelectObject_SelectedIndexChanged(object sender, EventArgs e)
@@ -97,7 +102,6 @@ namespace FootballBoard
         Graphics FieldGraphics;
 
         private Image SoccerFieldImage;
-
 
     }
 }
