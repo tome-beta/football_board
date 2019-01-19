@@ -133,6 +133,7 @@ namespace FootballBoard
         public void DeleteObject()
         {
             this.model.ObjectList.Remove(this.State.CurrentObj);
+            this.State.CurrentObj = null;
         }
 
 

@@ -134,9 +134,11 @@
             this.Controls.Add(this.labelOnCursor);
             this.Controls.Add(this.listBoxSelectObject);
             this.Controls.Add(this.pictureBoxGameField);
+            this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "メイン";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
