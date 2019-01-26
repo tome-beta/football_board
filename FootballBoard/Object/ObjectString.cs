@@ -46,6 +46,7 @@ namespace FootballBoard
         }
     }
 
+    [Serializable()]
     class ObjectString : ObjectBase
     {
         public enum DRUG_TYPE
@@ -155,8 +156,6 @@ namespace FootballBoard
                     g.DrawRectangle(pen, rect);
                 }
             }
-
-            Console.WriteLine("disp : " + DispString);
         }
 
         //オブジェクトとの距離をチェックする

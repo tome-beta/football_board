@@ -4,6 +4,7 @@ using System.Drawing;
 namespace FootballBoard
 {
     //描画オブジェクトのベース
+    [Serializable()]
     public abstract class ObjectBase
     {
         public enum OBJ_STATUS

@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="basis\DeepCopyHelper.cs" />
+    <Compile Include="basis\MementManage.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Controle.cs" />
     <Compile Include="DataModel.cs" />
@@ -106,5 +108,6 @@
   <ItemGroup>
     <Content Include="resource\soccer_field.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

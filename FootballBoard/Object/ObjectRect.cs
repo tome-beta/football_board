@@ -45,6 +45,7 @@ namespace FootballBoard
         }
     }
 
+    [Serializable()]
     class ObjectRect : ObjectBase
     {
         //座標は左上起点で時計回りに０１２３

@@ -13,6 +13,11 @@ namespace FootballBoard
         public Controle()
         {
             this.model = new DataModel();
+
+            var list = new List<ObjectBase>(this.model.ObjectList);
+            _memento = new TextBoxMemento(list,this.model);
+
+ //           UpdateUndoList();
         }
 
         /// <summary>
@@ -125,7 +130,33 @@ namespace FootballBoard
         {
             this.State.MouseDrag = false;
             this.State.LeftMouseUp(pos);
+
+            UpdateUndoList();
         }
+
+        //UNDOLISTを更新
+        private void UpdateUndoList()
+        {
+            //オブジェクトリストの複製を作る
+            List<ObjectBase> list = new List<ObjectBase>();
+            for(int i = 0; i < this.model.ObjectList.Count();i++)
+            {
+                ObjectBase b = DeepCopyHelper.DeepCopy<ObjectBase>(this.model.ObjectList[i]);
+                list.Add(b);
+            }
+
+            var current = new TextBoxMemento(list, this.model);
+            var cmd = new MementoCommand<List<ObjectBase>, DataModel>(_memento, current);
+            if (!_cmdManager.Invoke(cmd))
+            {
+                //                MessageBox.Show("状態の最大保存数を超えました。");
+                return;
+            }
+            _memento = current;
+
+
+        }
+
 
         //================================================================
         //GUI操作の受け渡し
@@ -134,8 +165,20 @@ namespace FootballBoard
         {
             this.model.ObjectList.Remove(this.State.CurrentObj);
             this.State.CurrentObj = null;
+
+            UpdateUndoList();
+        }
+        //戻る機能
+        public void Undo()
+        {
+            _cmdManager.Undo();
         }
 
+        //進む機能
+        public void Redo()
+        {
+            _cmdManager.Redo();
+        }
 
         public void SetString(String str)
         {
@@ -161,5 +204,7 @@ namespace FootballBoard
         //データ管理の本体
         DataModel model;
 
+        private CommandManager _cmdManager = new CommandManager(DataModel.UNDO_MAX);
+        private Memento<List<ObjectBase>,DataModel> _memento;
     }
 }

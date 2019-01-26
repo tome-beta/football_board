@@ -46,6 +46,7 @@ namespace FootballBoard
         private ObjectTriangle CurrentObj;
     }
 
+    [Serializable()]
     class ObjectTriangle : ObjectBase
     {
         public ObjectTriangle(Point pos)

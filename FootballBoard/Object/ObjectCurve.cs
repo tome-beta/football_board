@@ -46,6 +46,7 @@ namespace FootballBoard
         }
     }
     //曲線
+    [Serializable()]
     public class ObjectCurve : ObjectBase
     {
         public enum DRUG_TYPE
@@ -136,7 +137,6 @@ namespace FootballBoard
         //曲線を描画
         public override void DrawObject(Graphics g)
         {
-            Console.WriteLine(this.ObjStatus);
             int alpha = 255;
 
             if (this.ObjStatus == OBJ_STATUS.NON)

@@ -35,6 +35,8 @@
             this.textBoxInputString = new System.Windows.Forms.TextBox();
             this.groupBoxMarker = new System.Windows.Forms.GroupBox();
             this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonUndo = new System.Windows.Forms.Button();
+            this.buttonRedo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,11 +124,35 @@
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
+            // buttonUndo
+            // 
+            this.buttonUndo.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonUndo.Location = new System.Drawing.Point(41, 580);
+            this.buttonUndo.Name = "buttonUndo";
+            this.buttonUndo.Size = new System.Drawing.Size(166, 61);
+            this.buttonUndo.TabIndex = 9;
+            this.buttonUndo.Text = "UNDO";
+            this.buttonUndo.UseVisualStyleBackColor = true;
+            this.buttonUndo.Click += new System.EventHandler(this.buttonUndo_Click);
+            // 
+            // buttonRedo
+            // 
+            this.buttonRedo.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.buttonRedo.Location = new System.Drawing.Point(242, 580);
+            this.buttonRedo.Name = "buttonRedo";
+            this.buttonRedo.Size = new System.Drawing.Size(166, 61);
+            this.buttonRedo.TabIndex = 10;
+            this.buttonRedo.Text = "REDO";
+            this.buttonRedo.UseVisualStyleBackColor = true;
+            this.buttonRedo.Click += new System.EventHandler(this.buttonRedo_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1203, 556);
+            this.ClientSize = new System.Drawing.Size(1203, 653);
+            this.Controls.Add(this.buttonRedo);
+            this.Controls.Add(this.buttonUndo);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.groupBoxMarker);
             this.Controls.Add(this.textBoxInputString);
@@ -154,6 +180,8 @@
         private System.Windows.Forms.TextBox textBoxInputString;
         private System.Windows.Forms.GroupBox groupBoxMarker;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Button buttonUndo;
+        private System.Windows.Forms.Button buttonRedo;
     }
 }
 
