@@ -46,6 +46,7 @@ namespace FootballBoard
         }
     }
     //曲線
+    [Serializable()]
     public class ObjectCurve : ObjectBase
     {
         public enum DRUG_TYPE

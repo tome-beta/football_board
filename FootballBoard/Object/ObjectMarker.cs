@@ -57,6 +57,7 @@ namespace FootballBoard
     }
 
     //マーカー
+    [Serializable()]
     public class ObjectMarker : ObjectBase
     {
         public ObjectMarker(Point pos)

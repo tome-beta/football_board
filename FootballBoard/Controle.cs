@@ -13,7 +13,11 @@ namespace FootballBoard
         public Controle()
         {
             this.model = new DataModel();
-            _memento = new TextBoxMemento(this.model.ObjectList,this.model);
+
+            var list = new List<ObjectBase>(this.model.ObjectList);
+            _memento = new TextBoxMemento(list,this.model);
+
+ //           UpdateUndoList();
         }
 
         /// <summary>
@@ -115,16 +119,6 @@ namespace FootballBoard
         //================================================================
         public void LeftMouseDown(Point pos)
         {
-            //ここでUNDOLISTを更新させる。多分おんなじデータを登録してしまってる
-            var list = new List<ObjectBase>(this.model.ObjectList);
-            var current = new TextBoxMemento(list, this.model);
-            var cmd = new MementoCommand<List<ObjectBase>, DataModel>(_memento, current);
-            if (!_cmdManager.Invoke(cmd))
-            {
-                //                MessageBox.Show("状態の最大保存数を超えました。");
-                return;
-            }
-            _memento = current;
             this.State.MouseDrag = true;
             this.State.LeftMouseDown(pos);
         }
@@ -136,7 +130,33 @@ namespace FootballBoard
         {
             this.State.MouseDrag = false;
             this.State.LeftMouseUp(pos);
+
+            UpdateUndoList();
         }
+
+        //UNDOLISTを更新
+        private void UpdateUndoList()
+        {
+            //オブジェクトリストの複製を作る
+            List<ObjectBase> list = new List<ObjectBase>();
+            for(int i = 0; i < this.model.ObjectList.Count();i++)
+            {
+                ObjectBase b = DeepCopyHelper.DeepCopy<ObjectBase>(this.model.ObjectList[i]);
+                list.Add(b);
+            }
+
+            var current = new TextBoxMemento(list, this.model);
+            var cmd = new MementoCommand<List<ObjectBase>, DataModel>(_memento, current);
+            if (!_cmdManager.Invoke(cmd))
+            {
+                //                MessageBox.Show("状態の最大保存数を超えました。");
+                return;
+            }
+            _memento = current;
+
+
+        }
+
 
         //================================================================
         //GUI操作の受け渡し
@@ -145,6 +165,8 @@ namespace FootballBoard
         {
             this.model.ObjectList.Remove(this.State.CurrentObj);
             this.State.CurrentObj = null;
+
+            UpdateUndoList();
         }
         //戻る機能
         public void Undo()

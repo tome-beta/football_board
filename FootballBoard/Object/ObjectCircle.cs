@@ -46,6 +46,7 @@ namespace FootballBoard
         }
     }
     //円オブジェクト
+    [Serializable()]
     class ObjectCircle : ObjectBase
     {
         public enum DRUG_TYPE

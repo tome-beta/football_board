@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="basis\DeepCopyHelper.cs" />
     <Compile Include="basis\MementManage.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Controle.cs" />

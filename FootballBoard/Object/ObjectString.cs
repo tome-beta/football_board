@@ -46,6 +46,7 @@ namespace FootballBoard
         }
     }
 
+    [Serializable()]
     class ObjectString : ObjectBase
     {
         public enum DRUG_TYPE

@@ -53,6 +53,7 @@ namespace FootballBoard
 
 
     //ライン
+    [Serializable()]
     public class ObjectLine : ObjectBase
     {
 
