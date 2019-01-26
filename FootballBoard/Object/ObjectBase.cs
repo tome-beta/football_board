@@ -15,9 +15,11 @@ namespace FootballBoard
             DRUG,       //掴んでいる
         };
 
+        public const int OBJ_POINTS_NUM = 4;
+
         public ObjectBase()
         {
-            for(int i = 0; i < 4; i++)
+            for(int i = 0; i < OBJ_POINTS_NUM; i++)
             {
                 Points[i].X = 0;
                 Points[i].Y = 0;
@@ -33,7 +35,7 @@ namespace FootballBoard
         //描画
         public abstract void DrawObject(Graphics g);
 
-        public Point[] Points = new Point[4];        //矩形や曲線も扱うため
+        public Point[] Points = new Point[OBJ_POINTS_NUM];        //矩形や曲線も扱うため
         public OBJ_STATUS ObjStatus = OBJ_STATUS.NON;
         public const int VERTEX_SIZE = 10;      //オブジェクトの頂点の大きさ
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace FootballBoard
@@ -29,7 +30,7 @@ namespace FootballBoard
             //はじめに「ファイル名」で表示される文字列を指定する
             sfd.FileName = "BoardData.csv";
             //はじめに表示されるフォルダを指定する
-            sfd.InitialDirectory = @"C:\";
+//            sfd.InitialDirectory = @"C:\";
             //[ファイルの種類]に表示される選択肢を指定する
             //指定しない（空の文字列）の時は、現在のディレクトリが表示される
             sfd.Filter = "csvファイル(*.csv)|*.csv";
@@ -45,9 +46,37 @@ namespace FootballBoard
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 //OKボタンがクリックされたとき、選択されたファイル名を表示する
-                Console.WriteLine(sfd.FileName);
+                WriteCsvFile(sfd.FileName);
             }
         }
+
+        //================================================
+        // private 
+        //================================================
+        private void WriteCsvFile(String file_name)
+        {
+            Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+             using (StreamWriter sw = new StreamWriter(file_name, false, sjisEnc))
+            {
+                foreach(var obj in this.model.ObjectList)
+                {
+                    String line = @"";
+                    //オブジェクトの種類
+                    string[] str_array = obj.ToString().Split('.');
+                    line += str_array[1] + ",";
+
+                    //座標データ
+                    for(int i = 0; i < ObjectBase.OBJ_POINTS_NUM;i++)
+                    {
+                        line += obj.Points[i].X.ToString() + ",";
+                        line += obj.Points[i].Y.ToString() + ",";
+                    }
+
+                    sw.WriteLine(line);
+                }
+            }
+        }
+
 
         //UNDOLISTを更新
         private void UpdateUndoList()
