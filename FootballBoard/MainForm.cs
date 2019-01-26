@@ -75,6 +75,18 @@ namespace FootballBoard
                 this.DataControle.DeleteObject();
             }
         }
+        //UNDOボタンを押したとき
+        private void buttonUndo_Click(object sender, EventArgs e)
+        {
+            this.DataControle.Undo();
+        }
+
+        //REDOボタンを押したとき
+        private void buttonRedo_Click(object sender, EventArgs e)
+        {
+            this.DataControle.Redo();
+
+        }
 
         //描画オブジェクトリストをクリックしたとき
         private void listBoxSelectObject_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,5 +122,7 @@ namespace FootballBoard
         Graphics FieldGraphics;
 
         private Image SoccerFieldImage;
+
+
     }
 }

@@ -8,6 +8,8 @@ namespace FootballBoard
 {
     public class DataModel
     {
+        public const int UNDO_MAX = 10;
+
         //コンストラクタ
         public DataModel()
         {
@@ -16,5 +18,7 @@ namespace FootballBoard
 
         public List<ObjectBase> ObjectList;
 
+        //UNDO用の記録リスト
+        public Memento<List<ObjectBase>,DataModel> ObjectMement;
     }
 }

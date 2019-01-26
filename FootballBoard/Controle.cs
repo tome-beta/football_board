@@ -13,6 +13,7 @@ namespace FootballBoard
         public Controle()
         {
             this.model = new DataModel();
+            _memento = new TextBoxMemento(this.model.ObjectList,this.model);
         }
 
         /// <summary>
@@ -114,6 +115,16 @@ namespace FootballBoard
         //================================================================
         public void LeftMouseDown(Point pos)
         {
+            //ここでUNDOLISTを更新させる。多分おんなじデータを登録してしまってる
+            var list = new List<ObjectBase>(this.model.ObjectList);
+            var current = new TextBoxMemento(list, this.model);
+            var cmd = new MementoCommand<List<ObjectBase>, DataModel>(_memento, current);
+            if (!_cmdManager.Invoke(cmd))
+            {
+                //                MessageBox.Show("状態の最大保存数を超えました。");
+                return;
+            }
+            _memento = current;
             this.State.MouseDrag = true;
             this.State.LeftMouseDown(pos);
         }
@@ -135,7 +146,17 @@ namespace FootballBoard
             this.model.ObjectList.Remove(this.State.CurrentObj);
             this.State.CurrentObj = null;
         }
+        //戻る機能
+        public void Undo()
+        {
+            _cmdManager.Undo();
+        }
 
+        //進む機能
+        public void Redo()
+        {
+            _cmdManager.Redo();
+        }
 
         public void SetString(String str)
         {
@@ -161,5 +182,7 @@ namespace FootballBoard
         //データ管理の本体
         DataModel model;
 
+        private CommandManager _cmdManager = new CommandManager(DataModel.UNDO_MAX);
+        private Memento<List<ObjectBase>,DataModel> _memento;
     }
 }
