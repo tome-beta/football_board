@@ -156,8 +156,6 @@ namespace FootballBoard
                     g.DrawRectangle(pen, rect);
                 }
             }
-
-            Console.WriteLine("disp : " + DispString);
         }
 
         //オブジェクトとの距離をチェックする

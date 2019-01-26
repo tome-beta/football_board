@@ -128,8 +128,6 @@ namespace FootballBoard
         //ラインをを描画
         public override void DrawObject(Graphics g)
         {
-            Console.WriteLine(this.ObjStatus);
-
             int alpha = 255;
 
             if (this.ObjStatus == OBJ_STATUS.NON)
