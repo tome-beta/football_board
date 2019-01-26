@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBoxGameField = new System.Windows.Forms.PictureBox();
             this.listBoxSelectObject = new System.Windows.Forms.ListBox();
             this.labelOnCursor = new System.Windows.Forms.Label();
             this.labelCurrentObj = new System.Windows.Forms.Label();
@@ -37,21 +36,15 @@
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonUndo = new System.Windows.Forms.Button();
             this.buttonRedo = new System.Windows.Forms.Button();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.インポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
+            this.pictureBoxGameField = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pictureBoxGameField
-            // 
-            this.pictureBoxGameField.BackColor = System.Drawing.Color.White;
-            this.pictureBoxGameField.Location = new System.Drawing.Point(277, 40);
-            this.pictureBoxGameField.Name = "pictureBoxGameField";
-            this.pictureBoxGameField.Size = new System.Drawing.Size(640, 480);
-            this.pictureBoxGameField.TabIndex = 0;
-            this.pictureBoxGameField.TabStop = false;
-            this.pictureBoxGameField.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxGameField_Paint);
-            this.pictureBoxGameField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseDown);
-            this.pictureBoxGameField.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseMove);
-            this.pictureBoxGameField.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseUp);
             // 
             // listBoxSelectObject
             // 
@@ -146,6 +139,39 @@
             this.buttonRedo.UseVisualStyleBackColor = true;
             this.buttonRedo.Click += new System.EventHandler(this.buttonRedo_Click);
             // 
+            // menuStrip
+            // 
+            this.menuStrip.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ファイルToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(1203, 31);
+            this.menuStrip.TabIndex = 11;
+            this.menuStrip.Text = "menuStrip1";
+            // 
+            // ファイルToolStripMenuItem
+            // 
+            this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.エクスポートToolStripMenuItem,
+            this.インポートToolStripMenuItem});
+            this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
+            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(105, 27);
+            this.ファイルToolStripMenuItem.Text = "ファイル(&F)";
+            // 
+            // エクスポートToolStripMenuItem
+            // 
+            this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
+            this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(185, 28);
+            this.エクスポートToolStripMenuItem.Text = "エクスポート...";
+            this.エクスポートToolStripMenuItem.Click += new System.EventHandler(this.エクスポートToolStripMenuItem_Click);
+            // 
+            // インポートToolStripMenuItem
+            // 
+            this.インポートToolStripMenuItem.Name = "インポートToolStripMenuItem";
+            this.インポートToolStripMenuItem.Size = new System.Drawing.Size(185, 28);
+            this.インポートToolStripMenuItem.Text = "インポート...";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -159,15 +185,33 @@
             this.Controls.Add(this.labelCurrentObj);
             this.Controls.Add(this.labelOnCursor);
             this.Controls.Add(this.listBoxSelectObject);
+            this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.pictureBoxGameField);
             this.KeyPreview = true;
+            this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
             this.Text = "メイン";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).EndInit();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
+            // 
+            // pictureBoxGameField
+            // 
+            this.pictureBoxGameField.BackColor = System.Drawing.Color.White;
+            this.pictureBoxGameField.Location = new System.Drawing.Point(277, 40);
+            this.pictureBoxGameField.Name = "pictureBoxGameField";
+            this.pictureBoxGameField.Size = new System.Drawing.Size(640, 480);
+            this.pictureBoxGameField.TabIndex = 0;
+            this.pictureBoxGameField.TabStop = false;
+            this.pictureBoxGameField.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxGameField_Paint);
+            this.pictureBoxGameField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseDown);
+            this.pictureBoxGameField.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseMove);
+            this.pictureBoxGameField.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseUp);
 
         }
 
@@ -182,6 +226,10 @@
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonUndo;
         private System.Windows.Forms.Button buttonRedo;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem エクスポートToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem インポートToolStripMenuItem;
     }
 }
 

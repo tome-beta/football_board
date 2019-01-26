@@ -99,6 +99,13 @@ namespace FootballBoard
             ChangeGUI(this.ObjectSelect);
         }
 
+        //メニューからエクスポートを選んだとき
+        private void エクスポートToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.DataControle.ExportData();
+        }
+
+
         private void pictureBoxGameField_Paint(object sender, PaintEventArgs e)
         {
             //ピクチャボックスを初期化
@@ -111,6 +118,7 @@ namespace FootballBoard
             this.DrawUpdate();
 
             this.labelOnCursor.Text = @"OnCursor : " + this.DataControle.State.OnCursolIndex.ToString();
+
         }
 
         Controle DataControle = new Controle();

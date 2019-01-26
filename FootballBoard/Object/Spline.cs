@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace FootballBoard
 {
     //スプライン曲線を作るクラス
+    [Serializable()]
     public class Spline
     {
         public const int MAX_SPLINE_SIZE = 3;   //スプライン曲線の頂点
