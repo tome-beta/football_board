@@ -21,32 +21,16 @@ namespace FootballBoard
         }
 
         //オブジェクトリストをファイルとして保存
-        public void ExportData()
+        public void ExportData(SaveFileDialog dialog)
         {
-            //SaveFileDialogクラスのインスタンスを作成
-            SaveFileDialog sfd = new SaveFileDialog();
-
-            //はじめのファイル名を指定する
-            //はじめに「ファイル名」で表示される文字列を指定する
-            sfd.FileName = "BoardData.csv";
-            //はじめに表示されるフォルダを指定する
-//            sfd.InitialDirectory = @"C:\";
-            //[ファイルの種類]に表示される選択肢を指定する
-            //指定しない（空の文字列）の時は、現在のディレクトリが表示される
-            sfd.Filter = "csvファイル(*.csv)|*.csv";
-            //[ファイルの種類]ではじめに選択されるものを指定する
-            //2番目の「すべてのファイル」が選択されているようにする
-            //            sfd.FilterIndex = 2;
-            //タイトルを設定する
-            sfd.Title = @"保存先のファイルを選択してください";
-            //ダイアログボックスを閉じる前に現在のディレクトリを復元するようにする
-            sfd.RestoreDirectory = true;
-
+            dialog.Filter = "csvファイル(*.csv)|*.csv";
+            dialog.FileName = "BoardData.csv";
+            dialog.Title = @"保存先のファイルを選択してください";
             //ダイアログを表示する
-            if (sfd.ShowDialog() == DialogResult.OK)
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
                 //OKボタンがクリックされたとき、選択されたファイル名を表示する
-                WriteCsvFile(sfd.FileName);
+                WriteCsvFile(dialog.FileName);
             }
         }
         //オブジェクトリストをファイルとして保存
@@ -68,11 +52,29 @@ namespace FootballBoard
 
             using (StreamReader sr = new System.IO.StreamReader(file_name, System.Text.Encoding.GetEncoding("UTF-8")))
             {
-                while(sr.Peek() >-1)
+                String line = sr.ReadLine();
+                //１行目のチェック
+                if (line != @"FootBallBoardData")
                 {
-                    String line = sr.ReadLine();
-                    string[] str_array = line.Split(',');
+                    //警告ウインドウ
+                    //メッセージボックスを表示する
+                    MessageBox.Show("データ形式が違います",
+                        "エラー",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    return;
+                }
 
+                while (sr.Peek() >-1)
+                {
+                    line = sr.ReadLine();
+
+                    if (line == @"FootBallBoardData")
+                    {
+                        continue;
+                    }
+
+                    string[] str_array = line.Split(',');
                     //Pointsを取得
                     Point[] tmp_points = new Point[4];
                     for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
@@ -166,6 +168,8 @@ namespace FootballBoard
             {
                 foreach(var obj in this.model.ObjectList)
                 {
+                    sw.WriteLine(@"FootBallBoardData");
+
                     String line = @"";
                     //オブジェクトの種類
                     string[] str_array = obj.ToString().Split('.');

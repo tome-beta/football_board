@@ -42,6 +42,7 @@
             this.インポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxGameField = new System.Windows.Forms.PictureBox();
             this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialogExport = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.SuspendLayout();
@@ -235,6 +236,7 @@
         private System.Windows.Forms.ToolStripMenuItem エクスポートToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem インポートToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialogImport;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogExport;
     }
 }
 
