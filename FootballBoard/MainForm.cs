@@ -102,12 +102,43 @@ namespace FootballBoard
         //メニューからエクスポートを選んだとき
         private void エクスポートToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
             this.DataControle.ExportData(this.saveFileDialogExport);
+            this.Visible = true;
         }
         //メニューからインポートを選んだとき
         private void インポートToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.DataControle.ImportData(this.openFileDialogImport);
+        }
+        //メニューから画像保存を押したとき
+        private void 画像出力ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.saveFileDialogImage.Filter = "画像ファイル|*.gif;*.jpg;*.png|すべてのファイル|*.*";
+            saveFileDialogImage.FileName = "image";
+            saveFileDialogImage.Title = @"ファイルを選択してください";
+            //ダイアログを表示する
+            if (saveFileDialogImage.ShowDialog() == DialogResult.OK)
+            {
+                //OKボタンがクリックされたとき、選択されたファイル名を表示する
+                string extension = System.IO.Path.GetExtension(saveFileDialogImage.FileName);
+
+                switch (extension.ToUpper())
+                {
+                    case ".GIF":
+                        // ★★★PictureBoxのイメージをGIF形式で保存する★★★
+                        this.pictureBoxGameField.Image.Save(saveFileDialogImage.FileName, System.Drawing.Imaging.ImageFormat.Gif);
+                        break;
+                    case ".JPEG":
+                        // ★★★PictureBoxのイメージをJPEG形式で保存する★★★
+                        pictureBoxGameField.Image.Save(saveFileDialogImage.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        break;
+                    case ".PNG":
+                        // ★★★PictureBoxのイメージをGIF形式で保存する★★★
+                        pictureBoxGameField.Image.Save(saveFileDialogImage.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                        break;
+                }
+            }
         }
 
         private void pictureBoxGameField_Paint(object sender, PaintEventArgs e)
@@ -134,7 +165,6 @@ namespace FootballBoard
         Graphics FieldGraphics;
 
         private Image SoccerFieldImage;
-
 
     }
 }

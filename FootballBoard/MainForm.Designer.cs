@@ -40,9 +40,12 @@
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.インポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.画像出力ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxGameField = new System.Windows.Forms.PictureBox();
             this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogExport = new System.Windows.Forms.SaveFileDialog();
+            this.saveFileDialogImage = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.SuspendLayout();
@@ -155,7 +158,9 @@
             // 
             this.ファイルToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.エクスポートToolStripMenuItem,
-            this.インポートToolStripMenuItem});
+            this.インポートToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.画像出力ToolStripMenuItem});
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
             this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(105, 27);
             this.ファイルToolStripMenuItem.Text = "ファイル(&F)";
@@ -174,6 +179,18 @@
             this.インポートToolStripMenuItem.Text = "インポート...";
             this.インポートToolStripMenuItem.Click += new System.EventHandler(this.インポートToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(182, 6);
+            // 
+            // 画像出力ToolStripMenuItem
+            // 
+            this.画像出力ToolStripMenuItem.Name = "画像出力ToolStripMenuItem";
+            this.画像出力ToolStripMenuItem.Size = new System.Drawing.Size(185, 28);
+            this.画像出力ToolStripMenuItem.Text = "画像出力";
+            this.画像出力ToolStripMenuItem.Click += new System.EventHandler(this.画像出力ToolStripMenuItem_Click);
+            // 
             // pictureBoxGameField
             // 
             this.pictureBoxGameField.BackColor = System.Drawing.Color.White;
@@ -189,6 +206,7 @@
             // 
             // openFileDialogImport
             // 
+            this.openFileDialogImport.AddExtension = false;
             this.openFileDialogImport.FileName = "openFileDialogImport";
             // 
             // MainForm
@@ -196,6 +214,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1203, 653);
+            this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.buttonRedo);
             this.Controls.Add(this.buttonUndo);
             this.Controls.Add(this.buttonDelete);
@@ -204,7 +223,6 @@
             this.Controls.Add(this.labelCurrentObj);
             this.Controls.Add(this.labelOnCursor);
             this.Controls.Add(this.listBoxSelectObject);
-            this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.pictureBoxGameField);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
@@ -237,6 +255,9 @@
         private System.Windows.Forms.ToolStripMenuItem インポートToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialogImport;
         private System.Windows.Forms.SaveFileDialog saveFileDialogExport;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 画像出力ToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogImage;
     }
 }
 
