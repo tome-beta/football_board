@@ -40,10 +40,10 @@
             this.ファイルToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.エクスポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.インポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-
             this.pictureBoxGameField = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
+            this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxSelectObject
@@ -171,6 +171,24 @@
             this.インポートToolStripMenuItem.Name = "インポートToolStripMenuItem";
             this.インポートToolStripMenuItem.Size = new System.Drawing.Size(185, 28);
             this.インポートToolStripMenuItem.Text = "インポート...";
+            this.インポートToolStripMenuItem.Click += new System.EventHandler(this.インポートToolStripMenuItem_Click);
+            // 
+            // pictureBoxGameField
+            // 
+            this.pictureBoxGameField.BackColor = System.Drawing.Color.White;
+            this.pictureBoxGameField.Location = new System.Drawing.Point(277, 40);
+            this.pictureBoxGameField.Name = "pictureBoxGameField";
+            this.pictureBoxGameField.Size = new System.Drawing.Size(640, 480);
+            this.pictureBoxGameField.TabIndex = 0;
+            this.pictureBoxGameField.TabStop = false;
+            this.pictureBoxGameField.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxGameField_Paint);
+            this.pictureBoxGameField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseDown);
+            this.pictureBoxGameField.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseMove);
+            this.pictureBoxGameField.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseUp);
+            // 
+            // openFileDialogImport
+            // 
+            this.openFileDialogImport.FileName = "openFileDialogImport";
             // 
             // MainForm
             // 
@@ -193,25 +211,11 @@
             this.Text = "メイン";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
-            // 
-            // pictureBoxGameField
-            // 
-            this.pictureBoxGameField.BackColor = System.Drawing.Color.White;
-            this.pictureBoxGameField.Location = new System.Drawing.Point(277, 40);
-            this.pictureBoxGameField.Name = "pictureBoxGameField";
-            this.pictureBoxGameField.Size = new System.Drawing.Size(640, 480);
-            this.pictureBoxGameField.TabIndex = 0;
-            this.pictureBoxGameField.TabStop = false;
-            this.pictureBoxGameField.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxGameField_Paint);
-            this.pictureBoxGameField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseDown);
-            this.pictureBoxGameField.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseMove);
-            this.pictureBoxGameField.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxGameField_MouseUp);
 
         }
 
@@ -230,6 +234,7 @@
         private System.Windows.Forms.ToolStripMenuItem ファイルToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem エクスポートToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem インポートToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialogImport;
     }
 }
 

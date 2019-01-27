@@ -49,13 +49,119 @@ namespace FootballBoard
                 WriteCsvFile(sfd.FileName);
             }
         }
+        //オブジェクトリストをファイルとして保存
+        public void ImportData(OpenFileDialog dialog)
+        {
+            // ダイアログを表示し、戻り値が [OK] の場合は、選択したファイルを表示する
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                ReadCsvFile(dialog.FileName);
+            }
+        }
 
         //================================================
         // private 
         //================================================
+        private void ReadCsvFile(String file_name)
+        {
+            this.model.ObjectList.Clear();
+
+            using (StreamReader sr = new System.IO.StreamReader(file_name, System.Text.Encoding.GetEncoding("UTF-8")))
+            {
+                while(sr.Peek() >-1)
+                {
+                    String line = sr.ReadLine();
+                    string[] str_array = line.Split(',');
+
+                    //Pointsを取得
+                    Point[] tmp_points = new Point[4];
+                    for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                    {
+                        tmp_points[i].X = int.Parse(str_array[1 + i * 2]);
+                        tmp_points[i].Y = int.Parse(str_array[1 + i * 2 + 1]);
+                    }
+
+                    //名前で作るオブジェクトを変える
+                    if ( str_array[0] == "ObjectMarker")
+                    {
+                        ObjectMarker obj = new ObjectMarker(tmp_points[0]);
+                        for(int i = 0;i < ObjectBase.OBJ_POINTS_NUM; i++)
+                        {
+                            obj.Points[i] = tmp_points[i];
+                        }
+                        this.model.ObjectList.Add(obj);
+                    }
+                    if (str_array[0] == "ObjectLine")
+                    {
+                        ObjectLine obj = new ObjectLine(tmp_points[0]);
+                        for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                        {
+                            obj.Points[i] = tmp_points[i];
+                        }
+                        this.model.ObjectList.Add(obj);
+                    }
+                    if (str_array[0] == "ObjectCurve")
+                    {
+                        ObjectCurve obj = new ObjectCurve(tmp_points[0]);
+                        for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                        {
+                            obj.Points[i] = tmp_points[i];
+                        }
+                        this.model.ObjectList.Add(obj);
+                    }
+                    if (str_array[0] == "ObjectCircle")
+                    {
+                        ObjectCircle obj = new ObjectCircle(tmp_points[0]);
+                        for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                        {
+                            obj.Points[i] = tmp_points[i];
+                        }
+                        this.model.ObjectList.Add(obj);
+                    }
+                    if (str_array[0] == "ObjectRect")
+                    {
+                        ObjectRect obj = new ObjectRect(tmp_points[0]);
+                        for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                        {
+                            obj.Points[i] = tmp_points[i];
+                        }
+                        this.model.ObjectList.Add(obj);
+                    }
+                    if (str_array[0] == "ObjectPolygon")
+                    {
+                        ObjectPolygon obj = new ObjectPolygon(tmp_points[0]);
+                        for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                        {
+                            obj.Points[i] = tmp_points[i];
+                        }
+                        this.model.ObjectList.Add(obj);
+                    }
+                    if (str_array[0] == "ObjectTriangle")
+                    {
+                        ObjectTriangle obj = new ObjectTriangle(tmp_points[0]);
+                        for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                        {
+                            obj.Points[i] = tmp_points[i];
+                        }
+                        this.model.ObjectList.Add(obj);
+                    }
+                    if (str_array[0] == "ObjectString")
+                    {
+                        ObjectString obj = new ObjectString(tmp_points[0]);
+                        for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                        {
+                            obj.Points[i] = tmp_points[i];
+                        }
+                        this.model.ObjectList.Add(obj);
+                    }
+                }
+
+
+            }
+        }
         private void WriteCsvFile(String file_name)
         {
-            Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+            Encoding sjisEnc = Encoding.GetEncoding("UTF-8");
              using (StreamWriter sw = new StreamWriter(file_name, false, sjisEnc))
             {
                 foreach(var obj in this.model.ObjectList)
