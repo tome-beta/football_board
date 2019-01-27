@@ -102,7 +102,7 @@ namespace FootballBoard
         //メニューからエクスポートを選んだとき
         private void エクスポートToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.DataControle.ExportData();
+            this.DataControle.ExportData(this.saveFileDialogExport);
         }
         //メニューからインポートを選んだとき
         private void インポートToolStripMenuItem_Click(object sender, EventArgs e)
