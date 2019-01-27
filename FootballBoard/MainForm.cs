@@ -104,7 +104,11 @@ namespace FootballBoard
         {
             this.DataControle.ExportData();
         }
-
+        //メニューからインポートを選んだとき
+        private void インポートToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.DataControle.ImportData(this.openFileDialogImport);
+        }
 
         private void pictureBoxGameField_Paint(object sender, PaintEventArgs e)
         {
