@@ -105,6 +105,7 @@ namespace FootballBoard
             this.Visible = false;
             this.DataControle.ExportData(this.saveFileDialogExport);
             this.Visible = true;
+            this.Activate();
         }
         //メニューからインポートを選んだとき
         private void インポートToolStripMenuItem_Click(object sender, EventArgs e)
@@ -114,6 +115,8 @@ namespace FootballBoard
         //メニューから画像保存を押したとき
         private void 画像出力ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
+
             this.saveFileDialogImage.Filter = "画像ファイル|*.gif;*.jpg;*.png|すべてのファイル|*.*";
             saveFileDialogImage.FileName = "image";
             saveFileDialogImage.Title = @"ファイルを選択してください";
@@ -139,6 +142,9 @@ namespace FootballBoard
                         break;
                 }
             }
+
+            this.Visible = true;
+            this.Activate();
         }
 
         private void pictureBoxGameField_Paint(object sender, PaintEventArgs e)
