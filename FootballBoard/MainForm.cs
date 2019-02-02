@@ -74,6 +74,14 @@ namespace FootballBoard
             {
                 this.DataControle.DeleteObject();
             }
+            else if (e.Control ==true && e.KeyCode == Keys.Z)
+            {
+                this.DataControle.Undo();
+            }
+            else if (e.Control == true && e.KeyCode == Keys.Y)
+            {
+                this.DataControle.Redo();
+            }
         }
         //UNDOボタンを押したとき
         private void buttonUndo_Click(object sender, EventArgs e)
