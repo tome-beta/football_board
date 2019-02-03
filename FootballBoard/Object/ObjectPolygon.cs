@@ -23,7 +23,7 @@ namespace FootballBoard
             }
         }
         //左ドラッグ
-        public override void MouseMove(Point pos)
+        public override void LeftMouseMove(Point pos)
         {
             if (this.MouseDrag)
             {
@@ -37,7 +37,14 @@ namespace FootballBoard
         {
             this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
         }
+        //右クリック
+        public override void RightMouseDown(Point pos) { }
+        public override void RightMouseMove(Point pos) { }
+        public override void RightMouseUp(Point pos) { }
+        public override void MouseMove(Point pos)
+        {
 
+        }
         //文字列を設定する
         public override void SetString(String str)
         {

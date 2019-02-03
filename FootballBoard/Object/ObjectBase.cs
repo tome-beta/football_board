@@ -13,6 +13,8 @@ namespace FootballBoard
             ON_CURSOR,  //上に載せた
             SELECT,     //一度選択した
             DRUG,       //掴んでいる
+
+            RIGHT_SET,  //右クリックで掴んだ
         };
 
         public const int OBJ_POINTS_NUM = 4;

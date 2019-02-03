@@ -42,7 +42,7 @@ namespace FootballBoard
         }
 
         //マウスを動かす
-        public override void MouseMove(Point pos)
+        public override void LeftMouseMove(Point pos)
         {
             if (this.MouseDrag)
             {
@@ -53,12 +53,75 @@ namespace FootballBoard
                     CurrentObj.DrugMove(pos);
                 }
             }
+        }
+        //左を離したとき
+        public override void LeftMouseUp(Point pos)
+        {
+            if(this.CurrentObj != null)
+            {
+                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
+            }
+
+        }
+        //右クリック
+        public override void RightMouseDown(Point pos)
+        {
+            //クリックしたところにオブジェクトがあるのか
+            if (this.OnCursolIndex >= 0)
+            {
+                CurrentObj = this.model.ObjectList[this.OnCursolIndex];
+                if ((CurrentObj as ObjectMarker) != null)
+                {
+                    //当たり判定チェック
+                    if (CurrentObj.CheckDistance(pos))
+                    {
+                        CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.RIGHT_SET;
+                    }
+                }
+            }
             else
+            {
+                this.CurrentObj = null;
+            }
+
+            //オブジェクトを選択できていたらその他のオブジェクトの状態をリセット
+            for (int i = 0; i < this.model.ObjectList.Count; i++)
+            {
+                if (this.model.ObjectList[i].ObjStatus != ObjectBase.OBJ_STATUS.RIGHT_SET)
+                {
+                    this.model.ObjectList[i].ObjStatus = ObjectBase.OBJ_STATUS.NON;
+                }
+            }
+
+        }
+        public override void RightMouseMove(Point pos)
+        {
+            if (this.MouseDrag)
+            {
+                //マウスドラッグ中
+                if ((CurrentObj as ObjectMarker) != null)
+                {
+                    //回転
+                    ObjectMarker mark = CurrentObj as ObjectMarker;
+                    mark.RotateDirection(pos);
+                }
+            }
+
+        }
+        public override void RightMouseUp(Point pos)
+        {
+            if (this.CurrentObj != null)
+            {
+                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
+            }
+        }
+        public override void MouseMove(Point pos)
+        {
             {
                 //選択状態を一度初期化
                 foreach (ObjectBase obj in this.model.ObjectList)
                 {
-                    if(obj.ObjStatus != ObjectBase.OBJ_STATUS.SELECT)
+                    if (obj.ObjStatus != ObjectBase.OBJ_STATUS.SELECT)
                     {
                         obj.ObjStatus = ObjectBase.OBJ_STATUS.NON;
                     }
@@ -83,15 +146,6 @@ namespace FootballBoard
                 }
             }
         }
-        //左を離したとき
-        public override void LeftMouseUp(Point pos)
-        {
-            if(this.CurrentObj != null)
-            {
-                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
-            }
-        }
-
         //文字列を設定する
         public override void SetString(String str)
         {
@@ -111,10 +165,20 @@ namespace FootballBoard
 
         //左クリックしたとき
         public abstract void LeftMouseDown(Point pos);
-        //マウスを動かす（ドラッグも込み）
-        public abstract void MouseMove(Point pos);
+        //左マウスを動かす（ドラッグも込み）
+        public abstract void LeftMouseMove(Point pos);
         //左を離したとき
         public abstract void LeftMouseUp(Point pos);
+
+        //右クリックしたとき
+        public abstract void RightMouseDown(Point pos);
+        //右マウスを動かす（ドラッグも込み）
+        public abstract void RightMouseMove(Point pos);
+        //右を離したとき
+        public abstract void RightMouseUp(Point pos);
+
+        //何も押さずに動かしているとき
+        public abstract void MouseMove(Point pos);
 
         //文字列を設定する
         public abstract void SetString(String str);

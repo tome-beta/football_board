@@ -33,7 +33,7 @@ namespace FootballBoard
             }
         }
         //左ドラッグ
-        public override void MouseMove(Point pos)
+        public override void LeftMouseMove(Point pos)
         {
             if (this.MouseDrag)
             {
@@ -49,6 +49,34 @@ namespace FootballBoard
             this.MouseDrag = false;
         }
 
+        //右クリック
+        public override void RightMouseDown(Point pos)
+        {
+            //DRUG状態のマーカーが近くにあるときは動かせる様にする
+            if (CurrentObj != null && CurrentObj.CheckDistance(pos))
+            {
+                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.RIGHT_SET;
+                this.MouseDrag = true;
+            }
+        }
+        public override void RightMouseMove(Point pos)
+        {
+            if (this.MouseDrag && GUIParam.GetInstance().MarkerDirectionOn)
+            {
+                //角度を変える
+            }
+        }
+
+        public override void RightMouseUp(Point pos)
+        {
+            CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
+            this.MouseDrag = false;
+        }
+
+        public override void MouseMove(Point pos)
+        {
+
+        }
 
         //文字列を設定する
         public override void SetString(String str)
@@ -74,7 +102,6 @@ namespace FootballBoard
         public override void DrawObject(Graphics g)
         {
             int alpha = 255;
-
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
                 alpha = 255;
@@ -84,6 +111,16 @@ namespace FootballBoard
                 alpha = 128;
             }
             Brush brush = new SolidBrush(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor));
+
+            //方向を示す
+            if(GUIParam.GetInstance().MarkerDirectionOn)
+            {
+                Brush b = new SolidBrush(Color.FromArgb(alpha, Color.Blue));
+
+                Pen pen = new Pen(b,5);
+                DrawMarkerDirection(g,pen);
+            }
+
 
             g.FillEllipse(brush, new Rectangle(
             this.Points[0].X - Width / 2,
@@ -113,6 +150,17 @@ namespace FootballBoard
             return false;
         }
 
+        //方向を決める
+        public void RotateDirection(Point pos)
+        {
+            int MakerCenter_x = this.Points[0].X;
+            int MakerCenter_y = this.Points[0].Y;
+
+            double radian = Math.Atan2(pos.Y - MakerCenter_y, pos.X - MakerCenter_x);
+            direction = radian * 180d / Math.PI;
+        }
+
+        //選択しているときの三角形を描画
         private void DrawSelectTriangle(Graphics g)
         {
             Brush brush_tri = new SolidBrush(Color.Black);
@@ -171,11 +219,47 @@ namespace FootballBoard
             }
         }
 
+        private void DrawMarkerDirection(Graphics g,Pen pen)
+        {
+            int MakerCenter_x = this.Points[0].X;
+            int MakerCenter_y = this.Points[0].Y;
+
+            int offset_x_90  = (int)(20 * Math.Cos((direction + 90) * (Math.PI / 180)) );
+            int offset_y_90  = (int)(20 * Math.Sin((direction + 90) * (Math.PI / 180)) );
+            int offset_x_180 = (int)(20 * Math.Cos((direction + 180) * (Math.PI / 180)));
+            int offset_y_180 = (int)(20 * Math.Sin((direction + 180) * (Math.PI / 180)));
+            int offset_x_270 = (int)(20 * Math.Cos((direction + 270) * (Math.PI / 180)));
+            int offset_y_270 = (int)(20 * Math.Sin((direction + 270) * (Math.PI / 180)));
+
+            offset_x_90 = (int)(offset_x_90 * 1.2);
+            offset_y_90 = (int)(offset_y_90 * 1.2);
+            offset_x_180 = (int)(offset_x_180 * 0.5);
+            offset_y_180 = (int)(offset_y_180 * 0.5);
+            offset_x_270 = (int)(offset_x_270 * 1.2);
+            offset_y_270 = (int)(offset_y_270 * 1.2);
+
+
+            Point[] ps = new Point[3];
+            ps[0].X = MakerCenter_x + offset_x_90;
+            ps[0].Y = MakerCenter_y + offset_y_90;
+            ps[1].X = MakerCenter_x + offset_x_180;
+            ps[1].Y = MakerCenter_y + offset_y_180;
+            ps[2].X = MakerCenter_x + offset_x_270;
+            ps[2].Y = MakerCenter_y + offset_y_270;
+
+
+            g.DrawCurve(pen, ps,1);
+
+        }
+
 
         int TeamType;   //HomeかAwayか
 
         public int Width = 30;
         public int Height = 30;
+
+        double direction = 0;
+
     }
 
 }
