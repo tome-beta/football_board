@@ -180,5 +180,10 @@ namespace FootballBoard
 
         private Image SoccerFieldImage;
 
+        //マーカー方向チェックボックス
+        private void checkBoxDirection_CheckedChanged(object sender, EventArgs e)
+        {
+            GUIParam.GetInstance().MarkerDirectionOn = this.checkBoxDirection.Checked;
+        }
     }
 }

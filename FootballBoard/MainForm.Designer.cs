@@ -46,6 +46,8 @@
             this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogExport = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialogImage = new System.Windows.Forms.SaveFileDialog();
+            this.checkBoxDirection = new System.Windows.Forms.CheckBox();
+            this.groupBoxMarker.SuspendLayout();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.SuspendLayout();
@@ -102,10 +104,11 @@
             // 
             // groupBoxMarker
             // 
+            this.groupBoxMarker.Controls.Add(this.checkBoxDirection);
             this.groupBoxMarker.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.groupBoxMarker.Location = new System.Drawing.Point(965, 40);
             this.groupBoxMarker.Name = "groupBoxMarker";
-            this.groupBoxMarker.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxMarker.Size = new System.Drawing.Size(200, 218);
             this.groupBoxMarker.TabIndex = 7;
             this.groupBoxMarker.TabStop = false;
             this.groupBoxMarker.Text = "マーカー";
@@ -209,6 +212,17 @@
             this.openFileDialogImport.AddExtension = false;
             this.openFileDialogImport.FileName = "openFileDialogImport";
             // 
+            // checkBoxDirection
+            // 
+            this.checkBoxDirection.AutoSize = true;
+            this.checkBoxDirection.Location = new System.Drawing.Point(7, 31);
+            this.checkBoxDirection.Name = "checkBoxDirection";
+            this.checkBoxDirection.Size = new System.Drawing.Size(97, 28);
+            this.checkBoxDirection.TabIndex = 0;
+            this.checkBoxDirection.Text = "direction";
+            this.checkBoxDirection.UseVisualStyleBackColor = true;
+            this.checkBoxDirection.CheckedChanged += new System.EventHandler(this.checkBoxDirection_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -230,6 +244,8 @@
             this.Text = "メイン";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
+            this.groupBoxMarker.ResumeLayout(false);
+            this.groupBoxMarker.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).EndInit();
@@ -258,6 +274,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 画像出力ToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialogImage;
+        private System.Windows.Forms.CheckBox checkBoxDirection;
     }
 }
 

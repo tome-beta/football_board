@@ -15,8 +15,10 @@ namespace FootballBoard
         private GUIParam()
         {
             this.ObjectColor = Color.Red;
+            this.MarkerDirectionOn = false;
         }
 
         public Color ObjectColor;
+        public bool MarkerDirectionOn;
     }
 }

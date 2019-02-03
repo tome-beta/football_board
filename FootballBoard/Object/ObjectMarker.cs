@@ -74,7 +74,6 @@ namespace FootballBoard
         public override void DrawObject(Graphics g)
         {
             int alpha = 255;
-
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
                 alpha = 255;
@@ -84,6 +83,15 @@ namespace FootballBoard
                 alpha = 128;
             }
             Brush brush = new SolidBrush(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor));
+
+            //方向を示す
+            if(GUIParam.GetInstance().MarkerDirectionOn)
+            {
+                Brush b = Brushes.Blue;
+                Pen pen = new Pen(b,5);
+                DrawMarkerDirection(g,pen);
+            }
+
 
             g.FillEllipse(brush, new Rectangle(
             this.Points[0].X - Width / 2,
@@ -113,6 +121,7 @@ namespace FootballBoard
             return false;
         }
 
+        //選択しているときの三角形を描画
         private void DrawSelectTriangle(Graphics g)
         {
             Brush brush_tri = new SolidBrush(Color.Black);
@@ -169,6 +178,48 @@ namespace FootballBoard
 
                 g.FillPolygon(brush_tri, f_points);
             }
+        }
+
+        //方向をしめす表示
+        static double d = 0;
+
+        private void DrawMarkerDirection(Graphics g,Pen pen)
+        {
+            int MakerCenter_x = this.Points[0].X;
+            int MakerCenter_y = this.Points[0].Y;
+
+
+
+            double direction = d; //角度　TODO
+            d += 1.0;
+            if (d >= 360) d = 0;
+
+            int offset_x_90  = (int)(20 * Math.Cos((direction + 90) * (Math.PI / 180)) );
+            int offset_y_90  = (int)(20 * Math.Sin((direction + 90) * (Math.PI / 180)) );
+            int offset_x_180 = (int)(20 * Math.Cos((direction + 180) * (Math.PI / 180)));
+            int offset_y_180 = (int)(20 * Math.Sin((direction + 180) * (Math.PI / 180)));
+            int offset_x_270 = (int)(20 * Math.Cos((direction + 270) * (Math.PI / 180)));
+            int offset_y_270 = (int)(20 * Math.Sin((direction + 270) * (Math.PI / 180)));
+
+            offset_x_90 = (int)(offset_x_90 * 1.2);
+            offset_y_90 = (int)(offset_y_90 * 1.2);
+            offset_x_180 = (int)(offset_x_180 * 0.5);
+            offset_y_180 = (int)(offset_y_180 * 0.5);
+            offset_x_270 = (int)(offset_x_270 * 1.2);
+            offset_y_270 = (int)(offset_y_270 * 1.2);
+
+
+            Point[] ps = new Point[3];
+            ps[0].X = MakerCenter_x + offset_x_90;
+            ps[0].Y = MakerCenter_y + offset_y_90;
+            ps[1].X = MakerCenter_x + offset_x_180;
+            ps[1].Y = MakerCenter_y + offset_y_180;
+            ps[2].X = MakerCenter_x + offset_x_270;
+            ps[2].Y = MakerCenter_y + offset_y_270;
+
+
+            g.DrawCurve(pen, ps,1);
+
         }
 
 
