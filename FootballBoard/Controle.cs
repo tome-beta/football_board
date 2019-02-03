@@ -350,10 +350,13 @@ namespace FootballBoard
 
         public void DeleteObject()
         {
-            this.model.ObjectList.Remove(this.State.CurrentObj);
-            this.State.CurrentObj = null;
-
-            UpdateUndoList();
+            if (this.State.CurrentObj != null)
+            {
+                this.model.ObjectList.RemoveAt(this.State.CurrentObjIndex);
+                this.State.CurrentObj = null;
+                this.State.CurrentObjIndex = -1;
+                UpdateUndoList();
+            }
         }
         //戻る機能
         public void Undo()
