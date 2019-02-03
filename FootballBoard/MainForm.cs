@@ -45,22 +45,48 @@ namespace FootballBoard
             }
         }
 
-        //左マウスクリック
+        //マウスクリック
         private void pictureBoxGameField_MouseDown(object sender, MouseEventArgs e)
         {
-            this.DataControle.LeftMouseDown(e.Location);
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    this.DataControle.LeftMouseDown(e.Location);
+                    break;
+                case MouseButtons.Right:
+                    this.DataControle.RightMouseDown(e.Location);
+                    break;
+            }
         }
         //マウスドラッグ
         private void pictureBoxGameField_MouseMove(object sender, MouseEventArgs e)
         {
-            this.DataControle.LeftMouseDrag(e.Location);
-        }
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    this.DataControle.LeftMouseDrag(e.Location);
+                    break;
+                case MouseButtons.Right:
+                    this.DataControle.RightMouseDrag(e.Location);
+                    break;
+            }
 
+        }
         //マウスを離したとき
         private void pictureBoxGameField_MouseUp(object sender, MouseEventArgs e)
         {
-            this.DataControle.LeftMouseUp(e.Location);
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    this.DataControle.LeftMouseUp(e.Location);
+                    break;
+                case MouseButtons.Right:
+                    this.DataControle.RightMouseUp(e.Location);
+                    break;
+            }
         }
+
+
 
         //Deleteボタンを押したとき
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -137,15 +163,12 @@ namespace FootballBoard
                 switch (extension.ToUpper())
                 {
                     case ".GIF":
-                        // ★★★PictureBoxのイメージをGIF形式で保存する★★★
                         this.pictureBoxGameField.Image.Save(saveFileDialogImage.FileName, System.Drawing.Imaging.ImageFormat.Gif);
                         break;
                     case ".JPEG":
-                        // ★★★PictureBoxのイメージをJPEG形式で保存する★★★
                         pictureBoxGameField.Image.Save(saveFileDialogImage.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
                         break;
                     case ".PNG":
-                        // ★★★PictureBoxのイメージをGIF形式で保存する★★★
                         pictureBoxGameField.Image.Save(saveFileDialogImage.FileName, System.Drawing.Imaging.ImageFormat.Png);
                         break;
                 }

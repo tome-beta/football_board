@@ -33,7 +33,7 @@ namespace FootballBoard
             }
         }
         //左ドラッグ
-        public override void MouseMove(Point pos)
+        public override void LeftMouseMove(Point pos)
         {
             if (this.MouseDrag)
             {
@@ -49,6 +49,10 @@ namespace FootballBoard
             this.MouseDrag = false;
         }
 
+        //右クリック
+        public override void RightMouseDown(Point pos) { }
+        public override void RightMouseMove(Point pos) { }
+        public override void RightMouseUp(Point pos) { }
 
         //文字列を設定する
         public override void SetString(String str)
@@ -187,8 +191,6 @@ namespace FootballBoard
         {
             int MakerCenter_x = this.Points[0].X;
             int MakerCenter_y = this.Points[0].Y;
-
-
 
             double direction = d; //角度　TODO
             d += 1.0;

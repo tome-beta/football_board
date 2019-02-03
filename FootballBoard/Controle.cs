@@ -220,7 +220,7 @@ namespace FootballBoard
         }
         public void LeftMouseDrag(Point pos)
         {
-            this.State.MouseMove(pos);
+            this.State.LeftMouseMove(pos);
         }
         public void LeftMouseUp(Point pos)
         {
@@ -229,7 +229,22 @@ namespace FootballBoard
 
             UpdateUndoList();
         }
+        public void RightMouseDown(Point pos)
+        {
+            this.State.MouseDrag = true;
+            this.State.RightMouseDown(pos);
+        }
+        public void RightMouseDrag(Point pos)
+        {
+            this.State.RightMouseMove(pos);
+        }
+        public void RightMouseUp(Point pos)
+        {
+            this.State.MouseDrag = false;
+            this.State.RightMouseUp(pos);
 
+            UpdateUndoList();
+        }
 
 
 
