@@ -115,7 +115,8 @@ namespace FootballBoard
             //方向を示す
             if(GUIParam.GetInstance().MarkerDirectionOn)
             {
-                Brush b = Brushes.Blue;
+                Brush b = new SolidBrush(Color.FromArgb(alpha, Color.Blue));
+
                 Pen pen = new Pen(b,5);
                 DrawMarkerDirection(g,pen);
             }
