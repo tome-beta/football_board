@@ -50,9 +50,33 @@ namespace FootballBoard
         }
 
         //右クリック
-        public override void RightMouseDown(Point pos) { }
-        public override void RightMouseMove(Point pos) { }
-        public override void RightMouseUp(Point pos) { }
+        public override void RightMouseDown(Point pos)
+        {
+            //DRUG状態のマーカーが近くにあるときは動かせる様にする
+            if (CurrentObj != null && CurrentObj.CheckDistance(pos))
+            {
+                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.RIGHT_SET;
+                this.MouseDrag = true;
+            }
+        }
+        public override void RightMouseMove(Point pos)
+        {
+            if (this.MouseDrag && GUIParam.GetInstance().MarkerDirectionOn)
+            {
+                //角度を変える
+            }
+        }
+
+        public override void RightMouseUp(Point pos)
+        {
+            CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
+            this.MouseDrag = false;
+        }
+
+        public override void MouseMove(Point pos)
+        {
+
+        }
 
         //文字列を設定する
         public override void SetString(String str)

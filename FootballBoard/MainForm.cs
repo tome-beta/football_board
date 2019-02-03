@@ -69,6 +69,9 @@ namespace FootballBoard
                 case MouseButtons.Right:
                     this.DataControle.RightMouseDrag(e.Location);
                     break;
+                default:
+                    this.DataControle.MouseDrag(e.Location);
+                    break;
             }
 
         }

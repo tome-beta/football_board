@@ -229,6 +229,7 @@ namespace FootballBoard
 
             UpdateUndoList();
         }
+
         public void RightMouseDown(Point pos)
         {
             this.State.MouseDrag = true;
@@ -246,7 +247,10 @@ namespace FootballBoard
             UpdateUndoList();
         }
 
-
+        public void MouseDrag(Point pos)
+        {
+            this.State.MouseMove(pos);
+        }
 
         //================================================================
         //GUI操作の受け渡し

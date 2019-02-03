@@ -43,6 +43,11 @@ namespace FootballBoard
         public override void RightMouseMove(Point pos) { }
         public override void RightMouseUp(Point pos) { }
 
+        public override void MouseMove(Point pos)
+        {
+
+        }
+
         //文字列を設定する
         public override void SetString(String str)
         {
