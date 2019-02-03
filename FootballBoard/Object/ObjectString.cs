@@ -21,6 +21,7 @@ namespace FootballBoard
                 this.model.ObjectList.Add(str);
                 this.CurrentObj = str;
                 str.DrugType = ObjectString.DRUG_TYPE.INIT;
+                this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
             }
         }
         //左ドラッグ
@@ -67,10 +68,26 @@ namespace FootballBoard
         //コンストラクタ
         public ObjectString(Point pos)
         {
+            //３箇所を動かす
             this.Points[0] = pos;
             this.Points[1] = pos;
             this.Points[2] = pos;
             this.Points[3] = pos;
+
+            int offset = 5;
+            //調整
+            this.Points[0].X -= offset;
+            this.Points[0].Y -= offset;
+
+
+            this.Points[1].X += 10 + offset;
+            this.Points[1].Y += 10 - offset;
+
+            this.Points[2].X += 10 + offset;
+            this.Points[2].Y += 20 + offset;
+
+            this.Points[3].X += 20 - offset;
+            this.Points[3].Y += 20 + offset;
         }
 
         //ドラッグしているときの動き
