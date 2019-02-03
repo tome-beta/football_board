@@ -102,6 +102,8 @@ namespace FootballBoard
                 if ((CurrentObj as ObjectMarker) != null)
                 {
                     //回転
+                    ObjectMarker mark = CurrentObj as ObjectMarker;
+                    mark.RotateDirection(pos);
                 }
             }
 

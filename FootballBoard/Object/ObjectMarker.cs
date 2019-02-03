@@ -149,6 +149,16 @@ namespace FootballBoard
             return false;
         }
 
+        //方向を決める
+        public void RotateDirection(Point pos)
+        {
+            int MakerCenter_x = this.Points[0].X;
+            int MakerCenter_y = this.Points[0].Y;
+
+            double radian = Math.Atan2(pos.Y - MakerCenter_y, pos.X - MakerCenter_x);
+            direction = radian * 180d / Math.PI;
+        }
+
         //選択しているときの三角形を描画
         private void DrawSelectTriangle(Graphics g)
         {
@@ -208,17 +218,10 @@ namespace FootballBoard
             }
         }
 
-        //方向をしめす表示
-        static double d = 0;
-
         private void DrawMarkerDirection(Graphics g,Pen pen)
         {
             int MakerCenter_x = this.Points[0].X;
             int MakerCenter_y = this.Points[0].Y;
-
-            double direction = d; //角度　TODO
-            d += 1.0;
-            if (d >= 360) d = 0;
 
             int offset_x_90  = (int)(20 * Math.Cos((direction + 90) * (Math.PI / 180)) );
             int offset_y_90  = (int)(20 * Math.Sin((direction + 90) * (Math.PI / 180)) );
@@ -253,6 +256,9 @@ namespace FootballBoard
 
         public int Width = 30;
         public int Height = 30;
+
+        double direction = 0;
+
     }
 
 }
