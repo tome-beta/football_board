@@ -17,6 +17,8 @@ namespace FootballBoard
             if( this.OnCursolIndex >= 0)
             {
                 CurrentObj = this.model.ObjectList[this.OnCursolIndex];
+                CurrentObjIndex = OnCursolIndex;
+
                 if (CurrentObj != null)
                 {
                     //当たり判定チェック
@@ -29,6 +31,7 @@ namespace FootballBoard
             else
             {
                 this.CurrentObj = null;
+                CurrentObjIndex = -1;
             }
 
             //オブジェクトを選択できていたらその他のオブジェクトの状態をリセット
