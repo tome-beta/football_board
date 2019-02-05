@@ -12,12 +12,12 @@ namespace FootballBoard
     public partial class MainForm : Form
     {
         //描画更新はここでやる
-        public void DrawUpdate()
+        public void DrawUpdate(Graphics g,Bitmap bitmap)
         {
             //オブジェクトを描画
-            this.DataControle.DrawAll(this.FieldGraphics);
+            this.DataControle.DrawAll(g);
             //反映
-            this.pictureBoxGameField.Image = this.FieldBitmap;
+            this.pictureBoxGameField.Image = bitmap;
         }
 
     }

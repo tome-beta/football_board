@@ -27,8 +27,9 @@ namespace FootballBoard
         {
             //pictureboxに描画する準備
             this.FieldBitmap = new Bitmap(this.pictureBoxGameField.Width, this.pictureBoxGameField.Height);
+            this.FieldBitmap_Vertical = new Bitmap(this.pictureBoxGameField.Height, this.pictureBoxGameField.Width);
             this.FieldGraphics = Graphics.FromImage(this.FieldBitmap);
-            this.pictureBoxGameField.Image = this.FieldBitmap;
+            this.FieldGraphics_Vertical = Graphics.FromImage(this.FieldBitmap_Vertical);
 
             this.listBoxSelectObject.SelectedIndex = 0;
 
@@ -37,11 +38,17 @@ namespace FootballBoard
             if (System.IO.File.Exists(filed_image_str))
             {
                 SoccerFieldImage = Image.FromFile(filed_image_str);
+                filed_image_str = @"..\..\..\resource\soccer_field_vertical.png";
+                SoccerFieldImage_Vertical = Image.FromFile(filed_image_str);
             }
             else
             {
                 filed_image_str = @"..\..\resource\soccer_field.png";
                 SoccerFieldImage = Image.FromFile(filed_image_str);
+
+                filed_image_str = @"..\..\resource\soccer_field_vertical.png";
+                SoccerFieldImage_Vertical = Image.FromFile(filed_image_str);
+           
             }
         }
 
@@ -183,33 +190,92 @@ namespace FootballBoard
 
         private void pictureBoxGameField_Paint(object sender, PaintEventArgs e)
         {
-            //ピクチャボックスを初期化
-            this.FieldGraphics.Clear(Color.White);
 
             //サッカーフィールドを描く
-            FieldGraphics.DrawImage(SoccerFieldImage,0,0,pictureBoxGameField.Width,pictureBoxGameField.Height);
+            if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.VERTICAL)
+            {
+                //ピクチャボックスを初期化
+                this.FieldGraphics_Vertical.Clear(Color.White);
 
-            //描画更新
-            this.DrawUpdate();
+                this.pictureBoxGameField.Width = 480;
+                this.pictureBoxGameField.Height = 640;
+
+                this.FieldGraphics_Vertical = Graphics.FromImage(this.FieldBitmap_Vertical);
+                this.pictureBoxGameField.Image = this.FieldBitmap_Vertical;
+
+                this.FieldGraphics_Vertical.DrawImage(SoccerFieldImage_Vertical, 0, 0, pictureBoxGameField.Width, pictureBoxGameField.Height);
+
+                //描画更新
+                this.DrawUpdate(FieldGraphics_Vertical, this.FieldBitmap_Vertical);
+            
+            }
+            else
+            {
+                //ピクチャボックスを初期化
+                this.FieldGraphics.Clear(Color.White);
+
+                this.pictureBoxGameField.Width = 640;
+                this.pictureBoxGameField.Height = 480;
+                this.FieldGraphics = Graphics.FromImage(this.FieldBitmap);
+                this.pictureBoxGameField.Image = this.FieldBitmap;
+
+                FieldGraphics.DrawImage(SoccerFieldImage, 0, 0, pictureBoxGameField.Width, pictureBoxGameField.Height);
+            
+                //描画更新
+                this.DrawUpdate(FieldGraphics,this.FieldBitmap);
+            }
+
 
             this.labelOnCursor.Text = @"OnCursor : " + this.DataControle.State.OnCursolIndex.ToString();
 
         }
 
         Controle DataControle = new Controle();
-
         Common.SELECT_DRAW_OBJECT ObjectSelect = Common.SELECT_DRAW_OBJECT.MOVE;
 
         //メインフィールド
         Bitmap FieldBitmap;
+        Bitmap FieldBitmap_Vertical;
         Graphics FieldGraphics;
-
+        Graphics FieldGraphics_Vertical;
         private Image SoccerFieldImage;
+        private Image SoccerFieldImage_Vertical;
 
         //マーカー方向チェックボックス
         private void checkBoxDirection_CheckedChanged(object sender, EventArgs e)
         {
             GUIParam.GetInstance().MarkerDirectionOn = this.checkBoxDirection.Checked;
+        }
+
+        //Verticalを選択
+        private void verticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.VERTICAL);
+
+            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.VERTICAL;
+            this.verticalToolStripMenuItem.Checked = true;
+            this.rightToolStripMenuItem.Checked = false;
+            this.leftToolStripMenuItem.Checked = false;
+        }
+
+        //Rightを選択
+        private void rightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.RIGHT);
+            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.RIGHT;
+            this.verticalToolStripMenuItem.Checked = false;
+            this.rightToolStripMenuItem.Checked = true;
+            this.leftToolStripMenuItem.Checked = false;
+        }
+
+        //Leftを選択
+        private void leftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.LEFT);
+            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.LEFT;
+            this.verticalToolStripMenuItem.Checked = false;
+            this.rightToolStripMenuItem.Checked = false;
+            this.leftToolStripMenuItem.Checked = true;
         }
     }
 }

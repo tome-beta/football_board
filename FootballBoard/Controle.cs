@@ -348,6 +348,7 @@ namespace FootballBoard
             }
         }
 
+        //オブジェクトの削除
         public void DeleteObject()
         {
             if (this.State.CurrentObj != null)
@@ -358,6 +359,7 @@ namespace FootballBoard
                 UpdateUndoList();
             }
         }
+
         //戻る機能
         public void Undo()
         {
@@ -373,6 +375,142 @@ namespace FootballBoard
         public void SetString(String str)
         {
             this.State.SetString(str);
+        }
+
+        //フィールドの回転
+        public void FieldRotate(GUIParam.FILED_DIRECTION direction)
+        {
+            //回転のパターンを調べる
+            GUIParam.FILED_DIRECTION org_dir = GUIParam.GetInstance().FiledDirection;
+
+            if (org_dir == direction)
+            {
+                //何もしない
+                return;
+            }
+
+            double rotation = 0;
+            int center_x = 0;
+            int center_y = 0;
+            if (org_dir == GUIParam.FILED_DIRECTION.RIGHT)
+            {
+                if (direction == GUIParam.FILED_DIRECTION.VERTICAL)
+                {
+                    //オブジェクトの位置を回転させる
+                    for (int i = 0; i < this.model.ObjectList.Count; i++)
+                    {
+                        ObjectBase obj = this.model.ObjectList[i];
+
+                        for (int j = 0; j < ObjectBase.OBJ_POINTS_NUM; j++)
+                        {
+                            int x = obj.Points[j].X;
+                            int y = obj.Points[j].Y;
+
+                            obj.Points[j].X = y;
+                            obj.Points[j].Y = 640 - x;
+                        }
+                    }
+                }
+                else if (direction == GUIParam.FILED_DIRECTION.LEFT)
+                {
+                    rotation = 180 * Math.PI / 180d; ;
+                    center_x = 640 / 2;
+                    center_y = 480 / 2;
+                    //オブジェクトの位置を回転させる
+                    for (int i = 0; i < this.model.ObjectList.Count; i++)
+                    {
+                        ObjectBase obj = this.model.ObjectList[i];
+
+                        for (int j = 0; j < ObjectBase.OBJ_POINTS_NUM; j++)
+                        {
+                            int x = obj.Points[j].X - center_x;
+                            int y = obj.Points[j].Y - center_y;
+
+                            obj.Points[j].X = (int)(x * Math.Cos(rotation) - y * Math.Sin(rotation)) + center_x;
+                            obj.Points[j].Y = (int)(x * Math.Sin(rotation) + y * Math.Cos(rotation)) + center_y;
+                        }
+                    }
+                }
+            }
+            else if(org_dir == GUIParam.FILED_DIRECTION.LEFT)
+            {
+                if (direction == GUIParam.FILED_DIRECTION.VERTICAL)
+                {
+                    //オブジェクトの位置を回転させる
+                    for (int i = 0; i < this.model.ObjectList.Count; i++)
+                    {
+                        ObjectBase obj = this.model.ObjectList[i];
+
+                        for (int j = 0; j < ObjectBase.OBJ_POINTS_NUM; j++)
+                        {
+                            int x = obj.Points[j].X;
+                            int y = obj.Points[j].Y;
+
+                            obj.Points[j].X = 480 - y;
+                            obj.Points[j].Y = x;
+                        }
+                    }
+                }
+                else if (direction == GUIParam.FILED_DIRECTION.RIGHT)
+                {
+                    rotation = 180 * Math.PI / 180d;
+                    center_x = 640 / 2;
+                    center_y = 480 / 2;
+                    //オブジェクトの位置を回転させる
+                    for (int i = 0; i < this.model.ObjectList.Count; i++)
+                    {
+                        ObjectBase obj = this.model.ObjectList[i];
+
+                        for (int j = 0; j < ObjectBase.OBJ_POINTS_NUM; j++)
+                        {
+                            int x = obj.Points[j].X - center_x;
+                            int y = obj.Points[j].Y - center_y;
+
+                            obj.Points[j].X = (int)(x * Math.Cos(rotation) - y * Math.Sin(rotation)) + center_x;
+                            obj.Points[j].Y = (int)(x * Math.Sin(rotation) + y * Math.Cos(rotation)) + center_y;
+                        }
+                    }
+                }
+            }
+            else if (org_dir == GUIParam.FILED_DIRECTION.VERTICAL)
+            {
+                if (direction == GUIParam.FILED_DIRECTION.RIGHT)
+                {
+                    for (int i = 0; i < this.model.ObjectList.Count; i++)
+                    {
+                        ObjectBase obj = this.model.ObjectList[i];
+
+                        for (int j = 0; j < ObjectBase.OBJ_POINTS_NUM; j++)
+                        {
+                            int x = obj.Points[j].X;
+                            int y = obj.Points[j].Y;
+
+                            obj.Points[j].X = 640 - y;
+                            obj.Points[j].Y = x;
+                        }
+                    }
+                }
+                else if (direction == GUIParam.FILED_DIRECTION.LEFT)
+                {
+                    for (int i = 0; i < this.model.ObjectList.Count; i++)
+                    {
+                        ObjectBase obj = this.model.ObjectList[i];
+
+                        for (int j = 0; j < ObjectBase.OBJ_POINTS_NUM; j++)
+                        {
+                            int x = obj.Points[j].X;
+                            int y = obj.Points[j].Y;
+
+                            obj.Points[j].X = y;
+                            obj.Points[j].Y = 480 - x;
+                        }
+                    }
+                }
+            }
+
+
+
+
         }
 
 

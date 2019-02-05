@@ -33,6 +33,7 @@
             this.labelCurrentObj = new System.Windows.Forms.Label();
             this.textBoxInputString = new System.Windows.Forms.TextBox();
             this.groupBoxMarker = new System.Windows.Forms.GroupBox();
+            this.checkBoxDirection = new System.Windows.Forms.CheckBox();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonUndo = new System.Windows.Forms.Button();
             this.buttonRedo = new System.Windows.Forms.Button();
@@ -42,11 +43,14 @@
             this.インポートToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.画像出力ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.フィールドToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.leftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxGameField = new System.Windows.Forms.PictureBox();
             this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogExport = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialogImage = new System.Windows.Forms.SaveFileDialog();
-            this.checkBoxDirection = new System.Windows.Forms.CheckBox();
             this.groupBoxMarker.SuspendLayout();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
@@ -113,10 +117,21 @@
             this.groupBoxMarker.TabStop = false;
             this.groupBoxMarker.Text = "マーカー";
             // 
+            // checkBoxDirection
+            // 
+            this.checkBoxDirection.AutoSize = true;
+            this.checkBoxDirection.Location = new System.Drawing.Point(7, 31);
+            this.checkBoxDirection.Name = "checkBoxDirection";
+            this.checkBoxDirection.Size = new System.Drawing.Size(97, 28);
+            this.checkBoxDirection.TabIndex = 0;
+            this.checkBoxDirection.Text = "direction";
+            this.checkBoxDirection.UseVisualStyleBackColor = true;
+            this.checkBoxDirection.CheckedChanged += new System.EventHandler(this.checkBoxDirection_CheckedChanged);
+            // 
             // buttonDelete
             // 
             this.buttonDelete.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonDelete.Location = new System.Drawing.Point(55, 478);
+            this.buttonDelete.Location = new System.Drawing.Point(12, 457);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(142, 54);
             this.buttonDelete.TabIndex = 8;
@@ -127,7 +142,7 @@
             // buttonUndo
             // 
             this.buttonUndo.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonUndo.Location = new System.Drawing.Point(41, 580);
+            this.buttonUndo.Location = new System.Drawing.Point(12, 517);
             this.buttonUndo.Name = "buttonUndo";
             this.buttonUndo.Size = new System.Drawing.Size(166, 61);
             this.buttonUndo.TabIndex = 9;
@@ -138,7 +153,7 @@
             // buttonRedo
             // 
             this.buttonRedo.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.buttonRedo.Location = new System.Drawing.Point(242, 580);
+            this.buttonRedo.Location = new System.Drawing.Point(12, 584);
             this.buttonRedo.Name = "buttonRedo";
             this.buttonRedo.Size = new System.Drawing.Size(166, 61);
             this.buttonRedo.TabIndex = 10;
@@ -150,10 +165,11 @@
             // 
             this.menuStrip.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ファイルToolStripMenuItem});
+            this.ファイルToolStripMenuItem,
+            this.フィールドToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1203, 31);
+            this.menuStrip.Size = new System.Drawing.Size(1203, 26);
             this.menuStrip.TabIndex = 11;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -165,34 +181,67 @@
             this.toolStripMenuItem1,
             this.画像出力ToolStripMenuItem});
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
-            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(105, 27);
+            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(85, 22);
             this.ファイルToolStripMenuItem.Text = "ファイル(&F)";
             // 
             // エクスポートToolStripMenuItem
             // 
             this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
-            this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(185, 28);
+            this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.エクスポートToolStripMenuItem.Text = "エクスポート...";
             this.エクスポートToolStripMenuItem.Click += new System.EventHandler(this.エクスポートToolStripMenuItem_Click);
             // 
             // インポートToolStripMenuItem
             // 
             this.インポートToolStripMenuItem.Name = "インポートToolStripMenuItem";
-            this.インポートToolStripMenuItem.Size = new System.Drawing.Size(185, 28);
+            this.インポートToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.インポートToolStripMenuItem.Text = "インポート...";
             this.インポートToolStripMenuItem.Click += new System.EventHandler(this.インポートToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(182, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(157, 6);
             // 
             // 画像出力ToolStripMenuItem
             // 
             this.画像出力ToolStripMenuItem.Name = "画像出力ToolStripMenuItem";
-            this.画像出力ToolStripMenuItem.Size = new System.Drawing.Size(185, 28);
+            this.画像出力ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.画像出力ToolStripMenuItem.Text = "画像出力";
             this.画像出力ToolStripMenuItem.Click += new System.EventHandler(this.画像出力ToolStripMenuItem_Click);
+            // 
+            // フィールドToolStripMenuItem
+            // 
+            this.フィールドToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.verticalToolStripMenuItem,
+            this.rightToolStripMenuItem,
+            this.leftToolStripMenuItem});
+            this.フィールドToolStripMenuItem.Name = "フィールドToolStripMenuItem";
+            this.フィールドToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
+            this.フィールドToolStripMenuItem.Text = "フィールド";
+            // 
+            // verticalToolStripMenuItem
+            // 
+            this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
+            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.verticalToolStripMenuItem.Text = "Vertical";
+            this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
+            // 
+            // rightToolStripMenuItem
+            // 
+            this.rightToolStripMenuItem.Checked = true;
+            this.rightToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.rightToolStripMenuItem.Name = "rightToolStripMenuItem";
+            this.rightToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.rightToolStripMenuItem.Text = "Right";
+            this.rightToolStripMenuItem.Click += new System.EventHandler(this.rightToolStripMenuItem_Click);
+            // 
+            // leftToolStripMenuItem
+            // 
+            this.leftToolStripMenuItem.Name = "leftToolStripMenuItem";
+            this.leftToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.leftToolStripMenuItem.Text = "Left";
+            this.leftToolStripMenuItem.Click += new System.EventHandler(this.leftToolStripMenuItem_Click);
             // 
             // pictureBoxGameField
             // 
@@ -212,22 +261,11 @@
             this.openFileDialogImport.AddExtension = false;
             this.openFileDialogImport.FileName = "openFileDialogImport";
             // 
-            // checkBoxDirection
-            // 
-            this.checkBoxDirection.AutoSize = true;
-            this.checkBoxDirection.Location = new System.Drawing.Point(7, 31);
-            this.checkBoxDirection.Name = "checkBoxDirection";
-            this.checkBoxDirection.Size = new System.Drawing.Size(97, 28);
-            this.checkBoxDirection.TabIndex = 0;
-            this.checkBoxDirection.Text = "direction";
-            this.checkBoxDirection.UseVisualStyleBackColor = true;
-            this.checkBoxDirection.CheckedChanged += new System.EventHandler(this.checkBoxDirection_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1203, 653);
+            this.ClientSize = new System.Drawing.Size(1203, 810);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.buttonRedo);
             this.Controls.Add(this.buttonUndo);
@@ -275,6 +313,10 @@
         private System.Windows.Forms.ToolStripMenuItem 画像出力ToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialogImage;
         private System.Windows.Forms.CheckBox checkBoxDirection;
+        private System.Windows.Forms.ToolStripMenuItem フィールドToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verticalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rightToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem leftToolStripMenuItem;
     }
 }
 
