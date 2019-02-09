@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="basis\DeepCopyHelper.cs" />
     <Compile Include="basis\MementManage.cs" />
+    <Compile Include="basis\SaveDataManage.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Controle.cs" />
     <Compile Include="DataModel.cs" />
