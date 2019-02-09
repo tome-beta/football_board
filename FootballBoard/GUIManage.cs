@@ -25,7 +25,6 @@ namespace FootballBoard
                 case Common.SELECT_DRAW_OBJECT.MARKER:
                     {
                         this.groupBoxMarker.Visible = true;
-
                     }
                     break;
 

@@ -16,21 +16,22 @@ namespace FootballBoard
             //クリックしたところにオブジェクトがあるのか
             if( this.OnCursolIndex >= 0)
             {
-                CurrentObj = this.model.ObjectList[this.OnCursolIndex];
                 CurrentObjIndex = OnCursolIndex;
 
-                if (CurrentObj != null)
+                if (GetCurrentObj() != null)
                 {
                     //当たり判定チェック
-                    if (CurrentObj.CheckDistance(pos))
+                    if (GetCurrentObj().CheckDistance(pos))
                     {
-                        CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                        GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+
+                        //ここで掴んだオブジェクトによってGUI表示を切り替える
+                        GUIParam.GetInstance().MarkerGroupBox.Visible = true;
                     }
                 }
             }
             else
             {
-                this.CurrentObj = null;
                 CurrentObjIndex = -1;
             }
 
@@ -50,19 +51,19 @@ namespace FootballBoard
             if (this.MouseDrag)
             {
                 //マウスドラッグ中
-                if(CurrentObj != null)
+                if (GetCurrentObj() != null)
                 {
-                    CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                    CurrentObj.DrugMove(pos);
+                    GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                    GetCurrentObj().DrugMove(pos);
                 }
             }
         }
         //左を離したとき
         public override void LeftMouseUp(Point pos)
         {
-            if(this.CurrentObj != null)
+            if (GetCurrentObj() != null)
             {
-                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
+                GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
             }
 
         }
@@ -72,19 +73,14 @@ namespace FootballBoard
             //クリックしたところにオブジェクトがあるのか
             if (this.OnCursolIndex >= 0)
             {
-                CurrentObj = this.model.ObjectList[this.OnCursolIndex];
-                if ((CurrentObj as ObjectMarker) != null)
+                if ((GetCurrentObj() as ObjectMarker) != null)
                 {
                     //当たり判定チェック
-                    if (CurrentObj.CheckDistance(pos))
+                    if (GetCurrentObj().CheckDistance(pos))
                     {
-                        CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.RIGHT_SET;
+                        GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.RIGHT_SET;
                     }
                 }
-            }
-            else
-            {
-                this.CurrentObj = null;
             }
 
             //オブジェクトを選択できていたらその他のオブジェクトの状態をリセット
@@ -102,10 +98,10 @@ namespace FootballBoard
             if (this.MouseDrag)
             {
                 //マウスドラッグ中
-                if ((CurrentObj as ObjectMarker) != null)
+                if ((GetCurrentObj() as ObjectMarker) != null)
                 {
                     //回転
-                    ObjectMarker mark = CurrentObj as ObjectMarker;
+                    ObjectMarker mark = GetCurrentObj() as ObjectMarker;
                     mark.RotateDirection(pos);
                 }
             }
@@ -113,9 +109,9 @@ namespace FootballBoard
         }
         public override void RightMouseUp(Point pos)
         {
-            if (this.CurrentObj != null)
+            if (GetCurrentObj() != null)
             {
-                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
+                GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
             }
         }
         public override void MouseMove(Point pos)

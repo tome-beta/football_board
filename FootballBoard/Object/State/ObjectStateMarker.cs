@@ -14,9 +14,9 @@ namespace FootballBoard
         public override void LeftMouseDown(Point pos)
         {
             //DRUG状態のマーカーが近くにあるときは動かせる様にする
-            if (CurrentObj != null && CurrentObj.CheckDistance(pos))
+            if (CurrentObjIndex >= 0 && GetCurrentObj().CheckDistance(pos))
             {
-                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                 this.MouseDrag = true;
             }
             else
@@ -30,8 +30,8 @@ namespace FootballBoard
                 //マーカーを追加する
                 ObjectMarker marker = new ObjectMarker(pos);
                 this.model.ObjectList.Add(marker);
+                CurrentObjIndex = this.model.ObjectList.Count - 1;
 
-                CurrentObj = marker;
                 marker.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                 this.MouseDrag = true;
             }
@@ -41,25 +41,24 @@ namespace FootballBoard
         {
             if (this.MouseDrag)
             {
-                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
-                CurrentObj.Points[0] = pos;
+                GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                GetCurrentObj().Points[0] = pos;
             }
         }
 
         //左を離したとき
         public override void LeftMouseUp(Point pos)
         {
-            CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
-            this.MouseDrag = false;
+            GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
         }
 
         //右クリック
         public override void RightMouseDown(Point pos)
         {
             //DRUG状態のマーカーが近くにあるときは動かせる様にする
-            if (CurrentObj != null && CurrentObj.CheckDistance(pos))
+            if (GetCurrentObj() != null && GetCurrentObj().CheckDistance(pos))
             {
-                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.RIGHT_SET;
+                GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.RIGHT_SET;
                 this.MouseDrag = true;
             }
         }
@@ -73,7 +72,7 @@ namespace FootballBoard
 
         public override void RightMouseUp(Point pos)
         {
-            CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
+            GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
             this.MouseDrag = false;
         }
 

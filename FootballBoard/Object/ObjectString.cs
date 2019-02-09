@@ -38,6 +38,9 @@ namespace FootballBoard
 
             this.Points[3].X += 20 - offset;
             this.Points[3].Y += 20 + offset;
+
+            this.DrugType = ObjectString.DRUG_TYPE.INIT;
+            this.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
         }
 
         //ドラッグしているときの動き
@@ -123,9 +126,21 @@ namespace FootballBoard
                 this.DispHeight = (int)stringSize.Height;
             }
 
+            int alpha = 255;
+            if (this.ObjStatus == OBJ_STATUS.NON)
+            {
+                alpha = 255;
+            }
+            else if (this.ObjStatus == OBJ_STATUS.ON_CURSOR)
+            {
+                alpha = 128;
+            }
+            Brush brush = new SolidBrush(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor));
+
+
             if (this.ObjStatus != OBJ_STATUS.NON)
             {
-                using (Pen pen = new Pen(Color.Red, 4))
+                using (Pen pen = new Pen(brush, 4))
                 {
                     g.DrawRectangle(pen, rect);
                 }
@@ -174,5 +189,6 @@ namespace FootballBoard
 
         public DRUG_TYPE DrugType = DRUG_TYPE.NON;
         private Point MoveStartPos = new Point();   //移動量をつくるため
+
     }
 }
