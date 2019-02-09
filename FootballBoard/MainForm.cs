@@ -50,6 +50,10 @@ namespace FootballBoard
                 SoccerFieldImage_Vertical = Image.FromFile(filed_image_str);
            
             }
+
+            //GUIを扱えるように登録しておく
+            GUIParam.GetInstance().WriteStringtextBox = this.textBoxInputString;
+            GUIParam.GetInstance().MarkerGroupBox = this.groupBoxMarker;
         }
 
         //マウスクリック
@@ -227,7 +231,7 @@ namespace FootballBoard
 
 
             this.labelOnCursor.Text = @"OnCursor : " + this.DataControle.State.OnCursolIndex.ToString();
-
+            this.labelCurrentObj.Text = @"CurrentObj : " + this.DataControle.State.CurrentObjIndex;
         }
 
         Controle DataControle = new Controle();

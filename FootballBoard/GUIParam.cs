@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using System.Windows.Forms;
+
 namespace FootballBoard
 {
     //GUIの設定を記録するくらす
@@ -32,5 +34,8 @@ namespace FootballBoard
 
         public FILED_DIRECTION FiledDirection;  //フィールドの方向
 
+        public TextBox WriteStringtextBox;      //文字列を書くため
+        public GroupBox MarkerGroupBox;         //マーカー用のグループボックス
+        
     }
 }

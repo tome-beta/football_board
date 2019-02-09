@@ -45,7 +45,19 @@ namespace FootballBoard
         //操作中のオブジェクトのインデックス
         public int OnCursolIndex = -1;  //カーソルが上にある
         public int CurrentObjIndex = -1; //カレントオブジェクトのindex
-        public ObjectBase CurrentObj;   //選択中のオブジェクト
+
+        //操作しているオブジェクトを取得
+        public ObjectBase GetCurrentObj()
+        {
+            if (this.CurrentObjIndex < 0)
+            {
+                return null;
+            }
+            else 
+            {
+                return this.model.ObjectList[CurrentObjIndex];
+            }
+        }
     }
 
 }

@@ -14,16 +14,17 @@ namespace FootballBoard
         public override void LeftMouseDown(Point pos)
         {
             //クリックしたところにすでにラインがあるか
-            if (this.CurrentObj != null && CurrentObj.CheckDistance(pos))
+            if (GetCurrentObj() != null && GetCurrentObj().CheckDistance(pos))
             {
-                CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                 this.MouseDrag = true;
             }
             else
             {
                 ObjectCircle circle = new ObjectCircle(pos);
                 this.model.ObjectList.Add(circle);
-                this.CurrentObj = circle;
+                CurrentObjIndex = this.model.ObjectList.Count - 1;
+
                 circle.DrugType = ObjectCircle.DRUG_TYPE.INIT;
             }
         }
@@ -32,15 +33,15 @@ namespace FootballBoard
         {
             if (this.MouseDrag)
             {
-                this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                 //何を掴んでいるかで場合分けしている
-                this.CurrentObj.DrugMove(pos);
+                GetCurrentObj().DrugMove(pos);
             }
         }
         //左を離したとき
         public override void LeftMouseUp(Point pos)
         {
-            this.CurrentObj.ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
+            GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.SELECT;
         }
 
         //右クリック
