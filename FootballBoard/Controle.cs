@@ -63,7 +63,6 @@ namespace FootballBoard
             var cmd = new MementoCommand<List<ObjectBase>, DataModel>(_memento, current);
             if (!_cmdManager.Invoke(cmd))
             {
-                //                MessageBox.Show("状態の最大保存数を超えました。");
                 return;
             }
             _memento = current;
