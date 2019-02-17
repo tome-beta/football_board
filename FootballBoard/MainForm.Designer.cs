@@ -169,7 +169,7 @@
             this.フィールドToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1203, 26);
+            this.menuStrip.Size = new System.Drawing.Size(1203, 31);
             this.menuStrip.TabIndex = 11;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -181,32 +181,32 @@
             this.toolStripMenuItem1,
             this.画像出力ToolStripMenuItem});
             this.ファイルToolStripMenuItem.Name = "ファイルToolStripMenuItem";
-            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(85, 22);
+            this.ファイルToolStripMenuItem.Size = new System.Drawing.Size(105, 27);
             this.ファイルToolStripMenuItem.Text = "ファイル(&F)";
             // 
             // エクスポートToolStripMenuItem
             // 
             this.エクスポートToolStripMenuItem.Name = "エクスポートToolStripMenuItem";
-            this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.エクスポートToolStripMenuItem.Size = new System.Drawing.Size(185, 28);
             this.エクスポートToolStripMenuItem.Text = "エクスポート...";
             this.エクスポートToolStripMenuItem.Click += new System.EventHandler(this.エクスポートToolStripMenuItem_Click);
             // 
             // インポートToolStripMenuItem
             // 
             this.インポートToolStripMenuItem.Name = "インポートToolStripMenuItem";
-            this.インポートToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.インポートToolStripMenuItem.Size = new System.Drawing.Size(185, 28);
             this.インポートToolStripMenuItem.Text = "インポート...";
             this.インポートToolStripMenuItem.Click += new System.EventHandler(this.インポートToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(157, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(182, 6);
             // 
             // 画像出力ToolStripMenuItem
             // 
             this.画像出力ToolStripMenuItem.Name = "画像出力ToolStripMenuItem";
-            this.画像出力ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.画像出力ToolStripMenuItem.Size = new System.Drawing.Size(185, 28);
             this.画像出力ToolStripMenuItem.Text = "画像出力";
             this.画像出力ToolStripMenuItem.Click += new System.EventHandler(this.画像出力ToolStripMenuItem_Click);
             // 
@@ -217,13 +217,13 @@
             this.rightToolStripMenuItem,
             this.leftToolStripMenuItem});
             this.フィールドToolStripMenuItem.Name = "フィールドToolStripMenuItem";
-            this.フィールドToolStripMenuItem.Size = new System.Drawing.Size(80, 22);
+            this.フィールドToolStripMenuItem.Size = new System.Drawing.Size(97, 27);
             this.フィールドToolStripMenuItem.Text = "フィールド";
             // 
             // verticalToolStripMenuItem
             // 
             this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
-            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(135, 28);
             this.verticalToolStripMenuItem.Text = "Vertical";
             this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
             // 
@@ -232,21 +232,21 @@
             this.rightToolStripMenuItem.Checked = true;
             this.rightToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.rightToolStripMenuItem.Name = "rightToolStripMenuItem";
-            this.rightToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.rightToolStripMenuItem.Size = new System.Drawing.Size(135, 28);
             this.rightToolStripMenuItem.Text = "Right";
             this.rightToolStripMenuItem.Click += new System.EventHandler(this.rightToolStripMenuItem_Click);
             // 
             // leftToolStripMenuItem
             // 
             this.leftToolStripMenuItem.Name = "leftToolStripMenuItem";
-            this.leftToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.leftToolStripMenuItem.Size = new System.Drawing.Size(135, 28);
             this.leftToolStripMenuItem.Text = "Left";
             this.leftToolStripMenuItem.Click += new System.EventHandler(this.leftToolStripMenuItem_Click);
             // 
             // pictureBoxGameField
             // 
             this.pictureBoxGameField.BackColor = System.Drawing.Color.White;
-            this.pictureBoxGameField.Location = new System.Drawing.Point(277, 40);
+            this.pictureBoxGameField.Location = new System.Drawing.Point(225, 89);
             this.pictureBoxGameField.Name = "pictureBoxGameField";
             this.pictureBoxGameField.Size = new System.Drawing.Size(640, 480);
             this.pictureBoxGameField.TabIndex = 0;

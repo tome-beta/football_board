@@ -53,8 +53,8 @@ namespace FootballBoard
             if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.LEFT)
             {
                 double rotation = 180 * Math.PI / 180d;
-                int center_x = 640 / 2;
-                int center_y = 480 / 2;
+                int center_x = GUIParam.GetInstance().FiledWidth / 2;
+                int center_y = GUIParam.GetInstance().FiledHeight / 2;
 
                 int x = org_point.X - center_x;
                 int y = org_point.Y - center_y;
@@ -64,7 +64,7 @@ namespace FootballBoard
             }
             else if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.VERTICAL)
             {
-                def_point.X = 640 - org_point.Y;
+                def_point.X = GUIParam.GetInstance().FiledWidth - org_point.Y;
                 def_point.Y = org_point.X;
 
             }
