@@ -20,6 +20,34 @@ namespace FootballBoard
             LEFT,
         };
 
+        //選択したオブジェクトによって表示GUIを変える
+        public void ChangeDispGUI(Common.SELECT_DRAW_OBJECT select)
+        {
+            //全部一旦消す処理
+            this.WriteStringtextBox.Visible = false;
+            this.MarkerGroupBox.Visible = false;
+
+            switch (select)
+            {
+                case Common.SELECT_DRAW_OBJECT.MARKER:
+                    {
+                        this.MarkerGroupBox.Visible = true;
+                    }
+                    break;
+
+
+                case Common.SELECT_DRAW_OBJECT.STRING:
+                    {
+                        this.WriteStringtextBox.Visible = true;
+                    }
+                    break;
+                default:
+                    {
+                    }
+                    break;
+            }
+        }
+
 
         //初期化
         private GUIParam()
@@ -34,6 +62,7 @@ namespace FootballBoard
 
         public FILED_DIRECTION FiledDirection;  //フィールドの方向
 
+        //オブジェクト毎のGUI
         public TextBox WriteStringtextBox;      //文字列を書くため
         public GroupBox MarkerGroupBox;         //マーカー用のグループボックス
         

@@ -13,34 +13,6 @@ namespace FootballBoard
 {
     public partial class MainForm : Form
     {
-        //GUI表示のONOFFを切り替える
-        private void ChangeGUI(Common.SELECT_DRAW_OBJECT select)
-        {
-            //全部一旦消す処理
-            this.textBoxInputString.Visible = false;
-            this.groupBoxMarker.Visible = false;
-
-            switch (select)
-            {
-                case Common.SELECT_DRAW_OBJECT.MARKER:
-                    {
-                        this.groupBoxMarker.Visible = true;
-                    }
-                    break;
-
-
-                case Common.SELECT_DRAW_OBJECT.STRING:
-                    {
-                        this.textBoxInputString.Visible = true;
-                    }
-                    break;
-                default:
-                    {
-                    }
-                    break;
-            }
-        }
-
         //カラーダイアログを開く
         private void buttonColorDialog_Click(object sender, EventArgs e)
         {

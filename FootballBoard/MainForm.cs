@@ -31,8 +31,6 @@ namespace FootballBoard
             this.FieldGraphics = Graphics.FromImage(this.FieldBitmap);
             this.FieldGraphics_Vertical = Graphics.FromImage(this.FieldBitmap_Vertical);
 
-            this.listBoxSelectObject.SelectedIndex = 0;
-
             //フィールド画像を読み込んでおく
             string filed_image_str = @"..\..\..\resource\soccer_field.png";
             if (System.IO.File.Exists(filed_image_str))
@@ -54,6 +52,10 @@ namespace FootballBoard
             //GUIを扱えるように登録しておく
             GUIParam.GetInstance().WriteStringtextBox = this.textBoxInputString;
             GUIParam.GetInstance().MarkerGroupBox = this.groupBoxMarker;
+
+
+            this.listBoxSelectObject.SelectedIndex = 0;
+
         }
 
         //マウスクリック
@@ -153,7 +155,7 @@ namespace FootballBoard
             this.DataControle.ChangeSelectObject(this.ObjectSelect);
 
             //ここでステートによってGUI表示を切り替える
-            ChangeGUI(this.ObjectSelect);
+            GUIParam.GetInstance().ChangeDispGUI(this.ObjectSelect);
         }
 
         //メニューからエクスポートを選んだとき
