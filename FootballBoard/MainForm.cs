@@ -59,29 +59,35 @@ namespace FootballBoard
         //マウスクリック
         private void pictureBoxGameField_MouseDown(object sender, MouseEventArgs e)
         {
+            //ここで入力ポジションを変換してしまう。RIGHT基準のポジションにする
+            Point def = new Point();
+            this.DataControle.TranslatePosition(e.Location, ref def);
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    this.DataControle.LeftMouseDown(e.Location);
+                    this.DataControle.LeftMouseDown(def);
                     break;
                 case MouseButtons.Right:
-                    this.DataControle.RightMouseDown(e.Location);
+                    this.DataControle.RightMouseDown(def);
                     break;
             }
         }
         //マウスドラッグ
         private void pictureBoxGameField_MouseMove(object sender, MouseEventArgs e)
         {
+            //ここで入力ポジションを変換してしまう。RIGHT基準のポジションにする
+            Point def = new Point();
+            this.DataControle.TranslatePosition(e.Location, ref def);
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    this.DataControle.LeftMouseDrag(e.Location);
+                    this.DataControle.LeftMouseDrag(def );
                     break;
                 case MouseButtons.Right:
-                    this.DataControle.RightMouseDrag(e.Location);
+                    this.DataControle.RightMouseDrag(def);
                     break;
                 default:
-                    this.DataControle.MouseDrag(e.Location);
+                    this.DataControle.MouseDrag(def);
                     break;
             }
 
@@ -89,13 +95,16 @@ namespace FootballBoard
         //マウスを離したとき
         private void pictureBoxGameField_MouseUp(object sender, MouseEventArgs e)
         {
+            //ここで入力ポジションを変換してしまう。RIGHT基準のポジションにする
+            Point def = new Point();
+            this.DataControle.TranslatePosition(e.Location, ref def);
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    this.DataControle.LeftMouseUp(e.Location);
+                    this.DataControle.LeftMouseUp(def);
                     break;
                 case MouseButtons.Right:
-                    this.DataControle.RightMouseUp(e.Location);
+                    this.DataControle.RightMouseUp(def);
                     break;
             }
         }
@@ -254,7 +263,7 @@ namespace FootballBoard
         //Verticalを選択
         private void verticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.VERTICAL);
+///            this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.VERTICAL);
 
             GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.VERTICAL;
             this.verticalToolStripMenuItem.Checked = true;
@@ -265,7 +274,7 @@ namespace FootballBoard
         //Rightを選択
         private void rightToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.RIGHT);
+ ////           this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.RIGHT);
             GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.RIGHT;
             this.verticalToolStripMenuItem.Checked = false;
             this.rightToolStripMenuItem.Checked = true;
@@ -275,7 +284,7 @@ namespace FootballBoard
         //Leftを選択
         private void leftToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.LEFT);
+  ////          this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.LEFT);
             GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.LEFT;
             this.verticalToolStripMenuItem.Checked = false;
             this.rightToolStripMenuItem.Checked = false;

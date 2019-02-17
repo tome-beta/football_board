@@ -32,19 +32,24 @@ namespace FootballBoard
             }
             Brush brush = new SolidBrush(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor));
 
+            //描画位置を作る
+            Point[] DrawPoints = new Point[ObjectBase.OBJ_POINTS_NUM];
+            TranslatePosition(this.Points, ref DrawPoints);
+
+
             //方向を示す
             if(GUIParam.GetInstance().MarkerDirectionOn)
             {
                 Brush b = new SolidBrush(Color.FromArgb(alpha, Color.Blue));
 
                 Pen pen = new Pen(b,5);
-                DrawMarkerDirection(g,pen);
+                DrawMarkerDirection(g,pen,DrawPoints);
             }
 
 
             g.FillEllipse(brush, new Rectangle(
-            this.Points[0].X - Width / 2,
-            this.Points[0].Y - Height / 2,
+            DrawPoints[0].X - Width / 2,
+            DrawPoints[0].Y - Height / 2,
             Width,
             Height)
             );
@@ -53,7 +58,7 @@ namespace FootballBoard
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
                 this.ObjStatus == OBJ_STATUS.DRUG)
             {
-                DrawSelectTriangle(g);
+                DrawSelectTriangle(g,DrawPoints);
             }
 
         }
@@ -81,14 +86,14 @@ namespace FootballBoard
         }
 
         //選択しているときの三角形を描画
-        private void DrawSelectTriangle(Graphics g)
+        private void DrawSelectTriangle(Graphics g,Point[] points)
         {
             Brush brush_tri = new SolidBrush(Color.Black);
             //左
             {
                 PointF[] f_points = new PointF[3];
-                f_points[0].X = this.Points[0].X - Width / 2;
-                f_points[0].Y = this.Points[0].Y;
+                f_points[0].X = points[0].X - Width / 2;
+                f_points[0].Y = points[0].Y;
 
                 f_points[1].X = f_points[0].X - (Width / 3);
                 f_points[1].Y = f_points[0].Y - (Height / 4);
@@ -100,8 +105,8 @@ namespace FootballBoard
             //上
             {
                 PointF[] f_points = new PointF[3];
-                f_points[0].X = this.Points[0].X;
-                f_points[0].Y = this.Points[0].Y - Height/ 2;
+                f_points[0].X = points[0].X;
+                f_points[0].Y = points[0].Y - Height / 2;
 
                 f_points[1].X = f_points[0].X - (Width / 4);
                 f_points[1].Y = f_points[0].Y - (Height / 3);
@@ -114,8 +119,8 @@ namespace FootballBoard
             //右
             {
                 PointF[] f_points = new PointF[3];
-                f_points[0].X = this.Points[0].X + Width / 2;
-                f_points[0].Y = this.Points[0].Y;
+                f_points[0].X = points[0].X + Width / 2;
+                f_points[0].Y = points[0].Y;
 
                 f_points[1].X = f_points[0].X + (Width / 3);
                 f_points[1].Y = f_points[0].Y - (Height / 4);
@@ -127,8 +132,8 @@ namespace FootballBoard
             //下
             {
                 PointF[] f_points = new PointF[3];
-                f_points[0].X = this.Points[0].X;
-                f_points[0].Y = this.Points[0].Y + Height / 2;
+                f_points[0].X = points[0].X;
+                f_points[0].Y = points[0].Y + Height / 2;
 
                 f_points[1].X = f_points[0].X - (Width / 4);
                 f_points[1].Y = f_points[0].Y + (Height / 3);
@@ -139,10 +144,10 @@ namespace FootballBoard
             }
         }
 
-        private void DrawMarkerDirection(Graphics g,Pen pen)
+        private void DrawMarkerDirection(Graphics g,Pen pen,Point[] points)
         {
-            int MakerCenter_x = this.Points[0].X;
-            int MakerCenter_y = this.Points[0].Y;
+            int MakerCenter_x = points[0].X;
+            int MakerCenter_y = points[0].Y;
 
             int offset_x_90  = (int)(20 * Math.Cos((direction + 90) * (Math.PI / 180)) );
             int offset_y_90  = (int)(20 * Math.Sin((direction + 90) * (Math.PI / 180)) );

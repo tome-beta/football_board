@@ -45,6 +45,35 @@ namespace FootballBoard
             }
         }
 
+        //フィールドの回転によって描画座標を変化させる
+        public void TranslatePosition(Point org_point, ref Point def_point)
+        {
+            //RIGHTであるのを基準にした位置に変換する
+
+            if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.LEFT)
+            {
+                double rotation = 180 * Math.PI / 180d;
+                int center_x = 640 / 2;
+                int center_y = 480 / 2;
+
+                int x = org_point.X - center_x;
+                int y = org_point.Y - center_y;
+
+                def_point.X = (int)(x * Math.Cos(rotation) - y * Math.Sin(rotation)) + center_x;
+                def_point.Y = (int)(x * Math.Sin(rotation) + y * Math.Cos(rotation)) + center_y;
+            }
+            else if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.VERTICAL)
+            {
+                def_point.X = 640 - org_point.Y;
+                def_point.Y = org_point.X;
+
+            }
+            else
+            {
+                def_point = org_point;
+            }
+
+        }
         //================================================
         // private 
         //================================================

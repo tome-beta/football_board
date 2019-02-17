@@ -92,9 +92,11 @@ namespace FootballBoard
         //ポリゴンを描画
         public override void DrawObject(Graphics g)
         {
+            //描画位置を作る
+            Point[] DrawPoints = new Point[ObjectBase.OBJ_POINTS_NUM];
+            TranslatePosition(this.Points, ref DrawPoints);
 
             int alpha = 128;
-
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
                 alpha = 128;
@@ -106,7 +108,7 @@ namespace FootballBoard
             Brush brush = new SolidBrush(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor));
 
 
-            g.FillPolygon(brush, this.Points);
+            g.FillPolygon(brush, DrawPoints);
 
             //SELECT状態の時には３点を描画
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
@@ -124,8 +126,8 @@ namespace FootballBoard
                         brush = Brushes.Yellow;
                     }
                     g.FillEllipse(brush, new Rectangle(
-                    this.Points[i].X - VERTEX_SIZE / 2,
-                    this.Points[i].Y - VERTEX_SIZE / 2,
+                    DrawPoints[i].X - VERTEX_SIZE / 2,
+                    DrawPoints[i].Y - VERTEX_SIZE / 2,
                     VERTEX_SIZE,
                     VERTEX_SIZE)
                     );
