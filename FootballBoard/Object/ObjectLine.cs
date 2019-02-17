@@ -83,8 +83,11 @@ namespace FootballBoard
         //ラインをを描画
         public override void DrawObject(Graphics g)
         {
-            int alpha = 255;
+            //描画位置を作る
+            Point[] DrawPoints = new Point[ObjectBase.OBJ_POINTS_NUM];
+            TranslatePosition(this.Points, ref DrawPoints);
 
+            int alpha = 255;
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
                 alpha = 255;
@@ -93,9 +96,10 @@ namespace FootballBoard
             {
                 alpha = 128;
             }
+
             using (Pen pen = new Pen(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor), 4))
             {
-                g.DrawLine(pen, this.Points[0], this.Points[1]);
+                g.DrawLine(pen, DrawPoints[0], DrawPoints[1]);
             }
 
 
@@ -117,8 +121,8 @@ namespace FootballBoard
                     }
 
                     g.FillEllipse(brush, new Rectangle(
-                    this.Points[i].X - VERTEX_SIZE / 2,
-                    this.Points[i].Y - VERTEX_SIZE / 2,
+                    DrawPoints[i].X - VERTEX_SIZE / 2,
+                    DrawPoints[i].Y - VERTEX_SIZE / 2,
                     VERTEX_SIZE,
                     VERTEX_SIZE)
                     );

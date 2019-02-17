@@ -98,11 +98,15 @@ namespace FootballBoard
         //矩形を描画
         public override void DrawObject(Graphics g)
         {
+            //描画位置を作る
+            Point[] DrawPoints = new Point[ObjectBase.OBJ_POINTS_NUM];
+            TranslatePosition(this.Points, ref DrawPoints);
+
             //矩形全体との当たり判定
-            int min_x = Common.Min(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
-            int max_x = Common.Max(Points[0].X, Points[1].X, Points[2].X, Points[3].X);
-            int min_y = Common.Min(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
-            int max_y = Common.Max(Points[0].Y, Points[1].Y, Points[2].Y, Points[3].Y);
+            int min_x = Common.Min(DrawPoints[0].X, DrawPoints[1].X, DrawPoints[2].X, DrawPoints[3].X);
+            int max_x = Common.Max(DrawPoints[0].X, DrawPoints[1].X, DrawPoints[2].X, DrawPoints[3].X);
+            int min_y = Common.Min(DrawPoints[0].Y, DrawPoints[1].Y, DrawPoints[2].Y, DrawPoints[3].Y);
+            int max_y = Common.Max(DrawPoints[0].Y, DrawPoints[1].Y, DrawPoints[2].Y, DrawPoints[3].Y);
 
             Rectangle rect = new Rectangle(min_x, min_y, max_x-min_x, max_y-min_y);
 
@@ -135,8 +139,8 @@ namespace FootballBoard
                         brush = Brushes.Yellow;
                     }
                     g.FillEllipse(brush, new Rectangle(
-                    this.Points[i].X - VERTEX_SIZE / 2,
-                    this.Points[i].Y - VERTEX_SIZE / 2,
+                    DrawPoints[i].X - VERTEX_SIZE / 2,
+                    DrawPoints[i].Y - VERTEX_SIZE / 2,
                     VERTEX_SIZE,
                     VERTEX_SIZE)
                     );

@@ -106,17 +106,22 @@ namespace FootballBoard
                 alpha = 128;
             }
 
+
+            //描画位置を作る
+            Point[] DrawPoints = new Point[ObjectBase.OBJ_POINTS_NUM];
+            TranslatePosition(this.Points, ref DrawPoints);
+
             using (Pen pen = new Pen(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor), 4))
             {
                 Point[] points = new Point[3];
-                points[0] = this.Points[0];
-                points[1] = this.Points[1];
-                points[2] = this.Points[2];
+                points[0] = DrawPoints[0];
+                points[1] = DrawPoints[1];
+                points[2] = DrawPoints[2];
 
                 g.DrawCurve(pen, points);
 
                 //スプライン計算
-                MakeSplineFunc();
+                MakeSplineFunc(this.Points);
             }
 
             //SELECT状態の時には曲線の３点を描画
@@ -136,8 +141,8 @@ namespace FootballBoard
                     }
 
                     g.FillEllipse(brush, new Rectangle(
-                    this.Points[i].X - VERTEX_SIZE / 2,
-                    this.Points[i].Y - VERTEX_SIZE / 2,
+                    DrawPoints[i].X - VERTEX_SIZE / 2,
+                    DrawPoints[i].Y - VERTEX_SIZE / 2,
                     VERTEX_SIZE,
                     VERTEX_SIZE)
                     );
@@ -148,6 +153,7 @@ namespace FootballBoard
         //オブジェクトとの距離をチェックする
         public override bool CheckDistance(Point pos)
         {
+
             if (this.ObjStatus == OBJ_STATUS.SELECT)
             {
                 //このときは開始点と終了点と中間点を探す
@@ -197,10 +203,10 @@ namespace FootballBoard
         }
 
         //スプライン曲線の式をつくる
-        private void MakeSplineFunc()
+        private void MakeSplineFunc(Point[] DrawPoints)
         {
-            double[] x_array = new double[] { (double)Points[0].X, (double)Points[1].X, (double)Points[2].X};
-            double[] y_array = new double[] { (double)Points[0].Y, (double)Points[1].Y, (double)Points[2].Y};
+            double[] x_array = new double[] { (double)DrawPoints[0].X, (double)DrawPoints[1].X, (double)DrawPoints[2].X };
+            double[] y_array = new double[] { (double)DrawPoints[0].Y, (double)DrawPoints[1].Y, (double)DrawPoints[2].Y };
 
             xs.Init(x_array, x_array.Length);
             ys.Init(y_array, y_array.Length);
