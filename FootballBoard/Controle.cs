@@ -234,6 +234,9 @@ namespace FootballBoard
                     }
                     break;
             }
+
+            //無効なオブジェクトを消すチェック
+            CheckInvalidObject();
         }
 
         //オブジェクトの削除
@@ -407,6 +410,26 @@ namespace FootballBoard
             foreach( ObjectBase obj in this.model.ObjectList)
             {
                 obj.DrawObject(g);
+            }
+        }
+
+        //無効なオブジェクトをチェックして消す
+        private void CheckInvalidObject()
+        {
+            //文字列が入力されていないString
+            for(int i = 0; i < this.model.ObjectList.Count;i++)
+            {
+                ObjectString obj = model.ObjectList[i] as ObjectString;
+
+                if(obj != null)
+                {
+                    if(obj.DispString.Length == 0)
+                    {
+                        this.model.ObjectList.RemoveAt(i);
+                        break;
+                    }
+                }
+
             }
         }
 
