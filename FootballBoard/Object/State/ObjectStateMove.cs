@@ -17,16 +17,17 @@ namespace FootballBoard
             if( this.OnCursolIndex >= 0)
             {
                 CurrentObjIndex = OnCursolIndex;
-
-                if (GetCurrentObj() != null)
+                ObjectBase obj = GetCurrentObj();
+                if (obj != null)
                 {
                     //当たり判定チェック
-                    if (GetCurrentObj().CheckDistance(pos))
+                    if (obj.CheckDistance(pos))
                     {
-                        GetCurrentObj().ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
+                        obj.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
 
                         //ここで掴んだオブジェクトによってGUI表示を切り替える
-                        GUIParam.GetInstance().MarkerGroupBox.Visible = true;
+                        ChangeGui(obj);
+
                     }
                 }
             }
@@ -148,6 +149,26 @@ namespace FootballBoard
         //文字列を設定する
         public override void SetString(String str)
         {
+        }
+
+
+        //GUIを切り替える
+        private void ChangeGui(ObjectBase obj)
+        {
+            //引数を変換する
+            Common.SELECT_DRAW_OBJECT select = Common.SELECT_DRAW_OBJECT.MOVE;
+
+            if (obj as ObjectMarker != null){ select = Common.SELECT_DRAW_OBJECT.MARKER; }
+            else if(obj as ObjectLine != null) { select = Common.SELECT_DRAW_OBJECT.LINE; }
+            else if (obj as ObjectRect != null) { select = Common.SELECT_DRAW_OBJECT.RECT; }
+            else if (obj as ObjectCircle != null) { select = Common.SELECT_DRAW_OBJECT.CIRCLE; }
+            else if (obj as ObjectCurve != null) { select = Common.SELECT_DRAW_OBJECT.CURVE; }
+            else if (obj as ObjectPolygon != null) { select = Common.SELECT_DRAW_OBJECT.POLYGON; }
+            else if (obj as ObjectTriangle != null) { select = Common.SELECT_DRAW_OBJECT.TRIANGLE; }
+            else if (obj as ObjectString != null) { select = Common.SELECT_DRAW_OBJECT.STRING; }
+
+            //GUIの切り替え
+            GUIParam.GetInstance().ChangeDispGUI(select);
         }
     }
 
