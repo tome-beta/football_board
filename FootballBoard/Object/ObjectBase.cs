@@ -33,8 +33,8 @@ namespace FootballBoard
         {
             if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.LEFT)
             {
-                int center_x = 640 / 2;
-                int center_y = 480 / 2;
+                int center_x = GUIParam.GetInstance().FiledWidth / 2;
+                int center_y = GUIParam.GetInstance().FiledHeight / 2;
                 //オブジェクトの位置を回転させる
                 for (int i = 0; i < OBJ_POINTS_NUM; i++)
                 {
@@ -51,7 +51,7 @@ namespace FootballBoard
                 for (int i = 0; i < OBJ_POINTS_NUM; i++)
                 {
                     def_point_list[i].X = org_point_list[i].Y;
-                    def_point_list[i].Y = 640 - org_point_list[i].X;
+                    def_point_list[i].Y = GUIParam.GetInstance().FiledWidth - org_point_list[i].X;
                 }
             }
             else

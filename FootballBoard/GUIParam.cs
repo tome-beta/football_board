@@ -57,10 +57,14 @@ namespace FootballBoard
             this.FiledDirection = FILED_DIRECTION.RIGHT;
         }
 
+        //GUIの設定
         public Color ObjectColor;               //オブジェクトに設定する色
         public bool MarkerDirectionOn;          //マーカーに方向をつけるか
-
         public FILED_DIRECTION FiledDirection;  //フィールドの方向
+
+        //パラメータ
+        public int FiledWidth = 640;        //フィールドの大きさ
+        public int FiledHeight = 480;       //フィールドの幅
 
         //オブジェクト毎のGUI
         public TextBox WriteStringtextBox;      //文字列を書くため

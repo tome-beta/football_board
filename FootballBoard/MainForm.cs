@@ -212,8 +212,8 @@ namespace FootballBoard
                 //ピクチャボックスを初期化
                 this.FieldGraphics_Vertical.Clear(Color.White);
 
-                this.pictureBoxGameField.Width = 480;
-                this.pictureBoxGameField.Height = 640;
+                this.pictureBoxGameField.Width = GUIParam.GetInstance().FiledHeight;
+                this.pictureBoxGameField.Height = GUIParam.GetInstance().FiledWidth;
 
                 this.FieldGraphics_Vertical = Graphics.FromImage(this.FieldBitmap_Vertical);
                 this.pictureBoxGameField.Image = this.FieldBitmap_Vertical;
@@ -229,8 +229,8 @@ namespace FootballBoard
                 //ピクチャボックスを初期化
                 this.FieldGraphics.Clear(Color.White);
 
-                this.pictureBoxGameField.Width = 640;
-                this.pictureBoxGameField.Height = 480;
+                this.pictureBoxGameField.Width = GUIParam.GetInstance().FiledWidth;
+                this.pictureBoxGameField.Height = GUIParam.GetInstance().FiledHeight;
                 this.FieldGraphics = Graphics.FromImage(this.FieldBitmap);
                 this.pictureBoxGameField.Image = this.FieldBitmap;
 
