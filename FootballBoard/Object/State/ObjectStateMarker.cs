@@ -34,6 +34,10 @@ namespace FootballBoard
 
                 marker.ObjStatus = ObjectBase.OBJ_STATUS.DRUG;
                 this.MouseDrag = true;
+
+                //GUIの反映
+                MakeMarker(marker);
+
             }
         }
         //左ドラッグ
@@ -81,9 +85,47 @@ namespace FootballBoard
 
         }
 
-        //文字列を設定する
-        public override void SetString(String str)
+        //オブジェクトの持つ文字列をテキストボックスに設定する
+        public void TransitionString(String str,ObjectMarker.StringType type)
         {
+            if (type == ObjectMarker.StringType.UniformNumver)
+            {
+                GUIParam.GetInstance().UniformNumberTextBox.Text = str;
+            }
+            else if (type == ObjectMarker.StringType.Name)
+            {
+                GUIParam.GetInstance().NameTextBox.Text = str;
+            }
+        }
+
+        //============================================================
+        //  private 
+        //============================================================
+        private void MakeMarker(ObjectMarker marker)
+        {
+            //文字列があれば
+            marker.Name = GUIParam.GetInstance().NameTextBox.Text;
+            marker.UniformNumber = GUIParam.GetInstance().UniformNumberTextBox.Text;
+
+            //名前ポジション
+            for (int i = 0; i < 9; i++)
+            {
+                if (GUIParam.GetInstance().NamePosButton[i].Checked)
+                {
+                    marker.NamePosition = i;
+                    break;
+                }
+            }
+
+            //チーム設定
+            if (GUIParam.GetInstance().TeamConboBox.Text == @"HOME")
+            {
+                marker.TeamType = 0;
+            }
+            else
+            {
+                marker.TeamType = 1;
+            }
         }
     }
 

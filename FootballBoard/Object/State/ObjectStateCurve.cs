@@ -52,10 +52,6 @@ namespace FootballBoard
 
         }
 
-        //文字列を設定する
-        public override void SetString(String str)
-        {
-        }
     }
 
 }

@@ -63,7 +63,7 @@ namespace FootballBoard
         }
 
         //外部から文字列を設定する
-        public override void SetString(String str)
+        public void SetString(String str)
         {
             if (CurrentObjIndex >= 0)
             {

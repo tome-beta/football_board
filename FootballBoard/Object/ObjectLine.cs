@@ -11,7 +11,6 @@ namespace FootballBoard
     [Serializable()]
     public class ObjectLine : ObjectBase
     {
-
         public enum DRUG_TYPE
         {
             START_POINT,    //開始点
@@ -19,8 +18,16 @@ namespace FootballBoard
             WHOLE,          //全体
             INIT,           //初期
             NON,
-
         };
+
+        public enum LINE_STYLE
+        {
+            SOLID,          //直線
+            JAGGED,         //波線
+            DOTTED,         //点線
+        };
+
+
         //コンストラクタ
         public ObjectLine(Point pos)
         {
@@ -99,6 +106,19 @@ namespace FootballBoard
 
             using (Pen pen = new Pen(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor), 4))
             {
+                if (this.LineStyle == LINE_STYLE.SOLID)
+                {
+                    pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+                }
+                else if (this.LineStyle == LINE_STYLE.JAGGED)
+                {
+                    //正弦波を書くことになる。
+                }
+                else if (this.LineStyle == LINE_STYLE.DOTTED)
+                {
+                    pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                }
+
                 g.DrawLine(pen, DrawPoints[0], DrawPoints[1]);
             }
 
@@ -225,6 +245,7 @@ namespace FootballBoard
         }
 
         public DRUG_TYPE DrugType = DRUG_TYPE.NON;
+        public LINE_STYLE LineStyle = LINE_STYLE.SOLID;
         private Point MoveStartPos = new Point();   //移動量をつくるため
     }
 }

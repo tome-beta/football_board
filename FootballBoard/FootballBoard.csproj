@@ -51,6 +51,12 @@
     <Compile Include="basis\DeepCopyHelper.cs" />
     <Compile Include="basis\MementManage.cs" />
     <Compile Include="basis\SaveDataManage.cs" />
+    <Compile Include="ColorDialogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ColorDialogForm.Designer.cs">
+      <DependentUpon>ColorDialogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="Controle.cs" />
     <Compile Include="DataModel.cs" />

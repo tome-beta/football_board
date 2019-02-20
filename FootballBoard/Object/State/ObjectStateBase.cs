@@ -36,7 +36,7 @@ namespace FootballBoard
         public abstract void MouseMove(Point pos);
 
         //文字列を設定する
-        public abstract void SetString(String str);
+///        public abstract void SetString(String str);
 
 
         public DataModel model;         //データを扱うため

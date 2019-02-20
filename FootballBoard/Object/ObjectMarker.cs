@@ -8,6 +8,13 @@ namespace FootballBoard
     [Serializable()]
     public class ObjectMarker : ObjectBase
     {
+        public enum StringType
+        {
+            UniformNumver,
+            Name
+        };
+
+
         public ObjectMarker(Point pos)
         {
             this.Points[0] = pos;
@@ -46,13 +53,33 @@ namespace FootballBoard
                 DrawMarkerDirection(g,pen,DrawPoints);
             }
 
-
+            //円を描く
             g.FillEllipse(brush, new Rectangle(
             DrawPoints[0].X - Width / 2,
             DrawPoints[0].Y - Height / 2,
             Width,
             Height)
             );
+
+            //背番号を表示
+            if (this.UniformNumber.Length != 0)
+            {
+                Font fnt = new Font("MS UI Gothic", 20);
+                StringFormat sf = new StringFormat();
+                SizeF stringSize = g.MeasureString(UniformNumber, fnt, 1000, sf);
+                g.DrawString(this.UniformNumber,
+                    fnt,
+                    Brushes.White,
+                    DrawPoints[0].X - stringSize.Width / 2,
+                    DrawPoints[0].Y - stringSize.Height / 2);
+            }
+
+            //名前を表示 TODO 表示位置のオフセットがあれば
+            if (this.Name.Length != 0)
+            {
+                DrawName(g, DrawPoints[0]);
+            }
+
 
             //選択したときの三角をつくる
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
@@ -84,6 +111,32 @@ namespace FootballBoard
             double radian = Math.Atan2(pos.Y - MakerCenter_y, pos.X - MakerCenter_x);
             direction = radian * 180d / Math.PI;
         }
+
+
+        //外部から文字列を設定する
+        public void SetString(String str, ObjectMarker.StringType type)
+        {
+            switch (type)
+            {
+                case ObjectMarker.StringType.Name:
+                    {
+                        Name = str;
+                    }
+                    break;
+                case ObjectMarker.StringType.UniformNumver:
+                    {
+                        UniformNumber = str;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //============================================================
+        //  private 
+        //============================================================
+
 
         //選択しているときの三角形を描画
         private void DrawSelectTriangle(Graphics g,Point[] points)
@@ -144,6 +197,7 @@ namespace FootballBoard
             }
         }
 
+        //マーカーの方向を描画
         private void DrawMarkerDirection(Graphics g,Pen pen,Point[] points)
         {
             int MakerCenter_x = points[0].X;
@@ -177,13 +231,47 @@ namespace FootballBoard
 
         }
 
+        //名前の描画
+        private void DrawName(Graphics g,Point DrawPoint)
+        {
+            //オフセットの位置を決める
+            int offset_x = 0;
+            int offset_y = 0;
+            int OFFSET = 30; //TODO これはマーカーのサイズによる
+            for (int i = 0; i < 9; i++)
+            {
+                if (GUIParam.GetInstance().NamePosButton[i].Checked)
+                {
+                    offset_x = -OFFSET + (i % 3) * OFFSET;
+                    offset_y = -OFFSET + (i / 3) * OFFSET;
+                    this.NamePosition = i;
+                    break;
+                }
+            }
 
-        int TeamType;   //HomeかAwayか
+            //文字列を位置(0,0)、青色で表示
+            Font fnt = new Font("MS UI Gothic", 20);
+            StringFormat sf = new StringFormat();
+            SizeF stringSize = g.MeasureString(Name, fnt, 1000, sf);
+            g.DrawString(this.Name,
+                fnt,
+                Brushes.White,
+                DrawPoint.X - stringSize.Width / 2 + offset_x,
+                DrawPoint.Y - stringSize.Height / 2 + offset_y);
 
+        }
+
+
+        public int TeamType;   //HomeかAwayか
+        public int NamePosition;
         public int Width = 30;
         public int Height = 30;
 
         double direction = 0;
+
+        //表示文字列
+        public String UniformNumber = @"";
+        public String Name = @"";
 
     }
 

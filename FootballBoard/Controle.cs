@@ -262,9 +262,56 @@ namespace FootballBoard
             _cmdManager.Redo();
         }
 
-        public void SetString(String str)
+
+        //テキストボックスの入力を反映
+        public void SetString(String str,MainForm.TEXTBOX_TYPE type)
         {
-            this.State.SetString(str);
+            if (type == MainForm.TEXTBOX_TYPE.STRING)
+            {
+                OStateString st = this.State as OStateString;
+                if (st != null)
+                {
+                    st.SetString(str);
+                }
+            }
+            else if (type == MainForm.TEXTBOX_TYPE.MARKER_UNIFORM_NUMBER)
+            {
+                ObjectMarker mark = this.State.GetCurrentObj() as ObjectMarker;
+                if (mark != null)
+                {
+                    mark.SetString(str, ObjectMarker.StringType.UniformNumver);
+                }
+
+            }
+            else if (type == MainForm.TEXTBOX_TYPE.MARKER_NAME)
+            {
+                ObjectMarker mark = this.State.GetCurrentObj() as ObjectMarker;
+                if (mark != null)
+                {
+                    mark.SetString(str, ObjectMarker.StringType.Name);
+                }
+            }
+        }
+
+        //ライン描画形式の変更
+        public void SetLineStyle(String style)
+        {
+            ObjectLine line =  this.State.GetCurrentObj() as ObjectLine;
+            if(line != null)
+            {
+                if (style == @"Solid")
+                {
+                    line.LineStyle = ObjectLine.LINE_STYLE.SOLID;
+                }
+                if (style == @"Jagged")
+                {
+                    line.LineStyle = ObjectLine.LINE_STYLE.JAGGED;
+                }
+                if (style == @"Dotted")
+                {
+                    line.LineStyle = ObjectLine.LINE_STYLE.DOTTED;
+                }
+            }
         }
 
  

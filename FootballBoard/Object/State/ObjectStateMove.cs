@@ -146,11 +146,10 @@ namespace FootballBoard
                 }
             }
         }
-        //文字列を設定する
-        public override void SetString(String str)
-        {
-        }
 
+        //============================================================
+        //  private 
+        //============================================================
 
         //GUIを切り替える
         private void ChangeGui(ObjectBase obj)
@@ -168,7 +167,7 @@ namespace FootballBoard
             else if (obj as ObjectString != null) { select = Common.SELECT_DRAW_OBJECT.STRING; }
 
             //GUIの切り替え
-            GUIParam.GetInstance().ChangeDispGUI(select);
+            GUIParam.GetInstance().ChangeDispGUI(select,obj);
         }
     }
 

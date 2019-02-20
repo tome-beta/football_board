@@ -26,6 +26,8 @@ namespace FootballBoard
                 CurrentObjIndex = this.model.ObjectList.Count - 1;
                 
                 line.DrugType = ObjectLine.DRUG_TYPE.INIT;
+
+                MakeLine(line);
             }
         }
         //左ドラッグ
@@ -53,9 +55,16 @@ namespace FootballBoard
 
         }
 
-        //文字列を設定する
-        public override void SetString(String str)
+
+        
+        //============================================================
+        //  private 
+        //============================================================
+        private void MakeLine(ObjectLine line)
         {
+            if(GUIParam.GetInstance().LinStyle.Text == @"Solid") { line.LineStyle = ObjectLine.LINE_STYLE.SOLID;}
+            if(GUIParam.GetInstance().LinStyle.Text == @"Jagged"){ line.LineStyle = ObjectLine.LINE_STYLE.JAGGED;}
+            if (GUIParam.GetInstance().LinStyle.Text == @"Dotted") { line.LineStyle = ObjectLine.LINE_STYLE.DOTTED; }
         }
     }
 

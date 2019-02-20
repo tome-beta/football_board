@@ -50,13 +50,12 @@ namespace FootballBoard
             }
 
             //GUIを扱えるように登録しておく
-            GUIParam.GetInstance().WriteStringtextBox = this.textBoxInputString;
-            GUIParam.GetInstance().MarkerGroupBox = this.groupBoxMarker;
-
+            SettingGUI();
 
             this.listBoxSelectObject.SelectedIndex = 0;
 
         }
+
 
         //マウスクリック
         private void pictureBoxGameField_MouseDown(object sender, MouseEventArgs e)
@@ -144,8 +143,21 @@ namespace FootballBoard
         private void buttonRedo_Click(object sender, EventArgs e)
         {
             this.DataControle.Redo();
-
         }
+
+        //マーカー方向チェックボックス
+        private void checkBoxDirection_CheckedChanged(object sender, EventArgs e)
+        {
+            GUIParam.GetInstance().MarkerDirectionOn = this.checkBoxDirection.Checked;
+        }
+
+        //カラーダイアログボタン
+        private void buttonColorDialog_Click(object sender, EventArgs e)
+        {
+            this.ColorDialog.Owner = this;
+            this.ColorDialog.Opendialog();
+    　  }
+
 
         //描画オブジェクトリストをクリックしたとき
         private void listBoxSelectObject_SelectedIndexChanged(object sender, EventArgs e)
@@ -155,7 +167,7 @@ namespace FootballBoard
             this.DataControle.ChangeSelectObject(this.ObjectSelect);
 
             //ここでステートによってGUI表示を切り替える
-            GUIParam.GetInstance().ChangeDispGUI(this.ObjectSelect);
+            GUIParam.GetInstance().ChangeDispGUI(this.ObjectSelect,null);
         }
 
         //メニューからエクスポートを選んだとき
@@ -202,18 +214,49 @@ namespace FootballBoard
             this.Visible = true;
             this.Activate();
         }
+        //Verticalを選択
+        private void verticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.VERTICAL;
+            this.verticalToolStripMenuItem.Checked = true;
+            this.rightToolStripMenuItem.Checked = false;
+            this.leftToolStripMenuItem.Checked = false;
+        }
+
+        //Rightを選択
+        private void rightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.RIGHT;
+            this.verticalToolStripMenuItem.Checked = false;
+            this.rightToolStripMenuItem.Checked = true;
+            this.leftToolStripMenuItem.Checked = false;
+        }
+
+        //Leftを選択
+        private void leftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.LEFT;
+            this.verticalToolStripMenuItem.Checked = false;
+            this.rightToolStripMenuItem.Checked = false;
+            this.leftToolStripMenuItem.Checked = true;
+        }
+
+
+
 
         private void pictureBoxGameField_Paint(object sender, PaintEventArgs e)
         {
+            //ピクチャボックスを初期化
+            this.FieldGraphics_Vertical.Clear(Color.White);
 
             //サッカーフィールドを描く
             if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.VERTICAL)
             {
-                //ピクチャボックスを初期化
-                this.FieldGraphics_Vertical.Clear(Color.White);
+                GUIParam.GetInstance().FiledHeight = SoccerFieldImage_Vertical.Height;
+                GUIParam.GetInstance().FiledWidth = SoccerFieldImage_Vertical.Width;
 
-                this.pictureBoxGameField.Width = GUIParam.GetInstance().FiledHeight;
-                this.pictureBoxGameField.Height = GUIParam.GetInstance().FiledWidth;
+                this.pictureBoxGameField.Width = GUIParam.GetInstance().FiledWidth;
+                this.pictureBoxGameField.Height = GUIParam.GetInstance().FiledHeight;
 
                 this.FieldGraphics_Vertical = Graphics.FromImage(this.FieldBitmap_Vertical);
                 this.pictureBoxGameField.Image = this.FieldBitmap_Vertical;
@@ -226,11 +269,12 @@ namespace FootballBoard
             }
             else
             {
-                //ピクチャボックスを初期化
-                this.FieldGraphics.Clear(Color.White);
+                GUIParam.GetInstance().FiledHeight = SoccerFieldImage.Height;
+                GUIParam.GetInstance().FiledWidth = SoccerFieldImage.Width;
 
                 this.pictureBoxGameField.Width = GUIParam.GetInstance().FiledWidth;
                 this.pictureBoxGameField.Height = GUIParam.GetInstance().FiledHeight;
+
                 this.FieldGraphics = Graphics.FromImage(this.FieldBitmap);
                 this.pictureBoxGameField.Image = this.FieldBitmap;
 
@@ -243,6 +287,7 @@ namespace FootballBoard
 
             this.labelOnCursor.Text = @"OnCursor : " + this.DataControle.State.OnCursolIndex.ToString();
             this.labelCurrentObj.Text = @"CurrentObj : " + this.DataControle.State.CurrentObjIndex;
+
         }
 
         Controle DataControle = new Controle();
@@ -256,41 +301,8 @@ namespace FootballBoard
         private Image SoccerFieldImage;
         private Image SoccerFieldImage_Vertical;
 
-        //マーカー方向チェックボックス
-        private void checkBoxDirection_CheckedChanged(object sender, EventArgs e)
-        {
-            GUIParam.GetInstance().MarkerDirectionOn = this.checkBoxDirection.Checked;
-        }
+        ColorDialogForm ColorDialog = new ColorDialogForm();
 
-        //Verticalを選択
-        private void verticalToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-///            this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.VERTICAL);
 
-            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.VERTICAL;
-            this.verticalToolStripMenuItem.Checked = true;
-            this.rightToolStripMenuItem.Checked = false;
-            this.leftToolStripMenuItem.Checked = false;
-        }
-
-        //Rightを選択
-        private void rightToolStripMenuItem_Click(object sender, EventArgs e)
-        {
- ////           this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.RIGHT);
-            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.RIGHT;
-            this.verticalToolStripMenuItem.Checked = false;
-            this.rightToolStripMenuItem.Checked = true;
-            this.leftToolStripMenuItem.Checked = false;
-        }
-
-        //Leftを選択
-        private void leftToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-  ////          this.DataControle.FieldRotate(GUIParam.FILED_DIRECTION.LEFT);
-            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.LEFT;
-            this.verticalToolStripMenuItem.Checked = false;
-            this.rightToolStripMenuItem.Checked = false;
-            this.leftToolStripMenuItem.Checked = true;
-        }
     }
 }
