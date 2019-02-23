@@ -154,8 +154,6 @@ namespace FootballBoard
         //カラーダイアログボタン
         private void buttonColorDialog_Click(object sender, EventArgs e)
         {
-            this.ColorDialog.Owner = this;
-            this.ColorDialog.Opendialog();
     　  }
 
 
@@ -300,9 +298,6 @@ namespace FootballBoard
         Graphics FieldGraphics_Vertical;
         private Image SoccerFieldImage;
         private Image SoccerFieldImage_Vertical;
-
-        ColorDialogForm ColorDialog = new ColorDialogForm();
-
 
     }
 }

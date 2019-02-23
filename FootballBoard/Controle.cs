@@ -299,21 +299,23 @@ namespace FootballBoard
             ObjectLine line =  this.State.GetCurrentObj() as ObjectLine;
             if(line != null)
             {
-                if (style == @"Solid")
-                {
-                    line.LineStyle = ObjectLine.LINE_STYLE.SOLID;
-                }
-                if (style == @"Jagged")
-                {
-                    line.LineStyle = ObjectLine.LINE_STYLE.JAGGED;
-                }
-                if (style == @"Dotted")
-                {
-                    line.LineStyle = ObjectLine.LINE_STYLE.DOTTED;
-                }
+                if (style == @"Solid") {line.LineStyle = ObjectLine.LINE_STYLE.SOLID;}
+                if (style == @"Jagged"){line.LineStyle = ObjectLine.LINE_STYLE.JAGGED;}
+                if (style == @"Dotted"){line.LineStyle = ObjectLine.LINE_STYLE.DOTTED;}
             }
         }
 
+        public void SetArrowStyle(String style)
+        {
+            ObjectLine line =  this.State.GetCurrentObj() as ObjectLine;
+            if (line != null)
+            {
+                if (style == @"Non") { line.ArrowStyle = ObjectLine.ARROW_STYLE.NONE; }
+                if (style == @"Start") { line.ArrowStyle = ObjectLine.ARROW_STYLE.START; }
+                if (style == @"End") { line.ArrowStyle = ObjectLine.ARROW_STYLE.END; }
+                if (style == @"Both") { line.ArrowStyle = ObjectLine.ARROW_STYLE.BOTH; }
+            }
+        }
  
         //登録されているオブジェクトの描画
         public void DrawAll(Graphics g)

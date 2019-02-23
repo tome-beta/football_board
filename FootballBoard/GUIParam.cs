@@ -67,7 +67,7 @@ namespace FootballBoard
                         ObjectLine line = obj as ObjectLine;
                         if (line != null)
                         {
-                            //チームタイプ
+                            //ラインの種類
                             if (line.LineStyle == ObjectLine.LINE_STYLE.SOLID)
                             {
                                 this.LinStyle.Text = @"Solid";
@@ -79,6 +79,23 @@ namespace FootballBoard
                             if (line.LineStyle == ObjectLine.LINE_STYLE.DOTTED)
                             {
                                 this.LinStyle.Text = @"Dotted";
+                            }
+
+                            //矢印の種類
+                            switch (line.ArrowStyle)
+                            {
+                                case ObjectLine.ARROW_STYLE.NONE:
+                                    this.ArrowStyle.Text = @"None";
+                                    break;
+                                case ObjectLine.ARROW_STYLE.START:
+                                    this.ArrowStyle.Text = @"Start";
+                                    break;
+                                case ObjectLine.ARROW_STYLE.END:
+                                    this.ArrowStyle.Text = @"End";
+                                    break;
+                                case ObjectLine.ARROW_STYLE.BOTH:
+                                    this.ArrowStyle.Text = @"Both";
+                                    break;
                             }
                         }
 
@@ -125,6 +142,7 @@ namespace FootballBoard
         //Line
         public GroupBox LineGroupBox;           //ライン用のグループボックス
         public ComboBox LinStyle;               //ラインの描画形式
+        public ComboBox ArrowStyle;             //矢印の描画形式
 
         //String
         public TextBox WriteStringtextBox;      //文字列を書くため

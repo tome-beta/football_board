@@ -43,7 +43,7 @@ namespace FootballBoard
             //Line
             GUIParam.GetInstance().LineGroupBox = this.groupBoxLine;
             GUIParam.GetInstance().LinStyle = this.comboBoxLineStyle;
-
+            GUIParam.GetInstance().ArrowStyle = this.comboBoxArrowStyle;
 
             //String
             GUIParam.GetInstance().WriteStringtextBox = this.textBoxInputString;
@@ -84,6 +84,18 @@ namespace FootballBoard
             this.DataControle.SetLineStyle(str);
         }
 
+        //ラインの矢印形式を変えた時
+        private void comboBoxArrowStyle_TextChanged(object sender, EventArgs e)
+        {
+            this.DataControle.SetArrowStyle(this.comboBoxArrowStyle.Text);
+        }
+
+
+        //リストボックスからフォーカスが離れる時
+        private void listBoxSelectObject_Leave(object sender, EventArgs e)
+        {
+            this.listBoxSelectObject.Update();
+        }
 
     }
 }

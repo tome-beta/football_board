@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows;
 
 namespace FootballBoard
 {
@@ -26,7 +27,13 @@ namespace FootballBoard
             JAGGED,         //波線
             DOTTED,         //点線
         };
-
+        public enum ARROW_STYLE
+        {
+            NONE,   
+            START,  
+            END,    
+            BOTH,
+        };
 
         //コンストラクタ
         public ObjectLine(Point pos)
@@ -104,22 +111,27 @@ namespace FootballBoard
                 alpha = 128;
             }
 
+
             using (Pen pen = new Pen(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor), 4))
             {
                 if (this.LineStyle == LINE_STYLE.SOLID)
                 {
                     pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+                    g.DrawLine(pen, DrawPoints[0], DrawPoints[1]);
                 }
                 else if (this.LineStyle == LINE_STYLE.JAGGED)
                 {
-                    //正弦波を書くことになる。
+                    //カーブを重ねる
+                    DrawSinLine(g,pen, DrawPoints[0], DrawPoints[1]);
                 }
                 else if (this.LineStyle == LINE_STYLE.DOTTED)
                 {
                     pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                    g.DrawLine(pen, DrawPoints[0], DrawPoints[1]);
                 }
 
-                g.DrawLine(pen, DrawPoints[0], DrawPoints[1]);
+                //矢印を描く
+                DrawArrow(g,pen, DrawPoints);
             }
 
 
@@ -178,7 +190,7 @@ namespace FootballBoard
             {
                 //直線の式を導き出す
                 double A = 0, B = 0, C = 0;
-                FuncLine(ref A, ref B, ref C);
+                FuncLine(Points[0],Points[1],ref A, ref B, ref C);
 
                 //点と直線の距離
                 double arpha = Math.Abs(A * pos.X + B * pos.Y + C);
@@ -196,6 +208,64 @@ namespace FootballBoard
 
             this.DrugType = DRUG_TYPE.NON;
             return false;
+        }
+
+        //======================================================
+        //  private 
+        //======================================================
+        private void DrawSinLine(Graphics g, Pen pen ,Point p1, Point p2)
+        {
+            //点と点の距離を持っておく
+            double distance = Common.GetDistance(p1, p2);
+            //２点間の角度
+            double radian = Common.GetAngleRadian(p1,p2);
+            double degree = Common.RadToDeg(radian);
+
+            double vertical_degree = degree + 90;
+            double vertical_radian = Common.DegToRad(vertical_degree);
+
+            //波のための垂直ベクトル
+            float vertical_x = (float)Math.Cos(vertical_radian);
+            float vertical_y = (float)Math.Sin(vertical_radian);
+
+            //初期位置を決める
+            PointF[] _points = new PointF[4];
+            _points[0] = p1;
+
+            int add = 5;
+            int amplitude = 3; //振幅
+            float add_x = (float)(add * Math.Cos(radian));
+            float add_y = (float)(add * Math.Sin(radian));
+            vertical_y *= amplitude;
+            vertical_x *= amplitude;
+
+            while (true)
+            {
+                //(残りの距離 ＜波の大きさ) 直線を書いて終わり
+                if (add * 3> distance)
+                {
+                    g.DrawLine(pen, _points[0], p2);
+                    break;
+                }
+
+                _points[1].X = add_x + _points[0].X - vertical_x;
+                _points[1].Y = add_y + _points[0].Y - vertical_y;
+
+                _points[2].X = 2 * add_x + _points[0].X + vertical_x;
+                _points[2].Y = 2 * add_y + _points[0].Y + vertical_y;
+
+                _points[3].X = 3 * add_x + _points[0].X;
+                _points[3].Y = 3 * add_y + _points[0].Y;
+
+                //波を描く
+                g.DrawCurve(pen, _points);
+
+                //残り距離を減らす
+                distance -= add * 3;
+                //次の基準点にする
+                _points[0] = _points[3];
+            }
+
         }
 
         //直線とカーソル位置の範囲チェック
@@ -225,7 +295,7 @@ namespace FootballBoard
 
 
         //２点から直線の式を作る
-        private void FuncLine(ref double A, ref double B, ref double C)
+        private void FuncLine(Point p1,Point p2,ref double A, ref double B, ref double C)
         {
             //異なる二点(x1, y1)，(x2, y2) を通る直線の方程式は，
             //(x2−x1)(y−y1)= (y2−y1)(x−x1)
@@ -235,8 +305,12 @@ namespace FootballBoard
             //y = tmp3*x - tmpp3*x1 + y1;
             //-tmp3*x + y +tmp3*x1- y1 = 0;
 
-            int tmp1 = Points[1].X - Points[0].X;
-            int tmp2 = Points[1].Y - Points[0].Y;
+            double tmp1 = p2.X - p1.X;
+            double tmp2 = p2.Y - p1.Y;
+
+            if (Math.Abs(tmp1) <= 0.0) tmp1 = 0.00000000001;
+            if (Math.Abs(tmp2) <= 0.0) tmp2 = 0.00000000001;
+
             double tmp3 = (double)tmp2 / (double)tmp1;
             A = -tmp3;
             B = 1;
@@ -244,8 +318,59 @@ namespace FootballBoard
 
         }
 
+        //矢印を描く
+        private void DrawArrow(Graphics g,Pen pen, Point[] DrawPoint)
+        {
+            if (this.ArrowStyle == ARROW_STYLE.NONE) return;
+
+            //２点間の角度
+            double radian = Common.GetAngleRadian(DrawPoint[0], DrawPoint[1]);
+            double degree = Common.RadToDeg(radian);
+
+            PointF[] _points = new PointF[2];
+            int length = 15;
+
+            if (this.ArrowStyle == ARROW_STYLE.START || this.ArrowStyle == ARROW_STYLE.BOTH)
+            {
+                double arrow_degree1 = degree + 45;
+                double arrow_degree2 = degree - 45;
+                double arrow_radian1 = Common.DegToRad(arrow_degree1);
+                double arrow_radian2 = Common.DegToRad(arrow_degree2);
+                _points[0] = DrawPoint[0];
+                _points[1].X = _points[0].X + (float)(Math.Cos(arrow_radian1) * length);
+                _points[1].Y = _points[0].Y + (float)(Math.Sin(arrow_radian1) * length);
+
+                g.DrawLine(pen, _points[0], _points[1]);
+
+                _points[1].X = _points[0].X + (float)(Math.Cos(arrow_radian2) * length);
+                _points[1].Y = _points[0].Y + (float)(Math.Sin(arrow_radian2) * length);
+
+                g.DrawLine(pen, _points[0], _points[1]);
+            }
+            if (this.ArrowStyle == ARROW_STYLE.END || this.ArrowStyle == ARROW_STYLE.BOTH)
+            {
+                double arrow_degree1 = degree + 180 + 45;
+                double arrow_degree2 = degree + 180 - 45;
+                double arrow_radian1 = Common.DegToRad(arrow_degree1);
+                double arrow_radian2 = Common.DegToRad(arrow_degree2);
+                _points[0] = DrawPoint[1];
+                _points[1].X = _points[0].X + (float)(Math.Cos(arrow_radian1) * length);
+                _points[1].Y = _points[0].Y + (float)(Math.Sin(arrow_radian1) * length);
+
+                g.DrawLine(pen, _points[0], _points[1]);
+
+                _points[1].X = _points[0].X + (float)(Math.Cos(arrow_radian2) * length);
+                _points[1].Y = _points[0].Y + (float)(Math.Sin(arrow_radian2) * length);
+
+                g.DrawLine(pen, _points[0], _points[1]);
+            }
+        }
+
+
         public DRUG_TYPE DrugType = DRUG_TYPE.NON;
         public LINE_STYLE LineStyle = LINE_STYLE.SOLID;
+        public ARROW_STYLE ArrowStyle = ARROW_STYLE.NONE;
+
         private Point MoveStartPos = new Point();   //移動量をつくるため
     }
 }

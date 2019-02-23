@@ -64,7 +64,25 @@ namespace FootballBoard
         {
             if(GUIParam.GetInstance().LinStyle.Text == @"Solid") { line.LineStyle = ObjectLine.LINE_STYLE.SOLID;}
             if(GUIParam.GetInstance().LinStyle.Text == @"Jagged"){ line.LineStyle = ObjectLine.LINE_STYLE.JAGGED;}
-            if (GUIParam.GetInstance().LinStyle.Text == @"Dotted") { line.LineStyle = ObjectLine.LINE_STYLE.DOTTED; }
+            if(GUIParam.GetInstance().LinStyle.Text == @"Dotted") { line.LineStyle = ObjectLine.LINE_STYLE.DOTTED; }
+
+            //矢印タイプ
+            switch(GUIParam.GetInstance().ArrowStyle.Text)
+            {
+                case @"Non":
+                    line.ArrowStyle = ObjectLine.ARROW_STYLE.NONE;
+                    break;
+                case @"Start":
+                    line.ArrowStyle = ObjectLine.ARROW_STYLE.START;
+                    break;
+                case @"End":
+                    line.ArrowStyle = ObjectLine.ARROW_STYLE.END;
+                    break;
+                case @"both":
+                    line.ArrowStyle = ObjectLine.ARROW_STYLE.BOTH;
+                    break;
+
+            }
         }
     }
 

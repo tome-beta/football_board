@@ -32,6 +32,25 @@ namespace FootballBoard
             return distance;
         }
 
+        //２点間の角度（ラジアン）
+        public static double GetAngleRadian(Point p1, Point p2)
+        {
+            return Math.Atan2(p2.Y - p1.Y, p2.X - p1.X);
+        }
+
+        //ラジアンから角度への変換
+        public static double RadToDeg(double radian)
+        {
+            return radian * 180d / Math.PI;
+        }
+
+        //角度からラジアンへの変換
+        public static double DegToRad(double deg)
+        {
+            return deg * Math.PI / 180d;
+        }
+
+
         //配列の最大値を取得
         public static T Max<T>(params T[] nums) where T : IComparable
         {
