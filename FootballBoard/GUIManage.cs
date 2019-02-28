@@ -82,11 +82,7 @@ namespace FootballBoard
         {
             int value = this.trackBarMarkerSize.Value;
             this.DataControle.SetMarkerSize(value);
-
-
-
         }
-
 
         //ラインの描画形式を切り替えたとき
         private void comboBoxLineStyle_TextChanged(object sender, EventArgs e)

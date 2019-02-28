@@ -68,14 +68,17 @@
             this.saveFileDialogImage = new System.Windows.Forms.SaveFileDialog();
             this.buttonColorDialog = new System.Windows.Forms.Button();
             this.groupBoxLine = new System.Windows.Forms.GroupBox();
-            this.labelLineStyle = new System.Windows.Forms.Label();
-            this.comboBoxLineStyle = new System.Windows.Forms.ComboBox();
             this.labelArrowStyle = new System.Windows.Forms.Label();
             this.comboBoxArrowStyle = new System.Windows.Forms.ComboBox();
+            this.labelLineStyle = new System.Windows.Forms.Label();
+            this.comboBoxLineStyle = new System.Windows.Forms.ComboBox();
+            this.trackBarMarkerSize = new System.Windows.Forms.TrackBar();
+            this.labelMarkerSize = new System.Windows.Forms.Label();
             this.groupBoxMarker.SuspendLayout();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.groupBoxLine.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMarkerSize)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxSelectObject
@@ -130,6 +133,8 @@
             // 
             // groupBoxMarker
             // 
+            this.groupBoxMarker.Controls.Add(this.labelMarkerSize);
+            this.groupBoxMarker.Controls.Add(this.trackBarMarkerSize);
             this.groupBoxMarker.Controls.Add(this.labelTeam);
             this.groupBoxMarker.Controls.Add(this.comboBoxTeam);
             this.groupBoxMarker.Controls.Add(this.radioButtonName9);
@@ -149,7 +154,7 @@
             this.groupBoxMarker.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.groupBoxMarker.Location = new System.Drawing.Point(965, 40);
             this.groupBoxMarker.Name = "groupBoxMarker";
-            this.groupBoxMarker.Size = new System.Drawing.Size(200, 380);
+            this.groupBoxMarker.Size = new System.Drawing.Size(200, 424);
             this.groupBoxMarker.TabIndex = 7;
             this.groupBoxMarker.TabStop = false;
             this.groupBoxMarker.Text = "Marker";
@@ -157,7 +162,7 @@
             // labelTeam
             // 
             this.labelTeam.AutoSize = true;
-            this.labelTeam.Location = new System.Drawing.Point(8, 242);
+            this.labelTeam.Location = new System.Drawing.Point(12, 227);
             this.labelTeam.Name = "labelTeam";
             this.labelTeam.Size = new System.Drawing.Size(51, 24);
             this.labelTeam.TabIndex = 19;
@@ -169,7 +174,7 @@
             this.comboBoxTeam.Items.AddRange(new object[] {
             "HOME",
             "AWAY"});
-            this.comboBoxTeam.Location = new System.Drawing.Point(12, 269);
+            this.comboBoxTeam.Location = new System.Drawing.Point(16, 254);
             this.comboBoxTeam.Name = "comboBoxTeam";
             this.comboBoxTeam.Size = new System.Drawing.Size(121, 32);
             this.comboBoxTeam.TabIndex = 18;
@@ -295,7 +300,7 @@
             // checkBoxDirection
             // 
             this.checkBoxDirection.AutoSize = true;
-            this.checkBoxDirection.Location = new System.Drawing.Point(6, 346);
+            this.checkBoxDirection.Location = new System.Drawing.Point(15, 292);
             this.checkBoxDirection.Name = "checkBoxDirection";
             this.checkBoxDirection.Size = new System.Drawing.Size(97, 28);
             this.checkBoxDirection.TabIndex = 0;
@@ -461,29 +466,6 @@
             this.groupBoxLine.TabStop = false;
             this.groupBoxLine.Text = "Line";
             // 
-            // labelLineStyle
-            // 
-            this.labelLineStyle.AutoSize = true;
-            this.labelLineStyle.Location = new System.Drawing.Point(12, 27);
-            this.labelLineStyle.Name = "labelLineStyle";
-            this.labelLineStyle.Size = new System.Drawing.Size(48, 24);
-            this.labelLineStyle.TabIndex = 1;
-            this.labelLineStyle.Text = "Style";
-            // 
-            // comboBoxLineStyle
-            // 
-            this.comboBoxLineStyle.FormattingEnabled = true;
-            this.comboBoxLineStyle.Items.AddRange(new object[] {
-            "Solid",
-            "Jagged",
-            "Dotted"});
-            this.comboBoxLineStyle.Location = new System.Drawing.Point(12, 53);
-            this.comboBoxLineStyle.Name = "comboBoxLineStyle";
-            this.comboBoxLineStyle.Size = new System.Drawing.Size(121, 32);
-            this.comboBoxLineStyle.TabIndex = 0;
-            this.comboBoxLineStyle.Text = "Solid";
-            this.comboBoxLineStyle.TextChanged += new System.EventHandler(this.comboBoxLineStyle_TextChanged);
-            // 
             // labelArrowStyle
             // 
             this.labelArrowStyle.AutoSize = true;
@@ -508,6 +490,49 @@
             this.comboBoxArrowStyle.Text = "Non";
             this.comboBoxArrowStyle.TextChanged += new System.EventHandler(this.comboBoxArrowStyle_TextChanged);
             // 
+            // labelLineStyle
+            // 
+            this.labelLineStyle.AutoSize = true;
+            this.labelLineStyle.Location = new System.Drawing.Point(12, 27);
+            this.labelLineStyle.Name = "labelLineStyle";
+            this.labelLineStyle.Size = new System.Drawing.Size(48, 24);
+            this.labelLineStyle.TabIndex = 1;
+            this.labelLineStyle.Text = "Style";
+            // 
+            // comboBoxLineStyle
+            // 
+            this.comboBoxLineStyle.FormattingEnabled = true;
+            this.comboBoxLineStyle.Items.AddRange(new object[] {
+            "Solid",
+            "Jagged",
+            "Dotted"});
+            this.comboBoxLineStyle.Location = new System.Drawing.Point(12, 53);
+            this.comboBoxLineStyle.Name = "comboBoxLineStyle";
+            this.comboBoxLineStyle.Size = new System.Drawing.Size(121, 32);
+            this.comboBoxLineStyle.TabIndex = 0;
+            this.comboBoxLineStyle.Text = "Solid";
+            this.comboBoxLineStyle.TextChanged += new System.EventHandler(this.comboBoxLineStyle_TextChanged);
+            // 
+            // trackBarMarkerSize
+            // 
+            this.trackBarMarkerSize.Location = new System.Drawing.Point(16, 369);
+            this.trackBarMarkerSize.Maximum = 30;
+            this.trackBarMarkerSize.Minimum = 10;
+            this.trackBarMarkerSize.Name = "trackBarMarkerSize";
+            this.trackBarMarkerSize.Size = new System.Drawing.Size(104, 45);
+            this.trackBarMarkerSize.TabIndex = 20;
+            this.trackBarMarkerSize.Value = 30;
+            this.trackBarMarkerSize.Scroll += new System.EventHandler(this.trackBarMarkerSize_Scroll);
+            // 
+            // labelMarkerSize
+            // 
+            this.labelMarkerSize.AutoSize = true;
+            this.labelMarkerSize.Location = new System.Drawing.Point(12, 338);
+            this.labelMarkerSize.Name = "labelMarkerSize";
+            this.labelMarkerSize.Size = new System.Drawing.Size(95, 24);
+            this.labelMarkerSize.TabIndex = 21;
+            this.labelMarkerSize.Text = "MarkerSize";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -522,9 +547,9 @@
             this.Controls.Add(this.labelCurrentObj);
             this.Controls.Add(this.labelOnCursor);
             this.Controls.Add(this.listBoxSelectObject);
-            this.Controls.Add(this.groupBoxLine);
             this.Controls.Add(this.groupBoxMarker);
             this.Controls.Add(this.pictureBoxGameField);
+            this.Controls.Add(this.groupBoxLine);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
@@ -538,6 +563,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).EndInit();
             this.groupBoxLine.ResumeLayout(false);
             this.groupBoxLine.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMarkerSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -589,6 +615,8 @@
         private System.Windows.Forms.ComboBox comboBoxLineStyle;
         private System.Windows.Forms.Label labelArrowStyle;
         private System.Windows.Forms.ComboBox comboBoxArrowStyle;
+        private System.Windows.Forms.Label labelMarkerSize;
+        private System.Windows.Forms.TrackBar trackBarMarkerSize;
     }
 }
 
