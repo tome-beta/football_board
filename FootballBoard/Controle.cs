@@ -293,6 +293,21 @@ namespace FootballBoard
             }
         }
 
+        //マーカーサイズの設定
+        public void SetMarkerSize(int value)
+        {
+            //すべてのマーカーのサイズに反映させる
+            for (int i = 0; i < this.model.ObjectList.Count; i++)
+            {
+                ObjectMarker mark = this.model.ObjectList[i] as ObjectMarker;
+                if (mark != null)
+                {
+                    mark.MarkerSize = value;
+                }
+            }
+
+        }
+
         //ライン描画形式の変更
         public void SetLineStyle(String style)
         {
@@ -316,7 +331,8 @@ namespace FootballBoard
                 if (style == @"Both") { line.ArrowStyle = ObjectLine.ARROW_STYLE.BOTH; }
             }
         }
- 
+
+
         //登録されているオブジェクトの描画
         public void DrawAll(Graphics g)
         {

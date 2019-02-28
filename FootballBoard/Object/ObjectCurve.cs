@@ -22,6 +22,7 @@ namespace FootballBoard
         {
             this.Points[0] = pos;
             this.Points[2] = pos;
+            this.Points[3] = pos;
 
             //中間点
             this.Points[1].X = (this.Points[2].X - Points[0].X) / 2;
@@ -54,23 +55,27 @@ namespace FootballBoard
                     {
                         this.Points[0].X = pos.X;
                         this.Points[0].Y = pos.Y;
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case DRUG_TYPE.MIDDLE_POINT:
                     {
                         this.Points[1].X = pos.X;
                         this.Points[1].Y = pos.Y;
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case DRUG_TYPE.END_POINT:
                     {
                         this.Points[2].X = pos.X;
                         this.Points[2].Y = pos.Y;
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case DRUG_TYPE.INIT:
                     {
                         SetEndPoint(pos);
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case DRUG_TYPE.WHOLE:
@@ -78,13 +83,24 @@ namespace FootballBoard
                         //全体を動かす
                         int move_x = pos.X - this.MoveStartPos.X;
                         int move_y = pos.Y - this.MoveStartPos.Y;
-
-                        for(int i = 0; i < 3;i++)
+                        //X方向の全体移動チェック
+                        if (CheckWholePointMoveRange(this.Points, move_x, true))
                         {
-                            this.Points[i].X += move_x;
-                            this.Points[i].Y += move_y;
+                            for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                            {
+                                this.Points[i].X += move_x;
+                            }
+                            this.MoveStartPos.X = pos.X;
                         }
-                        this.MoveStartPos = pos;
+                        //Y方向の全体移動チェック
+                        if (CheckWholePointMoveRange(this.Points, move_y, false))
+                        {
+                            for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                            {
+                                this.Points[i].Y += move_y;
+                            }
+                            this.MoveStartPos.Y = pos.Y;
+                        }
                     }
                     break;
                 default:

@@ -18,13 +18,18 @@ namespace FootballBoard
         public ObjectMarker(Point pos)
         {
             this.Points[0] = pos;
+
+            this.MarkerSize = GUIParam.GetInstance().MarkerSizeBar.Value;
         }
 
         //ドラッグしているときの動き
         public override void DrugMove(Point pos)
         {
             this.Points[0] = pos;
+
+            CheckPointMoveRange(ref this.Points);
         }
+
         //マーカーを描画
         public override void DrawObject(Graphics g)
         {
@@ -49,22 +54,25 @@ namespace FootballBoard
             {
                 Brush b = new SolidBrush(Color.FromArgb(alpha, Color.Blue));
 
-                Pen pen = new Pen(b,5);
+                Pen pen = new Pen(b,3);
                 DrawMarkerDirection(g,pen,DrawPoints);
             }
 
             //円を描く
             g.FillEllipse(brush, new Rectangle(
-            DrawPoints[0].X - Width / 2,
-            DrawPoints[0].Y - Height / 2,
-            Width,
-            Height)
+            DrawPoints[0].X - this.MarkerSize / 2,
+            DrawPoints[0].Y - this.MarkerSize / 2,
+            this.MarkerSize,
+            this.MarkerSize)
             );
 
             //背番号を表示
             if (this.UniformNumber.Length != 0)
             {
-                Font fnt = new Font("MS UI Gothic", 20);
+                int font_size = this.MarkerSize - 10;
+                if (font_size < 1) font_size = 1;
+
+                Font fnt = new Font("MS UI Gothic", font_size);
                 StringFormat sf = new StringFormat();
                 SizeF stringSize = g.MeasureString(UniformNumber, fnt, 1000, sf);
                 g.DrawString(this.UniformNumber,
@@ -74,7 +82,7 @@ namespace FootballBoard
                     DrawPoints[0].Y - stringSize.Height / 2);
             }
 
-            //名前を表示 TODO 表示位置のオフセットがあれば
+            //名前を表示
             if (this.Name.Length != 0)
             {
                 DrawName(g, DrawPoints[0]);
@@ -95,7 +103,7 @@ namespace FootballBoard
         {
             double dist = Common.GetDistance(pos, this.Points[0]);
 
-            if (dist < Width / 2)
+            if (dist < this.MarkerSize / 2)
             {
                 return true;
             }
@@ -145,13 +153,13 @@ namespace FootballBoard
             //左
             {
                 PointF[] f_points = new PointF[3];
-                f_points[0].X = points[0].X - Width / 2;
+                f_points[0].X = points[0].X - this.MarkerSize / 2;
                 f_points[0].Y = points[0].Y;
 
-                f_points[1].X = f_points[0].X - (Width / 3);
-                f_points[1].Y = f_points[0].Y - (Height / 4);
-                f_points[2].X = f_points[0].X - (Width / 3);
-                f_points[2].Y = f_points[0].Y + (Height / 4);
+                f_points[1].X = f_points[0].X - (this.MarkerSize / 3);
+                f_points[1].Y = f_points[0].Y - (this.MarkerSize / 4);
+                f_points[2].X = f_points[0].X - (this.MarkerSize / 3);
+                f_points[2].Y = f_points[0].Y + (this.MarkerSize / 4);
 
                 g.FillPolygon(brush_tri, f_points);
             }
@@ -159,12 +167,12 @@ namespace FootballBoard
             {
                 PointF[] f_points = new PointF[3];
                 f_points[0].X = points[0].X;
-                f_points[0].Y = points[0].Y - Height / 2;
+                f_points[0].Y = points[0].Y - this.MarkerSize / 2;
 
-                f_points[1].X = f_points[0].X - (Width / 4);
-                f_points[1].Y = f_points[0].Y - (Height / 3);
-                f_points[2].X = f_points[0].X + (Width / 4);
-                f_points[2].Y = f_points[0].Y - (Height / 3);
+                f_points[1].X = f_points[0].X - (this.MarkerSize / 4);
+                f_points[1].Y = f_points[0].Y - (this.MarkerSize / 3);
+                f_points[2].X = f_points[0].X + (this.MarkerSize / 4);
+                f_points[2].Y = f_points[0].Y - (this.MarkerSize / 3);
 
                 g.FillPolygon(brush_tri, f_points);
             }
@@ -172,13 +180,13 @@ namespace FootballBoard
             //右
             {
                 PointF[] f_points = new PointF[3];
-                f_points[0].X = points[0].X + Width / 2;
+                f_points[0].X = points[0].X + this.MarkerSize / 2;
                 f_points[0].Y = points[0].Y;
 
-                f_points[1].X = f_points[0].X + (Width / 3);
-                f_points[1].Y = f_points[0].Y - (Height / 4);
-                f_points[2].X = f_points[0].X + (Width / 3);
-                f_points[2].Y = f_points[0].Y + (Height / 4);
+                f_points[1].X = f_points[0].X + (this.MarkerSize / 3);
+                f_points[1].Y = f_points[0].Y - (this.MarkerSize / 4);
+                f_points[2].X = f_points[0].X + (this.MarkerSize / 3);
+                f_points[2].Y = f_points[0].Y + (this.MarkerSize / 4);
 
                 g.FillPolygon(brush_tri, f_points);
             }
@@ -186,12 +194,12 @@ namespace FootballBoard
             {
                 PointF[] f_points = new PointF[3];
                 f_points[0].X = points[0].X;
-                f_points[0].Y = points[0].Y + Height / 2;
+                f_points[0].Y = points[0].Y + this.MarkerSize / 2;
 
-                f_points[1].X = f_points[0].X - (Width / 4);
-                f_points[1].Y = f_points[0].Y + (Height / 3);
-                f_points[2].X = f_points[0].X + (Width / 4);
-                f_points[2].Y = f_points[0].Y + (Height / 3);
+                f_points[1].X = f_points[0].X - (this.MarkerSize / 4);
+                f_points[1].Y = f_points[0].Y + (this.MarkerSize / 3);
+                f_points[2].X = f_points[0].X + (this.MarkerSize / 4);
+                f_points[2].Y = f_points[0].Y + (this.MarkerSize / 3);
 
                 g.FillPolygon(brush_tri, f_points);
             }
@@ -203,19 +211,23 @@ namespace FootballBoard
             int MakerCenter_x = points[0].X;
             int MakerCenter_y = points[0].Y;
 
-            int offset_x_90  = (int)(20 * Math.Cos((direction + 90) * (Math.PI / 180)) );
-            int offset_y_90  = (int)(20 * Math.Sin((direction + 90) * (Math.PI / 180)) );
-            int offset_x_180 = (int)(20 * Math.Cos((direction + 180) * (Math.PI / 180)));
-            int offset_y_180 = (int)(20 * Math.Sin((direction + 180) * (Math.PI / 180)));
-            int offset_x_270 = (int)(20 * Math.Cos((direction + 270) * (Math.PI / 180)));
-            int offset_y_270 = (int)(20 * Math.Sin((direction + 270) * (Math.PI / 180)));
+            int size = this.MarkerSize - 10;
+            if (size < 0) size = 0;
 
-            offset_x_90 = (int)(offset_x_90 * 1.2);
-            offset_y_90 = (int)(offset_y_90 * 1.2);
+
+            int offset_x_90 = (int)(size * Math.Cos((direction + 90) * (Math.PI / 180)));
+            int offset_y_90 = (int)(size * Math.Sin((direction + 90) * (Math.PI / 180)));
+            int offset_x_180 = (int)(size * Math.Cos((direction + 180) * (Math.PI / 180)));
+            int offset_y_180 = (int)(size * Math.Sin((direction + 180) * (Math.PI / 180)));
+            int offset_x_270 = (int)(size * Math.Cos((direction + 270) * (Math.PI / 180)));
+            int offset_y_270 = (int)(size * Math.Sin((direction + 270) * (Math.PI / 180)));
+
+            offset_x_90 = (int)(offset_x_90 * 1.3);
+            offset_y_90 = (int)(offset_y_90 * 1.3);
             offset_x_180 = (int)(offset_x_180 * 0.5);
             offset_y_180 = (int)(offset_y_180 * 0.5);
-            offset_x_270 = (int)(offset_x_270 * 1.2);
-            offset_y_270 = (int)(offset_y_270 * 1.2);
+            offset_x_270 = (int)(offset_x_270 * 1.3);
+            offset_y_270 = (int)(offset_y_270 * 1.3);
 
 
             Point[] ps = new Point[3];
@@ -237,7 +249,7 @@ namespace FootballBoard
             //オフセットの位置を決める
             int offset_x = 0;
             int offset_y = 0;
-            int OFFSET = 30; //TODO これはマーカーのサイズによる
+            int OFFSET = this.MarkerSize; //これはマーカーのサイズによる
             for (int i = 0; i < 9; i++)
             {
                 if (GUIParam.GetInstance().NamePosButton[i].Checked)
@@ -248,9 +260,10 @@ namespace FootballBoard
                     break;
                 }
             }
-
+            int font_size = this.MarkerSize - 10;
+            if (font_size < 1) font_size = 1;
             //文字列を位置(0,0)、青色で表示
-            Font fnt = new Font("MS UI Gothic", 20);
+            Font fnt = new Font("MS UI Gothic", font_size);
             StringFormat sf = new StringFormat();
             SizeF stringSize = g.MeasureString(Name, fnt, 1000, sf);
             g.DrawString(this.Name,
@@ -264,14 +277,14 @@ namespace FootballBoard
 
         public int TeamType;   //HomeかAwayか
         public int NamePosition;
-        public int Width = 30;
-        public int Height = 30;
 
         double direction = 0;
 
         //表示文字列
         public String UniformNumber = @"";
         public String Name = @"";
+
+        public int MarkerSize = 30;
 
     }
 

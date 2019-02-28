@@ -40,6 +40,8 @@ namespace FootballBoard
         {
             this.Points[0] = pos;
             this.Points[1] = pos;
+            this.Points[2] = pos;
+            this.Points[3] = pos;
         }
 
         //ドラッグしているときの動き
@@ -51,16 +53,19 @@ namespace FootballBoard
                 case ObjectLine.DRUG_TYPE.START_POINT:
                     {
                         SetStartPoint(pos);
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case ObjectLine.DRUG_TYPE.END_POINT:
                     {
                         SetEndPoint(pos);
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case DRUG_TYPE.INIT:
                     {
                         SetEndPoint(pos);
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case ObjectLine.DRUG_TYPE.WHOLE:
@@ -69,13 +74,24 @@ namespace FootballBoard
                         int move_x = pos.X - this.MoveStartPos.X;
                         int move_y = pos.Y - this.MoveStartPos.Y;
 
-                        for(int i = 0; i < 2; i++)
+                        //X方向の全体移動チェック
+                        if (CheckWholePointMoveRange(this.Points, move_x, true))
                         {
-                            this.Points[i].X += move_x;
-                            this.Points[i].Y += move_y;
+                            for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                            {
+                                this.Points[i].X += move_x;
+                            }
+                            this.MoveStartPos.X = pos.X;
                         }
-
-                        this.MoveStartPos = pos;
+                        //Y方向の全体移動チェック
+                        if (CheckWholePointMoveRange(this.Points, move_y, false))
+                        {
+                            for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                            {
+                                this.Points[i].Y += move_y;
+                            }
+                            this.MoveStartPos.Y = pos.Y;
+                        }
                     }
                     break;
                 default:

@@ -39,6 +39,7 @@ namespace FootballBoard
             GUIParam.GetInstance().NamePosButton[6] = this.radioButtonName7;
             GUIParam.GetInstance().NamePosButton[7] = this.radioButtonName8;
             GUIParam.GetInstance().NamePosButton[8] = this.radioButtonName9;
+            GUIParam.GetInstance().MarkerSizeBar = this.trackBarMarkerSize;
 
             //Line
             GUIParam.GetInstance().LineGroupBox = this.groupBoxLine;
@@ -75,6 +76,17 @@ namespace FootballBoard
             String str = this.textBoxName.Text;
             this.DataControle.SetString(str, MainForm.TEXTBOX_TYPE.MARKER_NAME);
         }
+
+        //マーカーサイズのトラックバー
+        private void trackBarMarkerSize_Scroll(object sender, EventArgs e)
+        {
+            int value = this.trackBarMarkerSize.Value;
+            this.DataControle.SetMarkerSize(value);
+
+
+
+        }
+
 
         //ラインの描画形式を切り替えたとき
         private void comboBoxLineStyle_TextChanged(object sender, EventArgs e)

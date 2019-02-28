@@ -138,7 +138,7 @@ namespace FootballBoard
         public TextBox NameTextBox;             //名前
         public RadioButton[] NamePosButton = new RadioButton[9];    //名前の表示位置ボタン
         public ComboBox TeamConboBox;           //チーム切り替え
-
+        public TrackBar MarkerSizeBar;          //マーカーサイズ
         //Line
         public GroupBox LineGroupBox;           //ライン用のグループボックス
         public ComboBox LinStyle;               //ラインの描画形式

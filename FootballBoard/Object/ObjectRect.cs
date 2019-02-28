@@ -41,6 +41,7 @@ namespace FootballBoard
 
                         this.Points[1].Y = pos.Y;
                         this.Points[3].X = pos.X;
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case ObjectRect.DRUG_TYPE.POINT_2:
@@ -49,6 +50,7 @@ namespace FootballBoard
 
                         this.Points[0].Y = pos.Y;
                         this.Points[2].X = pos.X;
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case ObjectRect.DRUG_TYPE.POINT_3:
@@ -57,6 +59,7 @@ namespace FootballBoard
 
                         this.Points[3].Y = pos.Y;
                         this.Points[1].X = pos.X;
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case ObjectRect.DRUG_TYPE.POINT_4:
@@ -66,6 +69,7 @@ namespace FootballBoard
 
                         this.Points[0].X = pos.X;
                         this.Points[2].Y = pos.Y;
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 case ObjectRect.DRUG_TYPE.WHOLE:
@@ -74,13 +78,24 @@ namespace FootballBoard
                         int move_x = pos.X - this.MoveStartPos.X;
                         int move_y = pos.Y - this.MoveStartPos.Y;
 
-                        for (int i = 0; i < 4; i++)
+                        //X方向の全体移動チェック
+                        if (CheckWholePointMoveRange(this.Points, move_x, true))
                         {
-                            this.Points[i].X += move_x;
-                            this.Points[i].Y += move_y;
+                            for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                            {
+                                this.Points[i].X += move_x;
+                            }
+                            this.MoveStartPos.X = pos.X;
                         }
-
-                        this.MoveStartPos = pos;
+                        //Y方向の全体移動チェック
+                        if (CheckWholePointMoveRange(this.Points, move_y, false))
+                        {
+                            for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                            {
+                                this.Points[i].Y += move_y;
+                            }
+                            this.MoveStartPos.Y = pos.Y;
+                        }
                     }
                     break;
                 case ObjectRect.DRUG_TYPE.INIT:
@@ -89,6 +104,7 @@ namespace FootballBoard
 
                         this.Points[3].Y = pos.Y;
                         this.Points[1].X = pos.X;
+                        CheckPointMoveRange(ref this.Points);
                     }
                     break;
                 default:
