@@ -20,6 +20,17 @@ namespace FootballBoard
             LEFT,
         };
 
+        public enum FILED_DISP_SIZE
+        {
+            HALF_TOP,
+            HALF_MIDDLE,
+            HALF_BOTTOM,
+            THIRD_TOP,
+            THIRD_MIDDLE,
+            THIRD_BOTTOM,
+            FULL
+        };
+
         //選択したオブジェクトによって表示GUIを変える
         public void ChangeDispGUI(Common.SELECT_DRAW_OBJECT select,ObjectBase obj)
         {
@@ -120,12 +131,19 @@ namespace FootballBoard
             this.ObjectColor = Color.Red;
             this.MarkerDirectionOn = false;
             this.FiledDirection = FILED_DIRECTION.RIGHT;
+            this.FiledDispSize = FILED_DISP_SIZE.FULL;
         }
 
         //GUIの設定
         public Color ObjectColor;               //オブジェクトに設定する色
         public bool MarkerDirectionOn;          //マーカーに方向をつけるか
         public FILED_DIRECTION FiledDirection;  //フィールドの方向
+        public FILED_DISP_SIZE FiledDispSize;   //フィールドの表示範囲
+
+        public Rectangle SrcFiledRect = new Rectangle(0,0,640,480);         //切り出す範囲
+        public Rectangle DstFiledRect = new Rectangle(0, 0, 640, 480);      //表示する範囲
+        public Rectangle SrcFiledRect_vertical = new Rectangle(0, 0, 480, 640);         //切り出す範囲
+        public Rectangle DstFiledRect_vertical = new Rectangle(0, 0, 480, 640);      //表示する範囲
 
         //パラメータ
         public int FiledWidth = 640;        //フィールドの大きさ
