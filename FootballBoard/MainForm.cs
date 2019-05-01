@@ -93,6 +93,9 @@ namespace FootballBoard
                     break;
             }
 
+            this.labelMousePoint.Text = @"Mouse : " + e.X + "," + e.Y;
+            this.labelTrans.Text = @"Trans : " + def.X + "," + def.Y;
+
         }
         //マウスを離したとき
         private void pictureBoxGameField_MouseUp(object sender, MouseEventArgs e)

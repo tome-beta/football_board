@@ -84,6 +84,8 @@
             this.comboBoxArrowStyle = new System.Windows.Forms.ComboBox();
             this.labelLineStyle = new System.Windows.Forms.Label();
             this.comboBoxLineStyle = new System.Windows.Forms.ComboBox();
+            this.labelMousePoint = new System.Windows.Forms.Label();
+            this.labelTrans = new System.Windows.Forms.Label();
             this.groupBoxMarker.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarMarkerSize)).BeginInit();
             this.menuStrip.SuspendLayout();
@@ -621,11 +623,33 @@
             this.comboBoxLineStyle.Text = "Solid";
             this.comboBoxLineStyle.TextChanged += new System.EventHandler(this.comboBoxLineStyle_TextChanged);
             // 
+            // labelMousePoint
+            // 
+            this.labelMousePoint.AutoSize = true;
+            this.labelMousePoint.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelMousePoint.Location = new System.Drawing.Point(22, 692);
+            this.labelMousePoint.Name = "labelMousePoint";
+            this.labelMousePoint.Size = new System.Drawing.Size(117, 28);
+            this.labelMousePoint.TabIndex = 20;
+            this.labelMousePoint.Text = "MousePoint";
+            // 
+            // labelTrans
+            // 
+            this.labelTrans.AutoSize = true;
+            this.labelTrans.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelTrans.Location = new System.Drawing.Point(22, 734);
+            this.labelTrans.Name = "labelTrans";
+            this.labelTrans.Size = new System.Drawing.Size(62, 28);
+            this.labelTrans.TabIndex = 21;
+            this.labelTrans.Text = "Trans";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1203, 810);
+            this.Controls.Add(this.labelTrans);
+            this.Controls.Add(this.labelMousePoint);
             this.Controls.Add(this.buttonColorDialog);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.buttonRedo);
@@ -715,6 +739,8 @@
         private System.Windows.Forms.ToolStripMenuItem thirdBottomToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem fullToolStripMenuItem;
+        private System.Windows.Forms.Label labelMousePoint;
+        private System.Windows.Forms.Label labelTrans;
     }
 }
 

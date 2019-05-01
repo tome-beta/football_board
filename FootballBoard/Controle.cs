@@ -64,7 +64,7 @@ namespace FootballBoard
             }
             else if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.VERTICAL)
             {
-                def_point.X = GUIParam.GetInstance().FiledWidth - org_point.Y;
+                def_point.X = GUIParam.GetInstance().FiledHeight - org_point.Y;
                 def_point.Y = org_point.X;
 
             }
