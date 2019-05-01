@@ -50,6 +50,15 @@ namespace FootballBoard
         {
             //RIGHTであるのを基準にした位置に変換する
 
+            //フィールド分割表示を考慮する
+            int offset_x = 0;
+            int offset_y = 0;
+            double rate = 1.0;
+            Common.MakeFieldPositionOffset(ref offset_x, ref offset_y,ref rate);
+
+
+
+
             if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.LEFT)
             {
                 double rotation = 180 * Math.PI / 180d;
@@ -70,6 +79,9 @@ namespace FootballBoard
             }
             else
             {
+                org_point.X += offset_x;
+                org_point.Y += offset_y;
+
                 def_point = org_point;
             }
 
@@ -361,7 +373,6 @@ namespace FootballBoard
 
             }
         }
-
 
         //オブジェクト毎の振る舞いを管理する
         public ObjectState State = null;

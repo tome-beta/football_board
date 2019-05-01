@@ -246,6 +246,8 @@ namespace FootballBoard
         //表示サイズの変更
         private void FieldDispMenuItemChecked(GUIParam.FILED_DISP_SIZE size)
         {
+            GUIParam.GetInstance().FiledDispSize = size;
+
             this.halfTopToolStripMenuItem.Checked = false;
             this.halfMiddleToolStripMenuItem.Checked = false;
             this.halfBottomToolStripMenuItem.Checked = false;
@@ -278,8 +280,8 @@ namespace FootballBoard
 
                     rate = 1.0;
                     break;
-                case GUIParam.FILED_DISP_SIZE.HALF_TOP:
-                    this.halfTopToolStripMenuItem.Checked = true;
+                case GUIParam.FILED_DISP_SIZE.HALF_BOTTOM:
+                    this.halfBottomToolStripMenuItem.Checked = true;
                     src_rect.X = 0;
                     src_rect.Y = 0;
                     src_rect.Width = 320;
@@ -306,8 +308,8 @@ namespace FootballBoard
                     src_rect_vertical.Height = 320;
                     rate = 1.2;
                     break;
-                case GUIParam.FILED_DISP_SIZE.HALF_BOTTOM:
-                    this.halfBottomToolStripMenuItem.Checked = true;
+                case GUIParam.FILED_DISP_SIZE.HALF_TOP:
+                    this.halfTopToolStripMenuItem.Checked = true;
                     src_rect.X = 320;
                     src_rect.Y = 0;
                     src_rect.Width = 320;
@@ -320,8 +322,8 @@ namespace FootballBoard
 
                     rate = 1.2;
                     break;
-                case GUIParam.FILED_DISP_SIZE.THIRD_TOP:
-                    this.thirdTopToolStripMenuItem.Checked = true;
+                case GUIParam.FILED_DISP_SIZE.THIRD_BOTTOM:
+                    this.thirdBottomToolStripMenuItem.Checked = true;
                     src_rect.X = 0;
                     src_rect.Y = 0;
                     src_rect.Width = 220;
@@ -348,8 +350,8 @@ namespace FootballBoard
 
                     rate = 1.2;
                     break;
-                case GUIParam.FILED_DISP_SIZE.THIRD_BOTTOM:
-                    this.thirdBottomToolStripMenuItem.Checked = true;
+                case GUIParam.FILED_DISP_SIZE.THIRD_TOP:
+                    this.thirdTopToolStripMenuItem.Checked = true;
                     src_rect.X = 420;
                     src_rect.Y = 0;
                     src_rect.Width = 220;
