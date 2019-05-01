@@ -455,7 +455,7 @@ namespace FootballBoard
 
                 //描画更新
                 this.FieldGraphics_Vertical.DrawImage(SoccerFieldImage_Vertical, dst, src, GraphicsUnit.Pixel);
-            
+                this.DrawUpdate(this.FieldGraphics_Vertical, this.FieldBitmap_Vertical);
             }
             else
             {
@@ -473,8 +473,6 @@ namespace FootballBoard
                 //画像のクリッピング
                 Rectangle src = GUIParam.GetInstance().SrcFiledRect;
                 Rectangle dst = GUIParam.GetInstance().DstFiledRect;
-                //                Rectangle srcRect = new Rectangle(0, 0, this.pictureBoxGameField.Width, this.pictureBoxGameField.Height);
-//                Rectangle dstRect = new Rectangle(0, 0, this.pictureBoxGameField.Width, this.pictureBoxGameField.Height);
 
                 this.pictureBoxGameField.Width = dst.Width;
                 this.pictureBoxGameField.Height = dst.Height;
