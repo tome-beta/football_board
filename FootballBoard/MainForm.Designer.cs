@@ -33,6 +33,8 @@
             this.labelCurrentObj = new System.Windows.Forms.Label();
             this.textBoxInputString = new System.Windows.Forms.TextBox();
             this.groupBoxMarker = new System.Windows.Forms.GroupBox();
+            this.labelMarkerSize = new System.Windows.Forms.Label();
+            this.trackBarMarkerSize = new System.Windows.Forms.TrackBar();
             this.labelTeam = new System.Windows.Forms.Label();
             this.comboBoxTeam = new System.Windows.Forms.ComboBox();
             this.radioButtonName9 = new System.Windows.Forms.RadioButton();
@@ -62,6 +64,16 @@
             this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.leftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.表示サイズToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.halfTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.halfMiddleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.halfBottomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.thirdTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.thirdMiddleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.thirdBottomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.fullToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBoxGameField = new System.Windows.Forms.PictureBox();
             this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogExport = new System.Windows.Forms.SaveFileDialog();
@@ -72,13 +84,13 @@
             this.comboBoxArrowStyle = new System.Windows.Forms.ComboBox();
             this.labelLineStyle = new System.Windows.Forms.Label();
             this.comboBoxLineStyle = new System.Windows.Forms.ComboBox();
-            this.trackBarMarkerSize = new System.Windows.Forms.TrackBar();
-            this.labelMarkerSize = new System.Windows.Forms.Label();
+            this.labelMousePoint = new System.Windows.Forms.Label();
+            this.labelTrans = new System.Windows.Forms.Label();
             this.groupBoxMarker.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMarkerSize)).BeginInit();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).BeginInit();
             this.groupBoxLine.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarMarkerSize)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxSelectObject
@@ -158,6 +170,26 @@
             this.groupBoxMarker.TabIndex = 7;
             this.groupBoxMarker.TabStop = false;
             this.groupBoxMarker.Text = "Marker";
+            // 
+            // labelMarkerSize
+            // 
+            this.labelMarkerSize.AutoSize = true;
+            this.labelMarkerSize.Location = new System.Drawing.Point(12, 338);
+            this.labelMarkerSize.Name = "labelMarkerSize";
+            this.labelMarkerSize.Size = new System.Drawing.Size(95, 24);
+            this.labelMarkerSize.TabIndex = 21;
+            this.labelMarkerSize.Text = "MarkerSize";
+            // 
+            // trackBarMarkerSize
+            // 
+            this.trackBarMarkerSize.Location = new System.Drawing.Point(16, 369);
+            this.trackBarMarkerSize.Maximum = 30;
+            this.trackBarMarkerSize.Minimum = 10;
+            this.trackBarMarkerSize.Name = "trackBarMarkerSize";
+            this.trackBarMarkerSize.Size = new System.Drawing.Size(104, 45);
+            this.trackBarMarkerSize.TabIndex = 20;
+            this.trackBarMarkerSize.Value = 30;
+            this.trackBarMarkerSize.Scroll += new System.EventHandler(this.trackBarMarkerSize_Scroll);
             // 
             // labelTeam
             // 
@@ -346,7 +378,8 @@
             this.menuStrip.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ファイルToolStripMenuItem,
-            this.フィールドToolStripMenuItem});
+            this.フィールドToolStripMenuItem,
+            this.表示サイズToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1203, 31);
@@ -422,6 +455,83 @@
             this.leftToolStripMenuItem.Size = new System.Drawing.Size(135, 28);
             this.leftToolStripMenuItem.Text = "Left";
             this.leftToolStripMenuItem.Click += new System.EventHandler(this.leftToolStripMenuItem_Click);
+            // 
+            // 表示サイズToolStripMenuItem
+            // 
+            this.表示サイズToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.halfTopToolStripMenuItem,
+            this.halfMiddleToolStripMenuItem,
+            this.halfBottomToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.thirdTopToolStripMenuItem,
+            this.thirdMiddleToolStripMenuItem,
+            this.thirdBottomToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.fullToolStripMenuItem});
+            this.表示サイズToolStripMenuItem.Name = "表示サイズToolStripMenuItem";
+            this.表示サイズToolStripMenuItem.Size = new System.Drawing.Size(97, 27);
+            this.表示サイズToolStripMenuItem.Text = "表示サイズ";
+            // 
+            // halfTopToolStripMenuItem
+            // 
+            this.halfTopToolStripMenuItem.Name = "halfTopToolStripMenuItem";
+            this.halfTopToolStripMenuItem.Size = new System.Drawing.Size(179, 28);
+            this.halfTopToolStripMenuItem.Text = "Half-Top";
+            this.halfTopToolStripMenuItem.Click += new System.EventHandler(this.halfTopToolStripMenuItem_Click);
+            // 
+            // halfMiddleToolStripMenuItem
+            // 
+            this.halfMiddleToolStripMenuItem.Name = "halfMiddleToolStripMenuItem";
+            this.halfMiddleToolStripMenuItem.Size = new System.Drawing.Size(179, 28);
+            this.halfMiddleToolStripMenuItem.Text = "Half-Middle";
+            this.halfMiddleToolStripMenuItem.Click += new System.EventHandler(this.halfMiddleToolStripMenuItem_Click);
+            // 
+            // halfBottomToolStripMenuItem
+            // 
+            this.halfBottomToolStripMenuItem.Name = "halfBottomToolStripMenuItem";
+            this.halfBottomToolStripMenuItem.Size = new System.Drawing.Size(179, 28);
+            this.halfBottomToolStripMenuItem.Text = "Half-Bottom";
+            this.halfBottomToolStripMenuItem.Click += new System.EventHandler(this.halfBottomToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(176, 6);
+            // 
+            // thirdTopToolStripMenuItem
+            // 
+            this.thirdTopToolStripMenuItem.Name = "thirdTopToolStripMenuItem";
+            this.thirdTopToolStripMenuItem.Size = new System.Drawing.Size(179, 28);
+            this.thirdTopToolStripMenuItem.Text = "Third-Top";
+            this.thirdTopToolStripMenuItem.Click += new System.EventHandler(this.thirdTopToolStripMenuItem_Click);
+            // 
+            // thirdMiddleToolStripMenuItem
+            // 
+            this.thirdMiddleToolStripMenuItem.Name = "thirdMiddleToolStripMenuItem";
+            this.thirdMiddleToolStripMenuItem.Size = new System.Drawing.Size(179, 28);
+            this.thirdMiddleToolStripMenuItem.Text = "Third-Middle";
+            this.thirdMiddleToolStripMenuItem.Click += new System.EventHandler(this.thirdMiddleToolStripMenuItem_Click);
+            // 
+            // thirdBottomToolStripMenuItem
+            // 
+            this.thirdBottomToolStripMenuItem.Name = "thirdBottomToolStripMenuItem";
+            this.thirdBottomToolStripMenuItem.Size = new System.Drawing.Size(179, 28);
+            this.thirdBottomToolStripMenuItem.Text = "Third-Bottom";
+            this.thirdBottomToolStripMenuItem.Click += new System.EventHandler(this.thirdBottomToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(176, 6);
+            // 
+            // fullToolStripMenuItem
+            // 
+            this.fullToolStripMenuItem.Checked = true;
+            this.fullToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.fullToolStripMenuItem.Name = "fullToolStripMenuItem";
+            this.fullToolStripMenuItem.Size = new System.Drawing.Size(179, 28);
+            this.fullToolStripMenuItem.Text = "Full";
+            this.fullToolStripMenuItem.Click += new System.EventHandler(this.fullToolStripMenuItem_Click);
             // 
             // pictureBoxGameField
             // 
@@ -513,31 +623,33 @@
             this.comboBoxLineStyle.Text = "Solid";
             this.comboBoxLineStyle.TextChanged += new System.EventHandler(this.comboBoxLineStyle_TextChanged);
             // 
-            // trackBarMarkerSize
+            // labelMousePoint
             // 
-            this.trackBarMarkerSize.Location = new System.Drawing.Point(16, 369);
-            this.trackBarMarkerSize.Maximum = 30;
-            this.trackBarMarkerSize.Minimum = 10;
-            this.trackBarMarkerSize.Name = "trackBarMarkerSize";
-            this.trackBarMarkerSize.Size = new System.Drawing.Size(104, 45);
-            this.trackBarMarkerSize.TabIndex = 20;
-            this.trackBarMarkerSize.Value = 30;
-            this.trackBarMarkerSize.Scroll += new System.EventHandler(this.trackBarMarkerSize_Scroll);
+            this.labelMousePoint.AutoSize = true;
+            this.labelMousePoint.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelMousePoint.Location = new System.Drawing.Point(22, 692);
+            this.labelMousePoint.Name = "labelMousePoint";
+            this.labelMousePoint.Size = new System.Drawing.Size(117, 28);
+            this.labelMousePoint.TabIndex = 20;
+            this.labelMousePoint.Text = "MousePoint";
             // 
-            // labelMarkerSize
+            // labelTrans
             // 
-            this.labelMarkerSize.AutoSize = true;
-            this.labelMarkerSize.Location = new System.Drawing.Point(12, 338);
-            this.labelMarkerSize.Name = "labelMarkerSize";
-            this.labelMarkerSize.Size = new System.Drawing.Size(95, 24);
-            this.labelMarkerSize.TabIndex = 21;
-            this.labelMarkerSize.Text = "MarkerSize";
+            this.labelTrans.AutoSize = true;
+            this.labelTrans.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelTrans.Location = new System.Drawing.Point(22, 734);
+            this.labelTrans.Name = "labelTrans";
+            this.labelTrans.Size = new System.Drawing.Size(62, 28);
+            this.labelTrans.TabIndex = 21;
+            this.labelTrans.Text = "Trans";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1203, 810);
+            this.Controls.Add(this.labelTrans);
+            this.Controls.Add(this.labelMousePoint);
             this.Controls.Add(this.buttonColorDialog);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.buttonRedo);
@@ -558,12 +670,12 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.groupBoxMarker.ResumeLayout(false);
             this.groupBoxMarker.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarMarkerSize)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxGameField)).EndInit();
             this.groupBoxLine.ResumeLayout(false);
             this.groupBoxLine.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarMarkerSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -617,6 +729,18 @@
         private System.Windows.Forms.ComboBox comboBoxArrowStyle;
         private System.Windows.Forms.Label labelMarkerSize;
         private System.Windows.Forms.TrackBar trackBarMarkerSize;
+        private System.Windows.Forms.ToolStripMenuItem 表示サイズToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem halfTopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem halfMiddleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem halfBottomToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem thirdTopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem thirdMiddleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem thirdBottomToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem fullToolStripMenuItem;
+        private System.Windows.Forms.Label labelMousePoint;
+        private System.Windows.Forms.Label labelTrans;
     }
 }
 

@@ -77,5 +77,83 @@ namespace FootballBoard
             }
             return max;
         }
+
+
+        //フィールドの１部分表示しているときにマウスカーソルに対して下駄を履かせる
+        public static void MakeFieldPositionOffset(ref int offset_x, ref int offset_y,ref double rate)
+        {
+            GUIParam.FILED_DISP_SIZE size = GUIParam.GetInstance().FiledDispSize;
+            GUIParam.FILED_DIRECTION dir = GUIParam.GetInstance().FiledDirection;
+
+            if (dir == GUIParam.FILED_DIRECTION.RIGHT || dir == GUIParam.FILED_DIRECTION.LEFT)
+            {
+                switch (size)
+                {
+                    case GUIParam.FILED_DISP_SIZE.FULL:
+                        offset_x = 0;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.HALF_BOTTOM:
+                        offset_x = 0;
+                        rate = 1.2;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.HALF_MIDDLE:
+                        offset_x = 160;
+                        rate = 1.2;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.HALF_TOP:
+                        offset_x = 320;
+                        rate = 1.2;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.THIRD_BOTTOM:
+                        offset_x = 0;
+                        rate = 1.2;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.THIRD_MIDDLE:
+                        offset_x = 200;
+                        rate = 1.2;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.THIRD_TOP:
+                        offset_x = 420;
+                        rate = 1.2;
+                        break;
+                }
+
+            }
+            else
+            {
+                switch (size)
+                {
+                    case GUIParam.FILED_DISP_SIZE.FULL:
+                        offset_y = 0;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.HALF_BOTTOM:
+                        offset_y = 320;
+                        rate = 1.2;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.HALF_MIDDLE:
+                        offset_y = 160;
+                        rate = 1.2;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.HALF_TOP:
+                        offset_y = 0;
+                        rate = 1.2;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.THIRD_BOTTOM:
+                        offset_y = 420;
+                        rate = 1.2;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.THIRD_MIDDLE:
+                        offset_y = 220;
+                        rate = 1.2;
+                        break;
+                    case GUIParam.FILED_DISP_SIZE.THIRD_TOP:
+                        offset_y = 0;
+                        rate = 1.2;
+                        break;
+                }
+            }
+
+        }
+
     }
 }

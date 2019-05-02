@@ -51,7 +51,7 @@ namespace FootballBoard
                 for (int i = 0; i < OBJ_POINTS_NUM; i++)
                 {
                     def_point_list[i].X = org_point_list[i].Y;
-                    def_point_list[i].Y = GUIParam.GetInstance().FiledWidth - org_point_list[i].X;
+                    def_point_list[i].Y = GUIParam.GetInstance().FiledHeight - org_point_list[i].X;
                 }
             }
             else

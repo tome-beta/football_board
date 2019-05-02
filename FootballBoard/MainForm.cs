@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace FootballBoard
@@ -91,6 +92,9 @@ namespace FootballBoard
                     this.DataControle.MouseDrag(def);
                     break;
             }
+
+            this.labelMousePoint.Text = @"Mouse : " + e.X + "," + e.Y;
+            this.labelTrans.Text = @"Trans : " + def.X + "," + def.Y;
 
         }
         //マウスを離したとき
@@ -239,6 +243,198 @@ namespace FootballBoard
             this.leftToolStripMenuItem.Checked = true;
         }
 
+        //表示サイズの変更
+        private void FieldDispMenuItemChecked(GUIParam.FILED_DISP_SIZE size)
+        {
+            GUIParam.GetInstance().FiledDispSize = size;
+
+            this.halfTopToolStripMenuItem.Checked = false;
+            this.halfMiddleToolStripMenuItem.Checked = false;
+            this.halfBottomToolStripMenuItem.Checked = false;
+            this.thirdTopToolStripMenuItem.Checked = false;
+            this.thirdMiddleToolStripMenuItem.Checked = false;
+            this.thirdBottomToolStripMenuItem.Checked = false;
+            this.fullToolStripMenuItem.Checked = false;
+
+            Rectangle src_rect = new System.Drawing.Rectangle();
+            Rectangle dst_rect = new System.Drawing.Rectangle();
+            Rectangle src_rect_vertical = new System.Drawing.Rectangle();
+            Rectangle dst_rect_vertical = new System.Drawing.Rectangle();
+
+            double rate = 1.0;
+            //切り出した画像の大きさによって表示する領域の比率も調節する
+            switch (size)
+            {
+                case GUIParam.FILED_DISP_SIZE.FULL:
+                    this.fullToolStripMenuItem.Checked = true;
+
+                    src_rect.X = 0;
+                    src_rect.Y = 0;
+                    src_rect.Width = 640;
+                    src_rect.Height = 480;
+
+                    src_rect_vertical.X = 0;
+                    src_rect_vertical.Y = 0;
+                    src_rect_vertical.Width = 480;
+                    src_rect_vertical.Height = 640;
+
+                    rate = 1.0;
+                    break;
+                case GUIParam.FILED_DISP_SIZE.HALF_BOTTOM:
+                    this.halfBottomToolStripMenuItem.Checked = true;
+                    src_rect.X = 0;
+                    src_rect.Y = 0;
+                    src_rect.Width = 320;
+                    src_rect.Height = 480;
+
+                    src_rect_vertical.X = 0;
+                    src_rect_vertical.Y = 320;
+                    src_rect_vertical.Width = 480;
+                    src_rect_vertical.Height = 320;
+
+                    rate = 1.2;
+                    
+                    break;
+                case GUIParam.FILED_DISP_SIZE.HALF_MIDDLE:
+                    this.halfMiddleToolStripMenuItem.Checked = true;
+                    src_rect.X = 160;
+                    src_rect.Y = 0;
+                    src_rect.Width = 320;
+                    src_rect.Height = 480;
+
+                    src_rect_vertical.X = 0;
+                    src_rect_vertical.Y = 160;
+                    src_rect_vertical.Width = 480;
+                    src_rect_vertical.Height = 320;
+                    rate = 1.2;
+                    break;
+                case GUIParam.FILED_DISP_SIZE.HALF_TOP:
+                    this.halfTopToolStripMenuItem.Checked = true;
+                    src_rect.X = 320;
+                    src_rect.Y = 0;
+                    src_rect.Width = 320;
+                    src_rect.Height = 480;
+
+                    src_rect_vertical.X = 0;
+                    src_rect_vertical.Y = 0;
+                    src_rect_vertical.Width = 480;
+                    src_rect_vertical.Height = 320;
+
+                    rate = 1.2;
+                    break;
+                case GUIParam.FILED_DISP_SIZE.THIRD_BOTTOM:
+                    this.thirdBottomToolStripMenuItem.Checked = true;
+                    src_rect.X = 0;
+                    src_rect.Y = 0;
+                    src_rect.Width = 220;
+                    src_rect.Height = 480;
+
+                    src_rect_vertical.X = 0;
+                    src_rect_vertical.Y = 420;
+                    src_rect_vertical.Width = 480;
+                    src_rect_vertical.Height = 220;
+
+                    rate = 1.2;
+                    break;
+                case GUIParam.FILED_DISP_SIZE.THIRD_MIDDLE:
+                    this.thirdMiddleToolStripMenuItem.Checked = true;
+                    src_rect.X = 200;
+                    src_rect.Y = 0;
+                    src_rect.Width = 220;
+                    src_rect.Height = 480;
+
+                    src_rect_vertical.X = 0;
+                    src_rect_vertical.Y = 220;
+                    src_rect_vertical.Width = 480;
+                    src_rect_vertical.Height = 220;
+
+                    rate = 1.2;
+                    break;
+                case GUIParam.FILED_DISP_SIZE.THIRD_TOP:
+                    this.thirdTopToolStripMenuItem.Checked = true;
+                    src_rect.X = 420;
+                    src_rect.Y = 0;
+                    src_rect.Width = 220;
+                    src_rect.Height = 480;
+
+                    src_rect_vertical.X = 0;
+                    src_rect_vertical.Y = 0;
+                    src_rect_vertical.Width = 480;
+                    src_rect_vertical.Height = 220;
+
+                    rate = 1.2;
+                  
+                    break;
+
+            }
+
+            dst_rect.Width = (int)(src_rect.Width * rate);
+            dst_rect.Height = (int)(src_rect.Height * rate);
+
+            dst_rect_vertical.Width = (int)(src_rect_vertical.Width * rate);
+            dst_rect_vertical.Height = (int)(src_rect_vertical.Height * rate);
+
+            //画像の切り出しのため
+            GUIParam.GetInstance().SrcFiledRect = src_rect;
+            GUIParam.GetInstance().DstFiledRect = dst_rect;
+
+            GUIParam.GetInstance().SrcFiledRect_vertical = src_rect_vertical;
+            GUIParam.GetInstance().DstFiledRect_vertical = dst_rect_vertical;
+
+            //比率が変更されるのでBitmapを作り直し
+            this.pictureBoxGameField.Width = dst_rect.Width;
+            this.pictureBoxGameField.Height = dst_rect.Height;
+
+            this.FieldBitmap = new Bitmap(this.pictureBoxGameField.Width, this.pictureBoxGameField.Height);
+            this.FieldBitmap_Vertical = new Bitmap(this.pictureBoxGameField.Height, this.pictureBoxGameField.Width);
+            this.FieldGraphics = Graphics.FromImage(this.FieldBitmap);
+            this.FieldGraphics_Vertical = Graphics.FromImage(this.FieldBitmap_Vertical);
+
+
+        }
+
+
+        //Half-Top
+        private void halfTopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FieldDispMenuItemChecked(GUIParam.FILED_DISP_SIZE.HALF_TOP);
+        }
+
+        //Half-Middle
+        private void halfMiddleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FieldDispMenuItemChecked(GUIParam.FILED_DISP_SIZE.HALF_MIDDLE);
+        }
+
+        //Half-Bottom
+        private void halfBottomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FieldDispMenuItemChecked(GUIParam.FILED_DISP_SIZE.HALF_BOTTOM);
+        }
+
+        //Third-Top
+        private void thirdTopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FieldDispMenuItemChecked(GUIParam.FILED_DISP_SIZE.THIRD_TOP);
+        }
+
+        //Third-Middle
+        private void thirdMiddleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FieldDispMenuItemChecked(GUIParam.FILED_DISP_SIZE.THIRD_MIDDLE);
+        }
+
+        //Third-Bottom
+        private void thirdBottomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FieldDispMenuItemChecked(GUIParam.FILED_DISP_SIZE.THIRD_BOTTOM);
+        }
+
+        //Third-Full
+        private void fullToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FieldDispMenuItemChecked(GUIParam.FILED_DISP_SIZE.FULL);
+        }
 
 
 
@@ -253,31 +449,41 @@ namespace FootballBoard
                 GUIParam.GetInstance().FiledHeight = SoccerFieldImage_Vertical.Height;
                 GUIParam.GetInstance().FiledWidth = SoccerFieldImage_Vertical.Width;
 
-                this.pictureBoxGameField.Width = GUIParam.GetInstance().FiledWidth;
-                this.pictureBoxGameField.Height = GUIParam.GetInstance().FiledHeight;
+                this.pictureBoxGameField.Width = GUIParam.GetInstance().DstFiledRect_vertical.Width;
+                this.pictureBoxGameField.Height = GUIParam.GetInstance().DstFiledRect_vertical.Height;
 
                 this.FieldGraphics_Vertical = Graphics.FromImage(this.FieldBitmap_Vertical);
                 this.pictureBoxGameField.Image = this.FieldBitmap_Vertical;
 
-                this.FieldGraphics_Vertical.DrawImage(SoccerFieldImage_Vertical, 0, 0, pictureBoxGameField.Width, pictureBoxGameField.Height);
+                Rectangle src = GUIParam.GetInstance().SrcFiledRect_vertical;
+                Rectangle dst = GUIParam.GetInstance().DstFiledRect_vertical;
 
                 //描画更新
-                this.DrawUpdate(FieldGraphics_Vertical, this.FieldBitmap_Vertical);
-            
+                this.FieldGraphics_Vertical.DrawImage(SoccerFieldImage_Vertical, dst, src, GraphicsUnit.Pixel);
+                this.DrawUpdate(this.FieldGraphics_Vertical, this.FieldBitmap_Vertical);
             }
             else
             {
                 GUIParam.GetInstance().FiledHeight = SoccerFieldImage.Height;
                 GUIParam.GetInstance().FiledWidth = SoccerFieldImage.Width;
 
-                this.pictureBoxGameField.Width = GUIParam.GetInstance().FiledWidth;
-                this.pictureBoxGameField.Height = GUIParam.GetInstance().FiledHeight;
+
+                this.pictureBoxGameField.Width = GUIParam.GetInstance().DstFiledRect.Width;
+                this.pictureBoxGameField.Height = GUIParam.GetInstance().DstFiledRect.Height;
 
                 this.FieldGraphics = Graphics.FromImage(this.FieldBitmap);
                 this.pictureBoxGameField.Image = this.FieldBitmap;
 
-                FieldGraphics.DrawImage(SoccerFieldImage, 0, 0, pictureBoxGameField.Width, pictureBoxGameField.Height);
-            
+
+                //画像のクリッピング
+                Rectangle src = GUIParam.GetInstance().SrcFiledRect;
+                Rectangle dst = GUIParam.GetInstance().DstFiledRect;
+
+                this.pictureBoxGameField.Width = dst.Width;
+                this.pictureBoxGameField.Height = dst.Height;
+
+                this.FieldGraphics.DrawImage(SoccerFieldImage, dst, src, GraphicsUnit.Pixel);
+
                 //描画更新
                 this.DrawUpdate(FieldGraphics,this.FieldBitmap);
             }
@@ -298,7 +504,6 @@ namespace FootballBoard
         Graphics FieldGraphics_Vertical;
         private Image SoccerFieldImage;
         private Image SoccerFieldImage_Vertical;
-
 
     }
 }
