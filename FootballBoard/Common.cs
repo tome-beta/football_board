@@ -124,30 +124,30 @@ namespace FootballBoard
                 switch (size)
                 {
                     case GUIParam.FILED_DISP_SIZE.FULL:
-                        offset_x = 0;
+                        offset_y = 0;
                         break;
                     case GUIParam.FILED_DISP_SIZE.HALF_BOTTOM:
-                        offset_x = 0;
+                        offset_y = 320;
                         rate = 1.2;
                         break;
                     case GUIParam.FILED_DISP_SIZE.HALF_MIDDLE:
-                        offset_x = 160;
+                        offset_y = 160;
                         rate = 1.2;
                         break;
                     case GUIParam.FILED_DISP_SIZE.HALF_TOP:
-                        offset_x = 320;
+                        offset_y = 0;
                         rate = 1.2;
                         break;
                     case GUIParam.FILED_DISP_SIZE.THIRD_BOTTOM:
-                        offset_x = 0;
+                        offset_y = 420;
                         rate = 1.2;
                         break;
                     case GUIParam.FILED_DISP_SIZE.THIRD_MIDDLE:
-                        offset_x = 200;
+                        offset_y = 220;
                         rate = 1.2;
                         break;
                     case GUIParam.FILED_DISP_SIZE.THIRD_TOP:
-                        offset_x = 420;
+                        offset_y = 0;
                         rate = 1.2;
                         break;
                 }
