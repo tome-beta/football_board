@@ -90,13 +90,28 @@ namespace FootballBoard
         //三角形を描画
         public override void DrawObject(Graphics g)
         {
-            PointF[] f_points = new PointF[3];
-            f_points[0] = this.Points[0];
-            f_points[1] = this.Points[1];
-            f_points[2] = this.Points[2];
+            //描画位置を作る
+            Point[] DrawPoints = new Point[ObjectBase.OBJ_POINTS_NUM];
+            TranslatePosition(this.Points, ref DrawPoints);
+            //表示領域の調整
+            {
+                int offset_x = 0;
+                int offset_y = 0;
+                double rate = 1.0;
+                Common.MakeFieldPositionOffset(ref offset_x, ref offset_y, ref rate);
+
+                for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                {
+                    DrawPoints[i].X -= offset_x;
+                    DrawPoints[i].Y -= offset_y;
+                    double tmp_x = (double)DrawPoints[i].X * rate;
+                    double tmp_y = (double)DrawPoints[i].Y * rate;
+                    DrawPoints[i].X = (int)(tmp_x);
+                    DrawPoints[i].Y = (int)(tmp_y);
+                }
+            }
 
             int alpha = 128;
-
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
                 alpha = 128;
@@ -108,7 +123,7 @@ namespace FootballBoard
             Brush brush = new SolidBrush(Color.FromArgb(alpha, GUIParam.GetInstance().ObjectColor));
 
 
-            g.FillPolygon(brush, this.Points);
+            g.FillPolygon(brush, DrawPoints);
             //SELECT状態の時には３点を描画
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
                 this.ObjStatus == OBJ_STATUS.DRUG)
@@ -125,8 +140,8 @@ namespace FootballBoard
                         brush = Brushes.Yellow;
                     }
                     g.FillEllipse(brush, new Rectangle(
-                    this.Points[i].X - VERTEX_SIZE / 2,
-                    this.Points[i].Y - VERTEX_SIZE / 2,
+                    DrawPoints[i].X - VERTEX_SIZE / 2,
+                    DrawPoints[i].Y - VERTEX_SIZE / 2,
                     VERTEX_SIZE,
                     VERTEX_SIZE)
                     );
