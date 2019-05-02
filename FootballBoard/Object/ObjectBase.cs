@@ -52,15 +52,31 @@ namespace FootballBoard
         //オブジェクトがはみ出さなさいようにする処理
         protected void CheckPointMoveRange( ref Point[] Points)
         {
-            int max_x = GUIParam.GetInstance().FiledWidth - 5;
-            int max_y = GUIParam.GetInstance().FiledHeight - 5;
-
-            for (int i = 0; i < Points.Length; i++)
+            if(GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.HORIZONTAL)
             {
-                if (Points[i].X < 0) { Points[i].X = 0; }
-                if (Points[i].Y < 0) { Points[i].Y = 0; }
-                if (max_x < Points[i].X) { Points[i].X = max_x; }
-                if (max_y < Points[i].Y) { Points[i].Y = max_y; }
+                int max_x = GUIParam.GetInstance().FiledWidth - 5;
+                int max_y = GUIParam.GetInstance().FiledHeight - 5;
+
+                for (int i = 0; i < Points.Length; i++)
+                {
+                    if (Points[i].X < 0) { Points[i].X = 0; }
+                    if (Points[i].Y < 0) { Points[i].Y = 0; }
+                    if (max_x < Points[i].X) { Points[i].X = max_x; }
+                    if (max_y < Points[i].Y) { Points[i].Y = max_y; }
+                }
+            }
+            else
+            {
+                int max_x = GUIParam.GetInstance().FiledHeight - 5;
+                int max_y = GUIParam.GetInstance().FiledWidth - 5;
+
+                for (int i = 0; i < Points.Length; i++)
+                {
+                    if (Points[i].X < 0) { Points[i].X = 0; }
+                    if (Points[i].Y < 0) { Points[i].Y = 0; }
+                    if (max_x < Points[i].X) { Points[i].X = max_x; }
+                    if (max_y < Points[i].Y) { Points[i].Y = max_y; }
+                }
             }
         }
 
