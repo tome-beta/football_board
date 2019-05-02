@@ -31,20 +31,13 @@ namespace FootballBoard
         //フィールドの回転によって描画座標を変化させる
         protected void TranslatePosition(Point[] org_point_list, ref Point[] def_point_list)
         {
-            if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.LEFT)
+            if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.HORIZONTAL)
             {
-                int center_x = GUIParam.GetInstance().FiledWidth / 2;
-                int center_y = GUIParam.GetInstance().FiledHeight / 2;
-                //オブジェクトの位置を回転させる
                 for (int i = 0; i < OBJ_POINTS_NUM; i++)
                 {
-                    int x = org_point_list[i].X - center_x;
-                    int y = org_point_list[i].Y - center_y;
-
-                    def_point_list[i].X = (int)(-x) + center_x;
-                    def_point_list[i].Y = (int)(-y) + center_y;
+                    def_point_list[i].X = org_point_list[i].X;
+                    def_point_list[i].Y = org_point_list[i].Y;
                 }
-
             }
             else if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.VERTICAL)
             {
@@ -53,15 +46,6 @@ namespace FootballBoard
                     def_point_list[i].X = org_point_list[i].Y;
                     def_point_list[i].Y = GUIParam.GetInstance().FiledHeight - org_point_list[i].X;
                 }
-            }
-            else
-            {
-                for (int i = 0; i < OBJ_POINTS_NUM; i++)
-                {
-                    def_point_list[i].X = org_point_list[i].X;
-                    def_point_list[i].Y = org_point_list[i].Y;
-                }
-
             }
         }
 

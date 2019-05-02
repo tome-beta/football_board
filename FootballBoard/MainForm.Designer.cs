@@ -62,8 +62,6 @@
             this.画像出力ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.フィールドToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.leftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.表示サイズToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.halfTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.halfMiddleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,6 +84,7 @@
             this.comboBoxLineStyle = new System.Windows.Forms.ComboBox();
             this.labelMousePoint = new System.Windows.Forms.Label();
             this.labelTrans = new System.Windows.Forms.Label();
+            this.horizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxMarker.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarMarkerSize)).BeginInit();
             this.menuStrip.SuspendLayout();
@@ -427,8 +426,7 @@
             // 
             this.フィールドToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.verticalToolStripMenuItem,
-            this.rightToolStripMenuItem,
-            this.leftToolStripMenuItem});
+            this.horizontalToolStripMenuItem});
             this.フィールドToolStripMenuItem.Name = "フィールドToolStripMenuItem";
             this.フィールドToolStripMenuItem.Size = new System.Drawing.Size(97, 27);
             this.フィールドToolStripMenuItem.Text = "フィールド";
@@ -436,25 +434,9 @@
             // verticalToolStripMenuItem
             // 
             this.verticalToolStripMenuItem.Name = "verticalToolStripMenuItem";
-            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(135, 28);
+            this.verticalToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
             this.verticalToolStripMenuItem.Text = "Vertical";
             this.verticalToolStripMenuItem.Click += new System.EventHandler(this.verticalToolStripMenuItem_Click);
-            // 
-            // rightToolStripMenuItem
-            // 
-            this.rightToolStripMenuItem.Checked = true;
-            this.rightToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.rightToolStripMenuItem.Name = "rightToolStripMenuItem";
-            this.rightToolStripMenuItem.Size = new System.Drawing.Size(135, 28);
-            this.rightToolStripMenuItem.Text = "Right";
-            this.rightToolStripMenuItem.Click += new System.EventHandler(this.rightToolStripMenuItem_Click);
-            // 
-            // leftToolStripMenuItem
-            // 
-            this.leftToolStripMenuItem.Name = "leftToolStripMenuItem";
-            this.leftToolStripMenuItem.Size = new System.Drawing.Size(135, 28);
-            this.leftToolStripMenuItem.Text = "Left";
-            this.leftToolStripMenuItem.Click += new System.EventHandler(this.leftToolStripMenuItem_Click);
             // 
             // 表示サイズToolStripMenuItem
             // 
@@ -643,6 +625,15 @@
             this.labelTrans.TabIndex = 21;
             this.labelTrans.Text = "Trans";
             // 
+            // horizontalToolStripMenuItem
+            // 
+            this.horizontalToolStripMenuItem.Checked = true;
+            this.horizontalToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.horizontalToolStripMenuItem.Name = "horizontalToolStripMenuItem";
+            this.horizontalToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
+            this.horizontalToolStripMenuItem.Text = "Horizontal";
+            this.horizontalToolStripMenuItem.Click += new System.EventHandler(this.horizontalToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -704,8 +695,6 @@
         private System.Windows.Forms.CheckBox checkBoxDirection;
         private System.Windows.Forms.ToolStripMenuItem フィールドToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verticalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rightToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem leftToolStripMenuItem;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.TextBox textBoxUniformNumber;
         private System.Windows.Forms.Label labelName;
@@ -741,6 +730,7 @@
         private System.Windows.Forms.ToolStripMenuItem fullToolStripMenuItem;
         private System.Windows.Forms.Label labelMousePoint;
         private System.Windows.Forms.Label labelTrans;
+        private System.Windows.Forms.ToolStripMenuItem horizontalToolStripMenuItem;
     }
 }
 

@@ -15,9 +15,8 @@ namespace FootballBoard
 
         public enum FILED_DIRECTION
         {
-            VERTICAL,
-            RIGHT,
-            LEFT,
+            VERTICAL,       //縦
+            HORIZONTAL      //横
         };
 
         public enum FILED_DISP_SIZE
@@ -130,7 +129,7 @@ namespace FootballBoard
         {
             this.ObjectColor = Color.Red;
             this.MarkerDirectionOn = false;
-            this.FiledDirection = FILED_DIRECTION.RIGHT;
+            this.FiledDirection = FILED_DIRECTION.HORIZONTAL;
             this.FiledDispSize = FILED_DISP_SIZE.FULL;
         }
 

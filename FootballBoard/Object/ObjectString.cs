@@ -176,13 +176,6 @@ namespace FootballBoard
                 min_y = Points[0].Y;
                 max_y = Points[0].Y + this.DispWidth;
             }
-            else if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.LEFT)
-            {
-                min_x = Points[0].X - this.DispWidth;
-                max_x = Points[0].X;
-                min_y = Points[0].Y - this.DispHeight;
-                max_y = Points[0].Y;
-            }
             else
             {
                 min_x = Points[0].X;
