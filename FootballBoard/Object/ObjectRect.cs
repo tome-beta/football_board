@@ -117,7 +117,23 @@ namespace FootballBoard
             //描画位置を作る
             Point[] DrawPoints = new Point[ObjectBase.OBJ_POINTS_NUM];
             TranslatePosition(this.Points, ref DrawPoints);
+            //表示領域の調整
+            {
+                int offset_x = 0;
+                int offset_y = 0;
+                double rate = 1.0;
+                Common.MakeFieldPositionOffset(ref offset_x, ref offset_y, ref rate);
 
+                for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                {
+                    DrawPoints[i].X -= offset_x;
+                    DrawPoints[i].Y -= offset_y;
+                    double tmp_x = (double)DrawPoints[i].X * rate;
+                    double tmp_y = (double)DrawPoints[i].Y * rate;
+                    DrawPoints[i].X = (int)(tmp_x);
+                    DrawPoints[i].Y = (int)(tmp_y);
+                }
+            }
             //矩形全体との当たり判定
             int min_x = Common.Min(DrawPoints[0].X, DrawPoints[1].X, DrawPoints[2].X, DrawPoints[3].X);
             int max_x = Common.Max(DrawPoints[0].X, DrawPoints[1].X, DrawPoints[2].X, DrawPoints[3].X);

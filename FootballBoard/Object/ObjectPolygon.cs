@@ -110,7 +110,23 @@ namespace FootballBoard
             //描画位置を作る
             Point[] DrawPoints = new Point[ObjectBase.OBJ_POINTS_NUM];
             TranslatePosition(this.Points, ref DrawPoints);
+            //表示領域の調整
+            {
+                int offset_x = 0;
+                int offset_y = 0;
+                double rate = 1.0;
+                Common.MakeFieldPositionOffset(ref offset_x, ref offset_y, ref rate);
 
+                for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                {
+                    DrawPoints[i].X -= offset_x;
+                    DrawPoints[i].Y -= offset_y;
+                    double tmp_x = (double)DrawPoints[i].X * rate;
+                    double tmp_y = (double)DrawPoints[i].Y * rate;
+                    DrawPoints[i].X = (int)(tmp_x);
+                    DrawPoints[i].Y = (int)(tmp_y);
+                }
+            }
             int alpha = 128;
             if (this.ObjStatus == OBJ_STATUS.NON)
             {
@@ -125,7 +141,7 @@ namespace FootballBoard
 
             g.FillPolygon(brush, DrawPoints);
 
-            //SELECT状態の時には３点を描画
+            //SELECT状態の時には4点を描画
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
                 this.ObjStatus == OBJ_STATUS.DRUG)
             {

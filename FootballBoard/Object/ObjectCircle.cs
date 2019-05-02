@@ -116,6 +116,24 @@ namespace FootballBoard
             Point[] DrawPoints = new Point[ObjectBase.OBJ_POINTS_NUM];
             TranslatePosition(this.Points, ref DrawPoints);
 
+            //表示領域の調整
+            {
+                int offset_x = 0;
+                int offset_y = 0;
+                double rate = 1.0;
+                Common.MakeFieldPositionOffset(ref offset_x, ref offset_y, ref rate);
+
+                for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
+                {
+                    DrawPoints[i].X -= offset_x;
+                    DrawPoints[i].Y -= offset_y;
+                    double tmp_x = (double)DrawPoints[i].X * rate;
+                    double tmp_y = (double)DrawPoints[i].Y * rate;
+                    DrawPoints[i].X = (int)(tmp_x);
+                    DrawPoints[i].Y = (int)(tmp_y);
+                }
+            }
+
 
             //矩形全体との当たり判定
             int min_x = Common.Min(DrawPoints[0].X, DrawPoints[1].X, DrawPoints[2].X, DrawPoints[3].X);
@@ -143,7 +161,7 @@ namespace FootballBoard
             if (this.ObjStatus == OBJ_STATUS.SELECT ||
                 this.ObjStatus == OBJ_STATUS.DRUG)
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
                 {
                     if ( (int)this.DrugType == i)
                     {
@@ -171,7 +189,7 @@ namespace FootballBoard
             if (this.ObjStatus == OBJ_STATUS.SELECT)
             {
                 //頂点との当たり
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < ObjectBase.OBJ_POINTS_NUM; i++)
                 {
                     double point_dist = Common.GetDistance(pos, this.Points[i]);
                     if (point_dist < VERTEX_SIZE / 2)
