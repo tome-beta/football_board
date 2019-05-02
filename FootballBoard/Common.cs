@@ -85,7 +85,7 @@ namespace FootballBoard
             GUIParam.FILED_DISP_SIZE size = GUIParam.GetInstance().FiledDispSize;
             GUIParam.FILED_DIRECTION dir = GUIParam.GetInstance().FiledDirection;
 
-            if (dir == GUIParam.FILED_DIRECTION.RIGHT)
+            if (dir == GUIParam.FILED_DIRECTION.RIGHT || dir == GUIParam.FILED_DIRECTION.LEFT)
             {
                 switch (size)
                 {
@@ -119,49 +119,36 @@ namespace FootballBoard
                 }
 
             }
-            else if (dir == GUIParam.FILED_DIRECTION.LEFT)
-            {
-                switch (size)
-                {
-                    case GUIParam.FILED_DISP_SIZE.FULL:
-                        {
-                            offset_x = 0;
-                            offset_y = 0;
-                        }
-                        break;
-                    case GUIParam.FILED_DISP_SIZE.HALF_BOTTOM:
-                        break;
-                    case GUIParam.FILED_DISP_SIZE.HALF_MIDDLE:
-                        break;
-                    case GUIParam.FILED_DISP_SIZE.HALF_TOP:
-                        break;
-                    case GUIParam.FILED_DISP_SIZE.THIRD_BOTTOM:
-                        break;
-                    case GUIParam.FILED_DISP_SIZE.THIRD_MIDDLE:
-                        break;
-                    case GUIParam.FILED_DISP_SIZE.THIRD_TOP:
-                        break;
-                }
-            }
             else
             {
                 switch (size)
                 {
                     case GUIParam.FILED_DISP_SIZE.FULL:
                         offset_x = 0;
-                        offset_y = 0;
                         break;
                     case GUIParam.FILED_DISP_SIZE.HALF_BOTTOM:
+                        offset_x = 0;
+                        rate = 1.2;
                         break;
                     case GUIParam.FILED_DISP_SIZE.HALF_MIDDLE:
+                        offset_x = 160;
+                        rate = 1.2;
                         break;
                     case GUIParam.FILED_DISP_SIZE.HALF_TOP:
+                        offset_x = 320;
+                        rate = 1.2;
                         break;
                     case GUIParam.FILED_DISP_SIZE.THIRD_BOTTOM:
+                        offset_x = 0;
+                        rate = 1.2;
                         break;
                     case GUIParam.FILED_DISP_SIZE.THIRD_MIDDLE:
+                        offset_x = 200;
+                        rate = 1.2;
                         break;
                     case GUIParam.FILED_DISP_SIZE.THIRD_TOP:
+                        offset_x = 420;
+                        rate = 1.2;
                         break;
                 }
             }

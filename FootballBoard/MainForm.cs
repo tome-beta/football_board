@@ -261,13 +261,13 @@ namespace FootballBoard
             Rectangle src_rect_vertical = new System.Drawing.Rectangle();
             Rectangle dst_rect_vertical = new System.Drawing.Rectangle();
 
-
             double rate = 1.0;
             //切り出した画像の大きさによって表示する領域の比率も調節する
             switch (size)
             {
                 case GUIParam.FILED_DISP_SIZE.FULL:
                     this.fullToolStripMenuItem.Checked = true;
+
                     src_rect.X = 0;
                     src_rect.Y = 0;
                     src_rect.Width = 640;
@@ -288,7 +288,7 @@ namespace FootballBoard
                     src_rect.Height = 480;
 
                     src_rect_vertical.X = 0;
-                    src_rect_vertical.Y = 0;
+                    src_rect_vertical.Y = 320;
                     src_rect_vertical.Width = 480;
                     src_rect_vertical.Height = 320;
 
@@ -316,7 +316,7 @@ namespace FootballBoard
                     src_rect.Height = 480;
 
                     src_rect_vertical.X = 0;
-                    src_rect_vertical.Y = 320;
+                    src_rect_vertical.Y = 0;
                     src_rect_vertical.Width = 480;
                     src_rect_vertical.Height = 320;
 
@@ -330,7 +330,7 @@ namespace FootballBoard
                     src_rect.Height = 480;
 
                     src_rect_vertical.X = 0;
-                    src_rect_vertical.Y = 0;
+                    src_rect_vertical.Y = 420;
                     src_rect_vertical.Width = 480;
                     src_rect_vertical.Height = 220;
 
@@ -344,7 +344,7 @@ namespace FootballBoard
                     src_rect.Height = 480;
 
                     src_rect_vertical.X = 0;
-                    src_rect_vertical.Y = 200;
+                    src_rect_vertical.Y = 220;
                     src_rect_vertical.Width = 480;
                     src_rect_vertical.Height = 220;
 
@@ -358,7 +358,7 @@ namespace FootballBoard
                     src_rect.Height = 480;
 
                     src_rect_vertical.X = 0;
-                    src_rect_vertical.Y = 420;
+                    src_rect_vertical.Y = 0;
                     src_rect_vertical.Width = 480;
                     src_rect_vertical.Height = 220;
 

@@ -65,6 +65,9 @@ namespace FootballBoard
                 int center_x = GUIParam.GetInstance().FiledWidth / 2;
                 int center_y = GUIParam.GetInstance().FiledHeight / 2;
 
+                org_point.X += offset_x;
+                org_point.Y += offset_y;
+
                 int x = org_point.X - center_x;
                 int y = org_point.Y - center_y;
 
@@ -73,9 +76,11 @@ namespace FootballBoard
             }
             else if (GUIParam.GetInstance().FiledDirection == GUIParam.FILED_DIRECTION.VERTICAL)
             {
+                org_point.X += offset_x;
+                org_point.Y += offset_y;
+
                 def_point.X = GUIParam.GetInstance().FiledHeight - org_point.Y;
                 def_point.Y = org_point.X;
-
             }
             else
             {

@@ -49,18 +49,18 @@ namespace FootballBoard
             TranslatePosition(this.Points, ref DrawPoints);
 
             //表示領域の調整
-            int offset_x = 0;
-            int offset_y = 0;
-            double rate = 1.0;
-            Common.MakeFieldPositionOffset(ref offset_x, ref offset_y,ref rate);
-
-            DrawPoints[0].X -= offset_x;
-            DrawPoints[0].Y -= offset_y;
-            double tmp_x = (double)DrawPoints[0].X * rate;
-            double tmp_y = (double)DrawPoints[0].Y * rate;
-            DrawPoints[0].X = (int)(tmp_x);
-            DrawPoints[0].Y = (int)(tmp_y);
-
+            {
+                int offset_x = 0;
+                int offset_y = 0;
+                double rate = 1.0;
+                Common.MakeFieldPositionOffset(ref offset_x, ref offset_y, ref rate);
+                DrawPoints[0].X -= offset_x;
+                DrawPoints[0].Y -= offset_y;
+                double tmp_x = (double)DrawPoints[0].X * rate;
+                double tmp_y = (double)DrawPoints[0].Y * rate;
+                DrawPoints[0].X = (int)(tmp_x);
+                DrawPoints[0].Y = (int)(tmp_y);
+            }
 
             //方向を示す
             if (GUIParam.GetInstance().MarkerDirectionOn)
