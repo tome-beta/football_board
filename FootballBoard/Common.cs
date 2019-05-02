@@ -85,7 +85,7 @@ namespace FootballBoard
             GUIParam.FILED_DISP_SIZE size = GUIParam.GetInstance().FiledDispSize;
             GUIParam.FILED_DIRECTION dir = GUIParam.GetInstance().FiledDirection;
 
-            if (dir == GUIParam.FILED_DIRECTION.RIGHT || dir == GUIParam.FILED_DIRECTION.LEFT)
+            if (dir == GUIParam.FILED_DIRECTION.HORIZONTAL)
             {
                 switch (size)
                 {

@@ -221,26 +221,15 @@ namespace FootballBoard
         {
             GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.VERTICAL;
             this.verticalToolStripMenuItem.Checked = true;
-            this.rightToolStripMenuItem.Checked = false;
-            this.leftToolStripMenuItem.Checked = false;
+            this.horizontalToolStripMenuItem.Checked = false;
         }
 
-        //Rightを選択
-        private void rightToolStripMenuItem_Click(object sender, EventArgs e)
+        //Horizontal
+        private void horizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.RIGHT;
+            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.HORIZONTAL;
             this.verticalToolStripMenuItem.Checked = false;
-            this.rightToolStripMenuItem.Checked = true;
-            this.leftToolStripMenuItem.Checked = false;
-        }
-
-        //Leftを選択
-        private void leftToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            GUIParam.GetInstance().FiledDirection = GUIParam.FILED_DIRECTION.LEFT;
-            this.verticalToolStripMenuItem.Checked = false;
-            this.rightToolStripMenuItem.Checked = false;
-            this.leftToolStripMenuItem.Checked = true;
+            this.horizontalToolStripMenuItem.Checked = true;
         }
 
         //表示サイズの変更
